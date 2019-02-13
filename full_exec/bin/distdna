@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+SCRIPT_PATH=$(cd `dirname ${0}`; pwd)
+#echo $SCRIPT_PATH
+
+qemu-x86_64 -L $SCRIPT_PATH/lib $SCRIPT_PATH/distdna.x $*
