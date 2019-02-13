@@ -1,0 +1,208 @@
+	HTML BODY TABLE { 
+		text-decoration:none;
+		font-family:arial,helvetica,serif;
+		font-weight:normal;
+		font-size:14px;
+		color:#eeeeee; 
+		background-color: black;
+	}   
+	.edgenormal { 
+		text-decoration:none; 
+		font-weight:normal; 
+		font-size:14px;
+		color:#eeeeee;
+	}   
+	.edgebig { 
+		text-decoration:none; 
+		font-size:16px; 
+		font-weight:normal;
+	}  
+	.edgeboardctitle {
+		text-decoration:none; 
+		font-size:14px; 
+		font-weight:bold; 
+	}
+	.edgeatitle { 
+		text-decoration:none; 
+		font-size:16px;
+		font-weight:bold;
+	}
+	.edgeatext { 
+		text-decoration:none; 
+		font-size:14px;
+		font-weight:normal;
+	}
+	.edgeasubj { 
+		text-decoration:none; 
+		font-size:13px; 
+		font-weight:normal; 
+		font-style:italic; 
+	}
+	.edgeadate { 
+		text-decoration:none; 
+		font-size:11px; 
+		font-weight:normal; 
+		font-style:normal; 
+	}
+	.edgestitle { 
+		text-decoration:none; 
+		font-size:16px; 
+		font-weight:bold;
+	}
+	.edgestext { 
+		text-decoration:none; 
+		font-size:12px; 
+		font-weight:normal;
+	}
+	.edgessubj { 
+		text-decoration:none; 
+		font-size:11px; 
+		font-weight:normal; 
+		font-style:normal; 
+	}
+	.edgedotitle { 
+		color: #ffffff;
+		text-decoration:none; 
+		background: #114422;   
+		font-size:14px; 
+		font-weight:bold; 
+	}
+	#edgedotitle {
+		color: #ffffff;
+		text-decoration:none;
+		background: #114422;
+		font-size:14px;
+		font-weight:bold;
+		width:100%;
+		padding: 3px 3px 3px 3px;
+	}
+	.edgesmall { 
+		text-decoration:none; 
+		font-size:12px; 
+		font-weight:normal; 
+	} 
+	a.edgesmall { 
+		text-decoration:underline;
+	} 
+	a.edgesmall:hover { 
+		text-decoration:underline; 
+		color:#114422  }  
+	a:link  { 
+		text-decoration:none; 
+		color:#88cc99;
+		background-color: transparent;
+	} 
+	a:visited { 
+		text-decoration:none; 
+		color:#66bb77;
+		background-color: transparent;
+	} 
+	a:hover { 
+		text-decoration:underline; 
+		color:#88cc99;
+		background-color: transparent;
+	}   
+	.edgemenu { 
+		text-decoration:none; 
+		font-size:12px; 
+		font-weight:normal; 
+	} 
+	.edgemenuborder { 
+		border:1px solid black; 
+		padding: 3px; 
+		background: #225533; 
+		text-decoration:none; 
+		font-size:11px; 
+		font-weight:normal; 
+	}   
+	.selectinput {
+		background-color:#225533;
+		border-width:1px;
+		border-color: #cccccc;  
+		font-weight:bold;
+		color:#eeeeee;
+		font-size:11px
+	} 
+	.submitinput {
+		background-color:#225533;
+		border-width:1px;
+		border-color:#338844;  
+		font-weight:bold;
+		color:white;
+		font-size:11px 
+	}  
+/* used for the tabbar */
+	.tab { 
+		background-image: url('/tabs/normaltab.png'); 
+		color:#ffffff; 
+		text-decoration:none; 
+		text-align:center;	
+		background-repeat: no-repeat; 
+		font-size:13px;
+		width: 81px;
+	} 
+	
+	.tab2 { 
+		background-image: url('/tabs/currentpagetab.png'); 
+		color:#ffffff; 
+		text-decoration:none; 
+		text-align:center;	
+		background-repeat: 
+		no-repeat; font-size:13px; 
+	} 
+	.tablink { 
+		color:#ffffff; 
+		text-decoration:none; 	
+		text-align:center; 
+	} 
+	.edgedotitle2 {
+	  	background-image: url('/tabs/adminbarbg.jpg');
+		height: 22px;
+	} 
+	.tabadmin { 
+		background-image: url('/tabs/adminbartab.png'); 
+		color:#ffffff; 	
+		text-decoration:none; 
+		text-align:center; 
+		background-repeat: no-repeat; 
+		font-size:13px;
+	} 
+/* used for quotings */
+	blockquote {
+		background-color:#222222;
+		color:#FFFFFF;
+  		border: 1px solid #555555;
+  		padding: 10px;
+	}
+
+/* used for signature displaying */
+	div.signature {
+		vertical-align: bottom;
+	}
+	div.signature hr {
+		border: 1px solid #114422;
+		text-align: left;  
+		width: 80%;
+	}
+/* used for quotes display */
+	div.code{
+		overflow: auto;
+		background: #e3e3e3;
+		border-color: #ccccff;
+		border: 1px dotted;
+		font-size: 15px;
+		color: #00000f;
+		
+	}
+
+/* used for the scroller */
+	#scroller{
+		width: 100%;
+		height: 40px;
+		border: 1px solid black;
+		padding: 3px;
+	}
+
+.someclass{
+}
+

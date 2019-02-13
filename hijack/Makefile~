@@ -1,0 +1,26 @@
+open-whom:
+	gcc -fPIC -rdynamic -Wall -c open-whom.c -o open-whom.o
+	gcc -shared -Wl,-soname,open-whom.so -o open-whom.so open-whom.o -lc -ldl
+	LD_PRELOAD="./open-whom.so" cat mykey
+	
+strcmp-hijack:
+	gcc -o strcmp-target strcmp-target.c
+	gcc -fPIC -c strcmp-hijack.c -o strcmp-hijack.o
+	gcc -shared -o strcmp-hijack.so strcmp-hijack.o
+	./strcmp-target redbull
+	LD_PRELOAD="./strcmp-hijack.so" ./strcmp-target redbull
+
+crypt-mixup:
+	gcc -o crypt-mix crypt-mix.c -lcrypt
+	gcc -fPIC -c -o crypt-mixup.o crypt-mixup.c
+	gcc -shared -o crypt-mixup.so crypt-mixup.o -ldl
+	echo "foobar" > mykey
+	./crypt-mix mykey
+	LD_PRELOAD="./crypt-mixup.so" ./crypt-mix mykey
+
+megatron:
+	gcc -o cerberus cerberus.c
+	gcc -fPIC -o megatron.o megatron.c -c
+	gcc -shared -o megatron.so megatron.o -ldl
+	./cerberus
+	LD_PRELOAD="./megatron.so" ./cerberus

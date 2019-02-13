@@ -1,0 +1,59 @@
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <dlfcn.h>
+#include <stdlib.h>
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <dlfcn.h>
+
+/*
+ * open-whom.c, intercep open and record who opens what.
+ */
+
+// Pointer to the original open() call
+static int (*_open)(const char *path, int oflag, mode_t mode) = NULL;
+
+// Pointer to the original open64() call
+static int (*_open64)(const char *path, int oflag, mode_t mode) = NULL;
+
+/*
+ * open, intercepted open call
+ */
+
+int open(const char *path, int oflag, mode_t mode) {
+    char buffer[8192];
+
+    // Initialize _open(), if needed.
+    if (_open == NULL) {
+        _open = (int (*)(const char *path, int oflag, mode_t mode)) dlsym(RTLD_NEXT, "open");
+    }
+
+    printf("File %s open by %d\n", path, getpid());
+    snprintf(buffer, 8191, "unset LD_PRELOAD; cat /proc/%d/cmdline;echo\n", getpid());
+    system(buffer);
+    // continue as normal open
+    return _open(path, oflag, mode);
+
+}
+#ifndef NOTDEF
+/*
+ * open, intercepted open call
+ */
+
+int open64(const char *path, int oflag, mode_t mode) {
+    char buffer[8192];
+
+    // Initialize _open64(), if needed.
+    if (_open64 == NULL) {
+        _open64 = (int (*)(const char *path, int oflag, mode_t mode)) dlsym(RTLD_NEXT, "open64");
+    }
+
+    printf("File %s open64 by %d\n", path, getpid());
+    snprintf(buffer, 8191, "unset LD_PRELOAD; cat /proc/%d/cmdline; echo\n", getpid());
+    system(buffer);
+    // continue as normal open
+    return _open64(path, oflag, mode);
+
+}
+#endif

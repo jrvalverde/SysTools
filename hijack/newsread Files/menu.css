@@ -1,0 +1,138 @@
+#menu{
+	float:right;
+	text-align:right;
+	font-size:14px;
+	font: 14px/16px arial,helvetica,sans-serif;
+	font-family: arial,helvetica,sans-serif;
+}
+
+#menu a, #menu h2{
+	font: 14px/16px arial,helvetica,sans-serif;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 14px; 
+	display:block;
+	white-space:nowrap;
+	margin:0;
+	padding:0px 0px 0px 0px;
+}
+
+#menu a{
+        color: #88cc99;
+        border: 1px solid black;
+        background:#114422;
+        text-decoration:none;
+        padding-top: 1px;
+}
+
+#menu a:visited{
+        color:#66bb77;
+	background:#114422;
+}
+
+#menu a:hover{
+        color:#88cc99;
+        background:#002211;
+}
+
+#menu a:active{
+        color:#88cc99;
+        background:#002211;
+}
+
+#menu h2 a, #menu h2 a:visited, #menu h2 a:active {
+        border: none;
+        background-image: url('/tabs/normaltab.png');
+        color:#88cc99;
+        text-decoration:none;
+        text-align:center;
+        background-repeat: no-repeat;
+        width: 81px;	
+	background-color: transparent;
+	height: 17px;
+}
+
+#menu h2 a:hover{
+        border: none;
+        background-image: url('/tabs/currentpagetab.png');
+        color:#88cc99;
+        text-decoration:none;
+        text-align:center;
+        background-repeat: no-repeat;
+        width: 81px;
+	background-color: transparent;
+}
+
+#menu ul{
+	list-style:none;
+	text-align:center;
+	margin:0;
+	padding:0;
+	float:left;
+	width: 81px;
+}
+
+#menu li{
+	position:relative;
+}
+
+#menu ul ul{
+	position:absolute;
+	z-index:500;	
+	top:auto;
+	display:none;
+}
+
+#menu ul ul ul{
+	top:0;
+	left:100%;
+}
+
+#menu li:hover{
+	cursor:pointer;
+	z-index:100;
+}
+
+#menu li li:hover {
+	color: #88cc99;	
+	background:#002211;
+}
+
+#menu li:hover ul ul,
+#menu li li:hover ul ul,
+#menu li li li:hover ul ul,
+#menu li li li li:hover ul ul
+{display:none;}
+
+#menu li:hover ul,
+#menu li li:hover ul,
+#menu li li li:hover ul,
+#menu li li li li:hover ul
+{display:block;}
+
+/* #menu a.x, #menu a.x:visited, #menu a.x:hover, #menu a.x:active{
+	font-weight:bold;
+	color:#002211;
+}
+
+#menu a.x:visited, #menu a.x:hover, #menu a.x:active{
+	background-color: #002211;
+}
+
+#menu a.x:hover{
+	color:#a00;
+}*/
+
+.edgedotitle2 {
+	background-image: url('/tabs/adminbarbg.jpg');
+        height: 22px;
+}
+
+.tabadmin {
+	background-image: url('/tabs/adminbartab.png');
+        color:#ffffff;
+	background-color: transparent;	
+        text-decoration:none;
+        text-align:center;
+        background-repeat: no-repeat;
+        font-size:13px;
+}
