@@ -1,0 +1,107 @@
+/****************************************************
+ *                   numeros.bc                     *
+ ****************************************************
+
+  Autor: Marc Meléndez Schofield
+
+  Funciones de teoría de números.
+
+  Se permite la reproducción y modificación total o
+  parcial de este código. */
+
+
+scale = 0;
+
+/* Valor absoluto */
+
+define abs(n) {
+  return sqrt(n^2);
+}
+
+/* Máximo común divisor */
+
+define mcd(n, m) {
+  if(abs(n) < abs(m))
+   return mcd(m, n);
+  if(n % m == 0)
+   return abs(m);
+  return mcd(m, n % m);
+}
+
+/* Mínimo común múltiplo */
+
+define mcm(n, m) {
+  return abs(n)*abs(m)/mcd(n, m);
+}
+
+/* Números de Mersenne */
+
+define mersenne(n) {
+  return 2^n - 1;
+}
+
+/* Números de Fermat */
+
+define fermat(n) {
+  return 2^(2^n) + 1;
+}
+
+/* Números de Fibonacci */
+
+define fibonacci(n) {
+  if(n == 0)
+   return 0;
+  if(n == 1)
+   return 1;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+/* Factores primos */
+
+define factores(n) {
+  auto m, i;
+
+  if(n < 2)
+  {
+     print "\n";
+  }
+
+  if(n >= 2)
+  {
+
+    m = n;
+    i = 2;
+
+    while(i <= sqrt(n))
+    {     
+      if((m % i) == 0)
+      {
+        if(m < n) print ", ";
+        print  i;
+        m = m / i;
+        i = i - 1;
+      }
+      i = i + 1;
+    }
+  }
+  if(m > 1)
+  {
+    if (m < n) print ", ";
+    print m;
+  }
+  print ".\n";
+  return n;
+}
+
+/* Definición recursiva de la función factorial */
+
+define factorial(x) {
+  if (x <= 1) return (1);
+  return (factorial(x-1) * x);
+}
+
+/* Números combinatorios */
+
+define comb(n, m) {
+  return factorial(n)/(factorial(m)*factorial(n - m));
+}

@@ -1,0 +1,257 @@
+/***************************************************
+ *                  complejos.bc                   *
+ ***************************************************
+
+ Autor: Marc Meleéndez Schofield
+
+ Aritmética de números complejos.
+
+ Un número complejo a + bi se representa mediante una
+ matriz, de modo que z[0] = a y z[1] = b.
+
+ complejos.bc depende de las funciones trigonométricas,
+ exponencial y logarítmica, por lo que bc debe
+ ejecutarse con la opción -l.
+
+ Se permite la reproducción y modificación total o 
+ parcial. */
+
+/*  Mostrar en pantalla el número complejo z en
+    la forma a + bi (binomio) */
+
+define printz(z[]) {
+  print z[0], " + ", z[1], "i\n";
+  return 0;
+}
+
+/*  Parte real de z  */
+
+define rez(z[]) {
+  return z[0];
+}
+
+/*  Parte imaginaria de z  */
+
+define imz(z[]) {
+  return z[1];
+}
+
+/*  Suma de dos números complejos z1 y z2 = z3  */
+
+define sumaz(z1[], z2[], *z3[]) {
+  z3[0] = z1[0] + z2[0];
+  z3[1] = z1[1] + z2[1];
+  return 0;
+}
+
+/*  Resta de dos números complejos z1 y z2 = z3 */
+
+define restaz(z1[], z2[], *z3[]) {
+  z3[0] = z1[0] - z2[0];
+  z3[1] = z1[1] - z2[1];
+  return 0;
+}
+
+/*  Producto de z1 y z2  */
+
+define prodz(z1[], z2[], *z3[]) {
+  z3[0] = z1[0]*z2[0] - z1[1]*z2[1];
+  z3[1] = z1[0]*z2[1] + z2[0]*z1[1];
+  return 0;
+}
+
+/*  Cociente de z1 y z2  */
+
+define divz(z1[], z2[], *z3[]) {
+  z3[0] = (z1[0]*z2[0] + z1[1]*z2[1])/(z2[0]^2 + z2[1]^2);
+  z3[1] = (z1[1]*z2[0] - z1[0]*z2[1])/(z2[0]^2 + z2[1]^2);
+  return 0;
+}
+
+/*  Conjugado de z  */
+
+define conj(z[], *zconj[]) {
+  zconj[0] = z[0];
+  zconj[1] = -z[1];
+  return 0;
+}
+
+/*  Módulo de z  */
+
+define modz(z[]) {
+  return sqrt(z[0]^2 + z[1]^2);
+}
+
+/*  Argumento de z.
+    pi se define para su uso en esta función  */
+
+pi = 4*a(1);
+
+define argz(z[]) {
+  if(z[0] == 0)
+  {
+    if(z[1] == 0)
+      print "Error: Argumento no definido\n";
+    if(z[1] > 0)
+      return pi/2;
+    if(z[1] < 0)
+      return -pi/2;
+  }
+  if(z[0] > 0)
+    return a(z[1]/z[0]);
+  if(z[0] < 0)
+    return pi + a(z[1]/z[0]);
+}
+
+/*  Mostrar en pantalla un número complejo en
+    forma trigonométrica.  */
+
+define printzt(z[]) {
+  auto argumento;
+  argumento = argz(z[]);
+  print  modz(z[]), " * ";
+  print "(cos(", argumento, ") + i sin(", argumento, "))\n";
+  return 0;
+}
+
+/*  Parte entera de un número real x.
+    Esta función se define aquí porque se utiliza
+    en la función pot(x, y), a continuación.  */
+
+define ent(x) {
+  auto s;
+  s = scale;
+  scale = 0;
+  x /= 1;
+  scale = s;
+  return x;
+}
+
+/*  Potencias x^y donde x e y son números reales
+    arbitrarios.  */
+
+define pot(x, y) {
+  if(ent(y) == y)
+    return x^y;
+  if(ent(y) != y)
+    return e(y*l(x));
+}
+
+/*  Potencias z^x, donde z es complejo y x real.
+    Las raíces de orden n se pueden calcular con
+    la potencia 1/n, aunque por este procedimiento
+    se obtiene sólo la raíz de menor argumento.
+    Para obtener las demás, basta con ir
+    multiplicando por exp(2*k*pi/n), con
+    k = 1, 2, 3, ..., n - 1.  */
+
+
+define potz(z[], x, *zpotx[]) {
+  auto modulo, argumento;
+  modulo = modz(z[]);
+  argumento = argz(z[]);
+  zpotx[0] = pot(modulo, x) * c(argumento*x);
+  zpotx[1] = pot(modulo, x) * s(argumento*x);
+  return 0;
+}
+
+/*  Esta función muestra en pantalla n raíces
+    n-ésimas del número complejo z.  */
+
+define raicesz(z[], n) {
+  auto raiz[], modulo, argumento, modraiz, k;
+  modulo = modz(z[]);
+  argumento = argz(z[]);
+  modraiz = pot(modulo, 1/n);
+  for(k = 0; k < n; k++)
+  {
+    raiz[0] = modraiz * c(argumento/n + 2*pi*k/n);
+    raiz[1] = modraiz * s(argumento/n + 2*pi*k/n);
+    . = printz(raiz[]);
+  }
+  return 0;
+}
+
+/*  Exponencial de un número complejo, utilizando el
+    la expresión
+
+    exp(a + ib) = exp(a) * exp(ib)
+
+    y la fórmula de Euler
+
+    exp(a) * exp(ib) = exp(a) * (cos(b) + i sin(b))
+*/
+
+define expz(z[], *exp_z[]) {
+  exp_z[0] = e(z[0])*c(z[1]);
+  exp_z[1] = e(z[0])*s(z[1]);
+  return 0;
+}
+
+/*  Logaritmo de un número complejo.  */
+
+define logz(z[], *log_z[]) {
+  auto modulo, argumento;
+  modulo = modz(z[]);
+  argumento = argz(z[]);
+  log_z[0] = l(modulo);
+  log_z[1] = argumento;
+  return 0;
+}
+
+/*  Seno de z
+    Calculado con la fórmula
+
+    sin(z) = 1/2 (exp(iz) - exp(-iz))
+
+    Los resultados de las operaciones
+    parciales se van almacenando en 
+    variables temporales (expmiz[]
+    almacena el valor exp(-iz), por
+    ejemplo). No son necesarias tantas
+    variables temporales, pero de este
+    modo es más legible la expresión
+    final. */
+
+define sinz(z[], *sin_z[]) {
+  auto iz[], miz[], expiz[], expmiz[];
+  iz[0] = -z[1];
+  iz[1] = z[0];
+  miz[0] = z[1];
+  miz[1] = -z[0];
+  . = expz(iz[], expiz[]);
+  . = expz(miz[], expmiz[]);
+  sin_z[0] = (expiz[1] - expmiz[1])/2;
+  sin_z[1] = (expmiz[0] - expiz[0])/2;
+  return 0;
+}
+
+/*  Coseno de z
+
+    cos(z) = 1/2 (exp(iz) + exp(-iz))  */
+
+define cosz(z[], *cos_z[]) {
+  auto iz[], miz[], expiz[], expmiz[];
+  iz[0] = -z[1];
+  iz[1] = z[0];
+  miz[0] = z[1];
+  miz[1] = -z[0];
+  . = expz(iz[], expiz[]);
+  . = expz(miz[], expmiz[]);
+  cos_z[0] = (expiz[0] + expmiz[0])/2;
+  cos_z[1] = (expiz[1] + expmiz[1])/2;
+  return 0;
+}
+
+/*  Elevar un número complejo a otro complejo.
+    Se utiliza la identidad
+
+    z1^z2 = exp(z2 Ln(z1))  */
+
+define potzz(z1[], z2[], *z1potz2[]) {
+  auto logz1[], z2logz1[];
+  . = logz(z1[], logz1[]);
+  . = prodz(z2[],logz1[], z2logz1[]);
+  . = expz(z2logz1[], z1potz2[]);
+  return 0;
+}

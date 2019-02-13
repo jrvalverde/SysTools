@@ -1,0 +1,29 @@
+/****************************************************
+ *                trigonometria.bc                  *
+ ****************************************************
+
+  Autor: Marc Meléndez Schofield
+
+  Funciones trigonométricas adicionales.
+
+  Se permite la reproducción y modificación total o
+  parcial de este código. */
+
+pi=3.1415927;
+
+define t(x) {
+  return s(x)/c(x);
+}
+
+define sec(x)  {
+  return 1/c(x);
+}
+
+define cosec(x)  {
+  return 1/s(x);
+}
+
+define cotan(x)  {
+  return c(x)/s(x);
+}
+

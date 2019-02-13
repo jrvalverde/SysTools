@@ -1,0 +1,73 @@
+/***************************************************
+ *                    campos.bc                    *
+ ***************************************************
+
+ Autor: Marc Meléndez Schofield
+
+
+ Este código  depende de las funciones trigonométri-
+ cas, por lo que se debe ejecutar con el comando:
+
+ > bc -l campos.bc
+
+ Si los datos se guardan en el archivo "campos.dat",
+ se pueden representar en gnuplot con los comandos:
+
+ gnuplot> set size square
+ gnuplot> set parametric
+ gnuplot> plot [pi/2:2*pi/3]][-2:2][-2:2]\
+          cos(t), sin(t) lw 3,\
+          "campos.dat" with vectors
+
+ Se permite la reproducción y modificación total o
+ parcial. */
+
+/* Constantes */
+pi = 4*a(1);
+k = 8.988*10^9; /* N·m^2/C^2 */
+
+/* Puntos sobre medio anillo cargado
+
+   Supondremos que la carga total es igual a 10^(-5)
+   microC y que está distribuida de manera uniforme,
+   por lo que cada elemento tendrá una carga de
+   10^(-5)/90 microC = 10^(-11)/90 C */
+
+for (i = 0; i < 90; i++)
+{
+  qx[i] = c(pi/2 + i*pi/90); qy[i] = s(pi/2 + i*pi/90);
+}
+
+/* Cálculo del campo eléctrico
+
+   El campo en cada punto (x, y) del espacio es
+   igual a la integral de las contribuciones debidas
+   a cada elemento de carga. */
+
+print "# x \t y \t\t Ex \t\t\t Ey #\n";
+print "#---\t---\t\t----\t\t\t----#\n";
+
+/* Bucle sobre los puntos (x, y) */
+for(x = -1.75; x < 2; x += .25)
+{
+  for(y = -1.75; y < 2; y += .25)
+  {
+    ex = 0; ey = 0;
+    /* El campo E = (ex, ey) en el punto (x, y) se calcula
+       mediante un bucle sobre los elementos de carga */
+    for(i = 0; i < 90; i++)
+    {
+      d = sqrt((x - qx[i])^2 + (y - qy[i])^2);
+      /* Nos aseguramos de que d != 0 antes de
+         calcular E */
+      if(d != 0)
+      {
+        ex += k*(10^(-11)/90)*(x - qx[i])/d^3;
+        ey += k*(10^(-11)/90)*(y - qy[i])/d^3;
+      }
+    }
+    print x, "\t", y, "\t", ex, "\t", ey, "\n";
+  }
+}
+
+quit;

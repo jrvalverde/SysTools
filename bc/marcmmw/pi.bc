@@ -1,0 +1,17 @@
+/****************************************************
+ *                     pi.bc                        *
+ ****************************************************
+
+  Autor: Marc Meléndez Schofield
+
+  Los cien primeros decimales de pi.
+
+  Se permite la reproducción y modificación total o
+  parcial de este código. */
+
+scale = 100;
+print "Cálculo de pi hasta el centésimo decimal:\n";
+print 4*a(1);
+print "\n";
+quit;
+

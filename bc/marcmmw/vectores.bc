@@ -1,0 +1,65 @@
+/*****************************************************
+ *                   vectores.bc                     *
+ *****************************************************
+
+    Autor: Marc Meléndez Schofield
+ 
+    Operaciones con vectores.
+    
+    Se permite la reproducción y modificación total o
+    parcial. */
+
+/*  Mostrar un vector en pantalla  */
+
+define printv(v[]) {
+  print "(", v[0], ", ", v[1], ", ", v[2], ", ", v[3], ")\n";
+  return 0;
+}
+
+/*  Suma de vectores u + v = w */
+
+define sumav(u[], v[], *w[]) {
+  auto i;
+  for(i = 0; i < 4; i++)
+   w[i] = u[i] + v[i];
+  return 0;
+}
+
+/*  Resta de vectores u - v = w */
+
+define restav(u[], v[], *w[]) {
+  auto i;
+  for(i = 0; i < 4; i++)
+    w[i] = u[i] - v[i];
+  return 0;
+}
+
+/*  Producto por un escalar c * u = w */
+
+define prodv(c, u[], *w[]) {
+  auto i;
+  for(i = 0; i < 4; i++)
+    w[i] = c * u[i];
+  return 0;
+}
+
+/*  Producto escalar u · v */
+
+define escalar(u[], v[]) {
+  return u[0] * v[0] + u[1] * v[1] + u[2] * v[2] + u[3] * v[3];
+}
+
+/*  Producto vectorial u x v = w */
+
+define vectorial(u[],v[], *w[]) {
+  w[1] = u[2]*v[3] - v[2]*u[3];
+  w[2] = u[3]*v[1] - v[3]*u[1];
+  w[3] = u[1]*v[2] - v[1]*u[2];
+  return 0;
+}
+
+/*  Producto mixto |u v w| */
+
+define mixto(u[], v[], w[]) {
+  return u[1]*v[2]*w[3] + u[3]*v[1]*w[2] + u[2]*v[3]*w[1] - u[3]*v[2]*w[1] - u[2]*v[1]*w[3] - u[1]*v[3]*w[1];
+}
