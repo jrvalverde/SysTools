@@ -1,0 +1,82 @@
+Hide CoreWindow
+Hide ReaderWindow
+Hide PrinterWindow
+Hide TraceWindow
+Hide TapeWindow
+BColour $FFFFC0 TColour $FF1010
+Display 'This script will assemble a small source file,'+CRLF+
+        'using the SSPS assembler. It will then load'+CRLF+
+        'and execute the assembled object program.'+CRLF+CRLF+
+        'Click "Continue" to begin'
+
+Display 'This particular copy of SSPS was generated for systems with'+CRLF+
+        '8000 bytes of core memory.'+CRLF+
+        'The size of core will now be set to that.'
+Show CoreWindow
+Core Size 8000
+
+Display 'Next, some card decks must be placed into the card reader:-'+CRLF+
+        '1/ The first phase of the SSPS assembler'+CRLF+
+        '2/ The source program: "99BOB.SPS"'+CRLF+
+        '3/ The second phase of the SSPS assembler'
+CharMap ' 1234567890#@    /STUVWXYZ\,%   -JKLMNOPQR)$*   &ABCDEFGHI(.<   '
+Deck 'SSPS-1.CRD'
+Deck '99BOB.SPS'
+Deck 'SSPS-2.CRD'
+Show ReaderWindow
+
+Display 'SSPS needs switch "A" turned on to indicate "Last Card"'+CRLF+CRLF+
+        'The "Load" button will be pressed to read the first card'
+Switch A ON
+LoadCard
+
+Display 'Ready to go, the "Start" button will now be clicked...'
+Start
+If IAReg<>578 Goto Error
+Display 'The assembler has issued a Halt instruction.'+CRLF+
+        'This stop is to allow the operator to ready the printer.'+CRLF+CRLF+
+        'The printer window will show, and "Start" will be clicked again'
+Show PrinterWindow
+ 
+Start
+If IAReg<>829 Goto Error
+Display 'The assembler has Halted again.'+CRLF+
+        'This stop is so that the operator:-'+CRLF+CRLF+
+        '1/ Can ensure that the punch hopper has blank cards loaded.'+CRLF+
+        '2/ Can move the source cards from the "Read 1" stacker back into the reader'+CRLF+
+        '   input hopper, to be processed again by the second assembler phase.'+CRLF+CRLF+
+        'These cards will be moved now.'
+Deck READ1
+
+Display 'Now we can click the "Start" button again...'
+Start
+If IAReg<>1356 Goto Error
+Display 'Assembly is complete.'+CRLF+
+        'The listing is on the printer, and the object deck is in the'+CRLF+
+        '"Punch Normal" stacker.'+CRLF
+
+Display 'The assembled object deck will now be saved to "99BOB.CDR"'
+Save Punch '99BOB.CDR'
+
+Display 'Before loading the new program,'+CRLF+
+        'The CPU must first be reset'
+Reset
+
+Display 'The "99BOB.CDR" file will be placed into the reader.'+CRLF+
+        'And the "Load" button clicked to read its first card'
+CharMap ' 1234567890#@    /STUVWXYZr,%   -JKLMNOPQR!$*   &ABCDEFGHI?.o   '
+Deck '99BOB.CDR'
+LoadCard
+
+Display 'The start button will now be clicked'+CRLF+
+        'to execute the newly assembled program'
+Start
+Display 'The new program has now terminated'+CRLF+CRLF+
+        '"99 bottles of beer" should be showing on the printer.'
+Exit
+
+:Error
+BColour $0000FF TColour $FFFFFF
+Display 'Unexpected Emulator condition'+CRLF+
+        'Script terminated'
+
