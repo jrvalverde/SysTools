@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+#  Integer to binary (BIG ENDIAN) conversion
+#
+###################\
+exec tclsh "$0" "$@"
+
+set ifile [lindex $argv 0]
+set ofile [lindex $argv 0]
+
+proc abt { m } {
+
+	puts stderr $m
+	exit 99
+}
+
+if { $ifile == "" || $ifile == "-" } {
+	set ifd stdin
+} else {
+	if [catch { open $ifile "r" } ifd] {
+		abt "cannot open input file: $ifd"
+	}
+}
+
+if { $ofile == "" || $ofile == "-" } {
+	set ofd stdout
+} else {
+	if [catch { open $ofile "w" } ofd] {
+		abt "cannot open output file: $ofd"
+	}
+}
+
+fconfigure $ofd -translation binary
+
+while { [gets $ifd line] >= 0 } {
+
+	set line [string trim $line]
+
+	if { $line == "" || [string index $line 0] == "#" } {
+		continue
+	}
+
+	if [regexp -nocase "^end" $line] {
+		break
+	}
+
+	if [catch {
+		puts -nonewline $ofd [binary format I [expr $line]]
+	} err] {
+		abt "error: illegal number '$line'"
+	}
+}

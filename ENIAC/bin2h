@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+#  Binary (BIG ENDIAN) to hex conversion
+#
+#########################\
+exec tclsh "$0" "$@"
+
+set ifile [lindex $argv 0]
+set ofile [lindex $argv 1]
+
+proc abt { m } {
+
+	puts stderr $m
+	exit 99
+}
+
+if { $ifile == "" || $ifile == "-" } {
+	set ifd stdin
+} else {
+	if [catch { open $ifile "r" } ifd] {
+		abt "cannot open input file: $ifd"
+	}
+}
+
+if { $ofile == "" || $ofile == "-" } {
+	set ofd stdout
+} else {
+	if [catch { open $ofile "w" } ofd] {
+		abt "cannot open output file: $ofd"
+	}
+}
+
+fconfigure $ifd -translation binary
+
+while 1 {
+
+	set buf [read $ifd 4]
+	set ln [string length $buf]
+	if { $ln < 4 } {
+		if $ln {
+			puts stderr "$ln trailing bytes ignored"
+		}
+		break
+	}
+
+	binary scan $buf I v
+	puts $ofd [format %08X $v]
+}
