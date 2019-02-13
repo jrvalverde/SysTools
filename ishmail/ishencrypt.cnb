@@ -1,0 +1,160 @@
+#!/bin/sh
+#
+# Usage: ishencrypt [s|e|se|es] input-file output-file [recipient-list]
+#
+# Options:
+#	s: generate digital signature
+#	e: encrypt (requires recipient-list)
+#	se|es: sign and encrypt (requires recipient-list)
+#
+# Description:
+#	Passes the input file through pgp.  Moves to the pgp output (.asc)
+#	to "output-file"
+#
+
+usage()
+{
+   $ECHO "$*"
+   $ECHO ""
+   $ECHO "Usage: ishencrypt [s|e|se|es] input-file output-file [recipient-list]"
+   $ECHO "   s    : generate digital signature"
+   $ECHO "   e    : encrypt (requires recipient-list)"
+   $ECHO "   se|es: sign and encrypt (requires recipient-list)"
+   $ECHO ""
+   $ECHO "*** Press return to continue ***"
+   read ANS
+}
+
+#
+# Check arguments
+#
+
+ARGS="-eat"
+TYPE=""
+case $1 in
+   s)     ARGS="-sat";
+          TYPE="signing";
+	  SIGN="y"
+          shift;;
+   e)     ARGS="-eat";
+          TYPE="encrypting";
+	  SIGN="n"
+          shift;;
+   se|es) ARGS="-seat";
+	  TYPE="signing and encryption";
+	  SIGN="y"
+	  shift;;
+esac
+
+#
+# Make sure all arguments are present
+#
+
+if [ "$TYPE" = "signing" -a $# -lt 2 ]
+then
+   usage $*
+   exit 1
+elif [ "$TYPE" != "signing" -a $# -lt 3 ]
+then
+   usage $*
+   exit 1
+fi
+
+INPUT=$1
+OUTPUT=$2
+shift
+shift
+
+#
+# These variables are used to echo a string without a newline
+#
+
+if [ $OS_TYPE = sol23 -o $OS_TYPE = sol24 ]
+then
+   ECHO=/usr/bin/echo
+else
+   ECHO=echo
+fi
+
+if [ $OS_TYPE = linux -o $OS_TYPE = sun ]
+then
+   DASHN="-n"
+   BACKC=
+else
+   DASHN=
+   BACKC="\c"
+fi
+
+#
+# Run the command and save the status
+#
+
+#$ECHO "pgp $ARGS $INPUT $*"
+if [ "$SIGN" = "y" ]
+then
+#    pgp +batchmode $ARGS $INPUT $* -z "'"`pgpkey.tk`"'"
+    key=`pgpkey.tk`
+    pgp +batchmode $ARGS $INPUT $* -z "$key"
+    PGPSTAT=$?
+else
+    pgp $ARGS $INPUT $*
+    PGPSTAT=$?
+fi
+
+## XXX - JR - XXX ==> Doesn't make any sense. Only to abort sending. If answer
+##	is Y, message won't be sent unless PGPSTAT == 0 but user won't know!
+## Allow user to confirm
+##
+#
+#$ECHO ""
+#$ECHO ""
+#ANS=""
+#
+#while [ "$ANS" != "y" -a "$ANS" != "Y" -a "$ANS" != "n" -a "$ANS" != "N" ]
+#do
+#   $ECHO $DASHN "Was the $TYPE successful (Y/n)? $BACKC"
+#   read ANS
+#   test -z "$ANS" && ANS=y
+#done
+#
+#if [ "$ANS" = "n" -o "$ANS" = "N" ]
+#then
+#   test $PGPSTAT -eq 0 && PGPSTAT=1
+#fi
+
+#
+# Move the pgp output to the desired output file
+#
+if [ "$PGPSTAT" != "0" ]
+then
+    # XXX - JR - XXX ==> Notify user that the message won't be sent
+    #
+    /usr/local/bin/wish -name "Sorry" << ENDOFNOTICE
+	label .m1 -text "Sorry, $TYPE failed!\nMESSAGE NOT SENT"
+	button .ok -text "Sigh!" -command exit
+	pack .m1 -side top
+	pack .ok -side bottom
+ENDOFNOTICE
+fi
+
+if [ $PGPSTAT -eq 0 ]
+then
+   rm -f $OUTPUT
+   mv $INPUT.asc $OUTPUT
+   if [ $? -ne 0 ]
+   then
+      cp $INPUT.asc $OUTPUT
+      if [ $? -ne 0 ]
+      then
+         ln -s $INPUT.asc $OUTPUT
+	 if [ $? -ne 0 ]
+	 then
+	    exit $?
+	 fi
+      else
+	 rm -f $INPUT.asc
+      fi
+   fi
+fi
+
+exit $PGPSTAT

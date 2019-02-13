@@ -1,0 +1,19 @@
+#!/usr/local/bin/wish -f
+
+scrollbar .sv -relief flat -command ".output yview"
+scrollbar .sh -relief flat -command ".output xview" -orient horizontal
+text .output -wrap none -relief raised -bd 2 -setgrid true \
+    -yscrollcommand ".sv set" -xscrollcommand ".sh set"
+button .quit -text "Quit" -command exit
+pack .quit -side top
+pack .sv -side right -fill y
+pack .sh -side bottom -fill x
+pack .output -side left -fill both
+
+if { $argc == 1 } {
+	catch { exec pgp +batchmode -m -o /dev/null $argv } msg
+} elseif { $argc == 2 } {
+    scan $argv "%s %s" a1 a2
+    catch { exec pgp +batchmode -m -o /dev/null $a1 $a2 } msg
+}
+.output insert insert $msg \n
