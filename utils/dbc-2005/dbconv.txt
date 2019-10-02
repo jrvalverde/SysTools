@@ -1,0 +1,263 @@
+
+dbconv(1)                  Database format converter                 dbconv(1)
+
+
+
+NNAAMMEE
+       dbconv - convert a line-oriented database to separator-oriented format
+
+SSYYNNOOPPSSIISS
+       dbconv  [-r ref_file] [-d database] [-o output] [-f c] [-e c] [-1] [-q]
+       [-h]
+
+DDEESSCCRRIIPPTTIIOONN
+       ddbbccoonnvv is a tool to convert a database structured as
+
+              FIELD1    1st field contents
+              FIELD2    2nd field contents
+              FIELD2    2nd field contents (continued)
+               ... etc ...
+              EOR
+
+       i.e. with each field spanning one or more lines  and  preceded  by  the
+       field  name  into  a  database where each record eats up only one line,
+       with fields being separated by a special delimiter field.
+
+              1st field contents\t2nd field contents 2nd field contents (continued)\t ... etc ...
+
+       By default ddbbccoonnvv acts as a filter, reading the  database  file  to  be
+       converted from its standard input and sending the converted data to its
+       standard output.
+
+       The format of the input database is specified by a _r_e_f_e_r_e_n_c_e _f_i_l_e which
+       states how to identify records and fields (see below).
+
+       By  default, ddbbccoonnvv assumes that the output format to use is TTaabb DDeelliimm--
+       iitteedd FFoorrmmaatt (i.e. fields are separated by TAB characters with TAB char-
+       acters not allowed within fields).
+
+       Command  line  options  allow  you  to tweak the behaviour to suit your
+       needs: you may change the output field and record separator characters,
+       include  an initial description line with field metadata, or quote spe-
+       cial characters to allow them inside fields.
+
+OOPPTTIIOONNSS
+       --cc _r_e_f___f_i_l_e
+              Specify configuration file containing the  reference  layout  of
+              the  input  database  (default  _D_B_c_o_n_v_._c_f).  See  below for more
+              details.
+
+       --dd _d_a_t_a_b_a_s_e
+              Database file to be converted (if unspecified, read  from  stan-
+              dard input)
+
+       --oo _o_u_t_p_u_t
+              Output file name (if not specified, use standard output)
+
+       --ff _d_e_l_i_m_i_t_e_r
+              Character  to use as the field delimiter in the converted output
+              file (defaults to using a tabulator). Only the  first  character
+              of  the  argument following --ff is considered. This option allows
+              you to switch from a _T_a_b _d_e_l_i_m_i_t_e_d file to  other  formats  like
+              _C_o_m_m_a  _S_e_p_a_r_a_t_e_d  _V_a_l_u_e_s  (_C_S_V)  by  simply stating an alternate
+              delimiter character (e.g. '_-_f _,' for CSV).
+
+       --rr _d_e_l_i_m_i_t_e_r
+              Character to use as the record delimiter in the converted output
+              file (default to using a line feed). Only the first character of
+              the argument following --rr is considered.
+
+       --qq     Escape special characters using double quotes.  Special  charac-
+              ters  are  the  _o_u_t_p_u_t  _f_i_e_l_d  _a_n_d  _r_e_c_o_r_d _s_e_p_a_r_a_t_o_r_s and _d_o_u_b_l_e
+              _q_u_o_t_e_s (_") themselves.  Normally  field  and  record  separators
+              should not appear within the fields, but since we are converting
+              between formats it is conceivable that they do.  In  this  case,
+              and  if you select --qq, when a field contains delimiter (field or
+              record) characters, the entire field will be enclosed in  double
+              quotes,  and  any  double  quotes  that  might appear within are
+              escaped by doubling them. This allows you  to  conform  with  MS
+              purported (and often unsupported by themselves) standards.
+
+       --11     Prepend  a first record containing the field names. This is use-
+              ful to carry the field name information over with the data  when
+              porting  databases  so  you can tell which data corresponds with
+              which field from this header record.
+
+       --hh     Print a short usage summary and terse help on available options.
+
+
+CCOONNFFIIGGUURRAATTIIOONN FFIILLEE
+       Input  database file specifications are read from a configuration file,
+       named by default DDBBCCoonnvv..ccff unless the --cc ffiillee option is used to specify
+       another one.
+
+       The  configuration  file  describes  how to identify records and fields
+       within the input database file (i.e. the structure of the file)  assum-
+       ing  it  is  a  line oriented file where each field is stored in one or
+       more lines, preceded by a field name tag in each of them.  Records  are
+       separated  by a special tag (which may be empty meaning an empty line).
+
+       Leading white space in the configuration file is  ignored  and  may  be
+       used freely to format it in order to make it more readable.
+
+       The  file  and record identifiers are described each in a separate line
+       starting with the tag string enclosed in double quotes (possibly  after
+       some  white  space),  e.g.  ""FFIIEELLDD  NNAAMMEE"". If the tag contains a double
+       quote, it can be included by preceding it with a \\ (escape)  character,
+       as  in  ""FFiieelldd \\""22\\"" hheerree"". If the \ character itself must be included,
+       it can be scaped by repeating it. Actually, \ may scape any  character.
+       A tag may be and empty string (represented by """").
+
+
+       RReeccoorrdd sseeppaarraattoorr
+           The  first  specification in the configuration file must be that of
+           the record separator. Following it (in separate, independent lines)
+           go field specifications.
+
+
+       FFiieelldd ssppeecciiffiiccaattiioonn
+           Field  specifications  follow  after  the initial record separator,
+           each in its own line. The specification starts with the field iden-
+           tification  tag  (possibly  after  some  white  space which will be
+           ignored) enclosed in double quotes as described above. This is  the
+           string  of characters that identify this file contents in the input
+           database file.
+           The tag may be optionally followed by a number which is interpreted
+           as  a  recommended  size  for  the field. This number is not a hard
+           limit, rather it is orientative, and if a field  needs  more  space
+           the  program will adapt itself by allocating more space on the fly.
+           In fact, the only reason for it is to increase performance in  some
+           cases, and you can normally do without it at all.
+           Any other text following the tag and the optional number (if speci-
+           fied) will be ignored, which comes handy  for  adding  comments  to
+           each field.
+
+
+       CCoommmmeennttss
+           You  may  intersperse  blank lines and comments withing the file to
+           document it. As we stated white spaces are ignored, and so are  any
+           lines that do not begin (after any blanks) with a double quote (the
+           hallmark of a tag for a record or field definition).
+
+
+       CCoonnffiigguurraattiioonn ffiillee eexxaammppllee
+                First specification must be that of the record separator:
+           " \"Record\\separator\" "
+           Which would stand for the string [ "Record\separator" ]
+
+                Field specifications may be followed by a recommended size:
+            "Field1" 125 chars
+            "Fld2: " or not
+            " Fld3:" if not followed by a number, rest of line is ignored
+
+                All of it may be interspersed by blank lines or comments
+           (lines not beginning -after any blanks- with a double quote).
+
+                If a quote is not closed then the rest of the line is taken
+           as the field name:
+                " Field #4: 125<EOL>
+                is taken as [ Field #4: 125<EOL>] (<EOL> means here the end
+           of line)
+
+                As an example this file would be interpreted as
+                [ "Record\separator" ]
+                [Field1]
+                [Fld2: ]
+                [ Fld3:]
+                [ Field #4: 125<EOL>]
+
+EEXXAAMMPPLLEESS
+       The following examples should give you a feeling of what can be done:
+
+              cat database | dbconv > output
+
+       this example uses dbconv as a filter with all default options: it  will
+       read  the data (formatted according to an existing _D_B_C_o_n_v_._c_f file) from
+       stdin and output the results in stdout.
+
+              dbconv -c config -d database -o output
+
+       This command would convert _d_a_t_a_b_a_s_e described by file  _c_o_n_f_i_g  to  Tab-
+       delimited format, storing the converted data in _o_u_t_p_u_t.
+
+              dbconv -c config -d database -o output -f , -1 -q
+
+       Same  as before, but in this case we generate a CSV file, with a header
+       record containing the field names, and quoting special characters  when
+       present (so it may be easily imported into e.g. Excel).
+
+       A  much more elaborate example may be as follows: let's assume you want
+       to generate a password database from an LDAP LDIF file. You might  dump
+       the required fields using _l_d_a_p_s_e_a_r_c_h (1):
+
+              ldapsearch -LLL -h ldap.example.com \
+                  -D "cn=manager,dc=example,dc=com" \
+                  -b "ou=People,dc=example,dc=com" \
+                  uid userPassword uidNumber \
+                  gidNumber gecos loginShell homeDirectory \
+                  > database.ldif
+
+       Then create a configuration file named _D_B_C_o_n_v_._c_f for ddbbccoonnvv like
+
+              ""
+              "uid: "
+              "userPassword:: "
+              "uidNumber: "
+              "gidNumber: "
+              "gecos: "
+              "loginShell: "
+              "homeDirectory: "
+
+       i.e. records are separated by blank lines, and contain the above fields
+       (no size hints are included).
+
+       Now invoke ddbbccoonnvv stating that you want fields separated by a colon
+
+              dbconv -d database.ldif -o passwd.file -f :
+
+       and you should be (almost) done. This example  doesn't  actually  fully
+       work  since  the password would have been retireved base64 encoded from
+       the LDAP server (hence the :: in the userPassword field), but  you  get
+       the idea. The output of the command would indeed look something like
+
+              daemon:e2NyeXB0fXg=:11648:1:1:daemons,,,:/dev/null:/
+              bin:e2NyeXB0fSo=:9724:2:2:System Tools Owner,,,:/dev/null:/bin
+               ...
+
+
+DDIIAAGGNNOOSSTTIICCSS
+       If all goes well, ddbbccoonnvv will exit with a 0 exit status.
+
+       The  program  will report on its standard error if there is any problem
+       opening the required files and exit with an status condition of 1.
+
+       Other internal error situations during processing, like problems  read-
+       ing  or  writing  files,  or allocating working memory will result in a
+       premature end with an error exit condition of 2. In this  case  partial
+       convertion results may be available on the output file.
+
+AAUUTTHHOORR
+       Written by Jose R. Valverde <jrvalverde@acm.org>
+
+BBUUGGSS
+       Surely many.
+
+       Email  bug  reports to jjrrvvaallvveerrddee@@aaccmm..oorrgg.  Be sure to include the word
+       "dbconv" somewhere in the "Subject:" field.
+
+
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (C) 1991-2005 Jose R. Valverde
+       This is free software; see the source for copying conditions.  There is
+       NO  warranty;  not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
+       PURPOSE.
+
+SSEEEE AALLSSOO
+       ttrr (1), ccuutt (1), sseedd (1), ccooll (1), eexxppaanndd (1), uunneexxppaanndd (1),  ccmmpp  (1),
+       ccoommmm (1)
+
+
+
+
+dbconv v3.0                        1991-2005                         dbconv(1)

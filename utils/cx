@@ -1,0 +1,83 @@
+# cx - Bourne-Shell script for making .x files from .c files
+#	Note: 	Version 7 shells may not support pound-sign comments.
+#		Lines of the form /* .... */ {} are used to put
+#		comments in sed input and may be removed for speed.
+
+case $1 in
+"")	echo "usage: cx C-filename-without-.c"
+	exit 1
+	;;
+esac
+
+if [ ! -r $1.c ]
+then
+	# cannot find a .c file for $1
+	echo cx: $1.c not found
+	exit 1
+fi
+
+if [ -r $1.h ]
+then
+	# include the .h file with the same name as the .c file.
+	incfile="#include \"$1.h\""
+else
+	incfile="/* There is no $1.h file */"
+fi
+
+# Call egrep and sed to do the real work */
+egrep '^[	]*public|^#if|^#else|^#endif' $1.c | sed > /tmp/cx$$	\
+									\
+	'	/*	Insert leading comment and include file. */{}
+	1i\
+/* '$1'.x -- declarations file for module '$1' */
+	1i\
+'"$incfile"'
+
+	/#if/		{
+		/*	Remove empty #if ... #endif (handling	*/{}
+		/*	#else is much harder).			*/{}
+			N
+			/#if[^\n]*\n#endif/d
+			P
+			D
+			}
+
+	/public/	{
+		/*	Change public to extern.		*/{}
+			s/public/extern/
+
+		/*	Remove function parameter lists.	*/{}
+			s/([^*].*$/();/
+
+		/*	Remove leftmost array dimension		*/{}
+			/\[/	{
+				s/]/]CX/
+				s/\[.*CX/[]/
+				}
+
+		/*	Remove anything trailing a semicolon.	*/{}
+			s/;.*/;/
+
+		/*	Remove variable initialization.		*/{}
+			s/[	]*=.*/;/
+			}'
+
+echo "/* $1.x ends here */" >> /tmp/cx$$
+
+# If the new cx file is identical to the old, don't update the old.
+# If they are different, move the new one onto the old one.
+
+cmp -s $1.x /tmp/cx$$ > /dev/null
+
+if [ $? = 0 ]
+then
+	rm -f /tmp/cx$$
+	echo $1.x is up to date.
+else
+	mv /tmp/cx$$ $1.x
+fi
+
+exit 0
+
+#cx ends here
+ 

@@ -1,0 +1,504 @@
+Basic block profiling finished on Wed Jul  9 11:51:59 2008
+
+File /u/jr/work/Tools/CFlow.d, 245 basic blocks 
+
+    Block #  1: executed    1 time(s) address= 0x8048d84 function= main             line=  234 file= CFlow.c
+    Block #  2: executed    0 time(s) address= 0x8048db1 function= main             line=  238 file= CFlow.c
+    Block #  3: executed    1 time(s) address= 0x8048dcc function= main             line=  242 file= CFlow.c
+    Block #  4: executed    2 time(s) address= 0x8048dd8 function= main             line=  243 file= CFlow.c
+    Block #  5: executed    1 time(s) address= 0x8048de7 function= main             line=  243 file= CFlow.c
+    Block #  6: executed    1 time(s) address= 0x8048df4 function= main             line=  245 file= CFlow.c
+    Block #  7: executed    1 time(s) address= 0x8048e13 function= main             line=  246 file= CFlow.c
+    Block #  8: executed    1 time(s) address= 0x8048e1f function= main             line=  246 file= CFlow.c
+    Block #  9: executed    0 time(s) address= 0x8048e2c function= main             line=  248 file= CFlow.c
+    Block # 10: executed    0 time(s) address= 0x8048e46 function= main             line=  248 file= CFlow.c
+    Block # 11: executed    0 time(s) address= 0x8048e50 function= main             line=  250 file= CFlow.c
+    Block # 12: executed    0 time(s) address= 0x8048e65 function= main             line=  250 file= CFlow.c
+    Block # 13: executed    0 time(s) address= 0x8048e78 function= main             line=  255 file= CFlow.c
+    Block # 14: executed    0 time(s) address= 0x8048e88 function= main             line=  260 file= CFlow.c
+    Block # 15: executed    0 time(s) address= 0x8048e9c function= main             line=  265 file= CFlow.c
+    Block # 16: executed    0 time(s) address= 0x8048ec6 function= main             line=  267 file= CFlow.c
+    Block # 17: executed    1 time(s) address= 0x8048eec function= main             line=  276 file= CFlow.c
+    Block # 18: executed    0 time(s) address= 0x8048f17 function= main             line=  278 file= CFlow.c
+    Block # 19: executed    1 time(s) address= 0x8048f38 function= main             line=  285 file= CFlow.c
+    Block # 20: executed   24 time(s) address= 0x8049004 function= main             line=  291 file= CFlow.c
+    Block # 21: executed    1 time(s) address= 0x804901d function= main             line=  295 file= CFlow.c
+    Block # 22: executed   23 time(s) address= 0x804903c function= main             line=  293 file= CFlow.c
+    Block # 23: executed    1 time(s) address= 0x804904c function= main             line=  300 file= CFlow.c
+    Block # 24: executed    1 time(s) address= 0x804905b function= main             line=  302 file= CFlow.c
+    Block # 25: executed    1 time(s) address= 0x8049077 function= main             line=  304 file= CFlow.c
+    Block # 26: executed    0 time(s) address= 0x80490a4 function= main             line=  308 file= CFlow.c
+    Block # 27: executed    0 time(s) address= 0x80490c0 function= main             line=  313 file= CFlow.c
+    Block # 28: executed    1 time(s) address= 0x80490d7 function= main             line=  315 file= CFlow.c
+    Block # 29: executed   23 time(s) address= 0x80490e4 function= findproc         line=  345 file= CFlow.c
+    Block # 30: executed    1 time(s) address= 0x80491ad function= findproc         line=  359 file= CFlow.c
+    Block # 31: executed   23 time(s) address= 0x80491c8 function= findproc         line=  361 file= CFlow.c
+    Block # 32: executed   15 time(s) address= 0x80491db function= findproc         line=  361 file= CFlow.c
+    Block # 33: executed   15 time(s) address= 0x8049205 function= findproc         line=  361 file= CFlow.c
+    Block # 34: executed   15 time(s) address= 0x804922b function= findproc         line=  364 file= CFlow.c
+    Block # 35: executed   15 time(s) address= 0x804924c function= findproc         line=  367 file= CFlow.c
+    Block # 36: executed    0 time(s) address= 0x8049265 function= findproc         line=  367 file= CFlow.c
+    Block # 37: executed   15 time(s) address= 0x8049270 function= findproc         line=  369 file= CFlow.c
+    Block # 38: executed   15 time(s) address= 0x8049285 function= findproc         line=  375 file= CFlow.c
+    Block # 39: executed   11 time(s) address= 0x80492a7 function= findproc         line=  376 file= CFlow.c
+    Block # 40: executed    0 time(s) address= 0x80492b3 function= findproc         line=  376 file= CFlow.c
+    Block # 41: executed   15 time(s) address= 0x80492c0 function= findproc         line=  378 file= CFlow.c
+    Block # 42: executed   14 time(s) address= 0x80492f6 function= findproc         line=  383 file= CFlow.c
+    Block # 43: executed    1 time(s) address= 0x8049338 function= findproc         line=  388 file= CFlow.c
+    Block # 44: executed    0 time(s) address= 0x8049347 function= findproc         line=  390 file= CFlow.c
+    Block # 45: executed    1 time(s) address= 0x804935e function= findproc         line=  392 file= CFlow.c
+    Block # 46: executed    0 time(s) address= 0x804938c function= findproc         line=  398 file= CFlow.c
+    Block # 47: executed    0 time(s) address= 0x8049410 function= findproc         line=  403 file= CFlow.c
+    Block # 48: executed    0 time(s) address= 0x8049421 function= findproc         line=  403 file= CFlow.c
+    Block # 49: executed    0 time(s) address= 0x804942c function= findproc         line=  405 file= CFlow.c
+    Block # 50: executed    0 time(s) address= 0x8049448 function= findproc         line=  407 file= CFlow.c
+    Block # 51: executed    0 time(s) address= 0x8049477 function= findproc         line=  411 file= CFlow.c
+    Block # 52: executed    0 time(s) address= 0x804948e function= findproc         line=  413 file= CFlow.c
+    Block # 53: executed   23 time(s) address= 0x80494ae function= findproc         line=  416 file= CFlow.c
+    Block # 54: executed   30 time(s) address= 0x80494ec function= makename         line=  441 file= CFlow.c
+    Block # 55: executed   23 time(s) address= 0x8049550 function= makename         line=  449 file= CFlow.c
+    Block # 56: executed    0 time(s) address= 0x8049576 function= makename         line=  449 file= CFlow.c
+    Block # 57: executed    0 time(s) address= 0x8049585 function= makename         line=  449 file= CFlow.c
+    Block # 58: executed    0 time(s) address= 0x8049590 function= makename         line=  451 file= CFlow.c
+    Block # 59: executed   23 time(s) address= 0x80495a4 function= makename         line=  453 file= CFlow.c
+    Block # 60: executed    0 time(s) address= 0x80495b4 function= makename         line=  455 file= CFlow.c
+    Block # 61: executed    0 time(s) address= 0x80495d7 function= makename         line=  458 file= CFlow.c
+    Block # 62: executed    0 time(s) address= 0x8049600 function= makename         line=  461 file= CFlow.c
+    Block # 63: executed    7 time(s) address= 0x8049618 function= makename         line=  467 file= CFlow.c
+    Block # 64: executed    0 time(s) address= 0x8049650 function= makename         line=  471 file= CFlow.c
+    Block # 65: executed    7 time(s) address= 0x8049678 function= makename         line=  474 file= CFlow.c
+    Block # 66: executed   30 time(s) address= 0x8049684 function= makename         line=  476 file= CFlow.c
+    Block # 67: executed    7 time(s) address= 0x8049690 function= makename         line=  478 file= CFlow.c
+    Block # 68: executed   30 time(s) address= 0x80496e0 function= makename         line=  485 file= CFlow.c
+    Block # 69: executed    0 time(s) address= 0x80496ec function= makename         line=  487 file= CFlow.c
+    Block # 70: executed   30 time(s) address= 0x8049714 function= makename         line=  490 file= CFlow.c
+    Block # 71: executed    2 time(s) address= 0x8049724 function= findname         line=  514 file= CFlow.c
+    Block # 72: executed    2 time(s) address= 0x804977c function= findname         line=  521 file= CFlow.c
+    Block # 73: executed    0 time(s) address= 0x804979d function= findname         line=  521 file= CFlow.c
+    Block # 74: executed    0 time(s) address= 0x80497ac function= findname         line=  521 file= CFlow.c
+    Block # 75: executed    0 time(s) address= 0x80497b4 function= findname         line=  523 file= CFlow.c
+    Block # 76: executed    2 time(s) address= 0x80497c8 function= findname         line=  526 file= CFlow.c
+    Block # 77: executed   32 time(s) address= 0x80497d8 function= hashfunc         line=  550 file= CFlow.c
+    Block # 78: executed  166 time(s) address= 0x8049808 function= hashfunc         line=  552 file= CFlow.c
+    Block # 79: executed   32 time(s) address= 0x8049816 function= hashfunc         line=  552 file= CFlow.c
+    Block # 80: executed  134 time(s) address= 0x8049820 function= hashfunc         line=  552 file= CFlow.c
+    Block # 81: executed   32 time(s) address= 0x8049838 function= hashfunc         line=  554 file= CFlow.c
+    Block # 82: executed   28 time(s) address= 0x804984c function= addlist          line=  586 file= CFlow.c
+    Block # 83: executed   14 time(s) address= 0x8049879 function= addlist          line=  589 file= CFlow.c
+    Block # 84: executed    1 time(s) address= 0x804988c function= addlist          line=  589 file= CFlow.c
+    Block # 85: executed   14 time(s) address= 0x8049894 function= addlist          line=  589 file= CFlow.c
+    Block # 86: executed    7 time(s) address= 0x80498a3 function= addlist          line=  592 file= CFlow.c
+    Block # 87: executed    0 time(s) address= 0x80498c2 function= addlist          line=  595 file= CFlow.c
+    Block # 88: executed    7 time(s) address= 0x80498ec function= addlist          line=  598 file= CFlow.c
+    Block # 89: executed    1 time(s) address= 0x80498f8 function= addlist          line=  600 file= CFlow.c
+    Block # 90: executed    6 time(s) address= 0x804990c function= addlist          line=  604 file= CFlow.c
+    Block # 91: executed   21 time(s) address= 0x8049920 function= addlist          line=  609 file= CFlow.c
+    Block # 92: executed   13 time(s) address= 0x804992c function= addlist          line=  609 file= CFlow.c
+    Block # 93: executed    8 time(s) address= 0x8049940 function= addlist          line=  609 file= CFlow.c
+    Block # 94: executed   21 time(s) address= 0x804994f function= addlist          line=  609 file= CFlow.c
+    Block # 95: executed  103 time(s) address= 0x804995c function= addlist          line=  611 file= CFlow.c
+    Block # 96: executed   21 time(s) address= 0x804996b function= addlist          line=  611 file= CFlow.c
+    Block # 97: executed   82 time(s) address= 0x8049974 function= addlist          line=  613 file= CFlow.c
+    Block # 98: executed   21 time(s) address= 0x8049988 function= addlist          line=  615 file= CFlow.c
+    Block # 99: executed    0 time(s) address= 0x80499ab function= addlist          line=  618 file= CFlow.c
+    Block #100: executed   21 time(s) address= 0x80499d4 function= addlist          line=  621 file= CFlow.c
+    Block #101: executed   28 time(s) address= 0x80499e3 function= addlist          line=  624 file= CFlow.c
+    Block #102: executed   15 time(s) address= 0x8049a20 function= dumptree         line=  655 file= CFlow.c
+    Block #103: executed   15 time(s) address= 0x8049a51 function= dumptree         line=  661 file= CFlow.c
+    Block #104: executed   15 time(s) address= 0x8049a66 function= dumptree         line=  663 file= CFlow.c
+    Block #105: executed    1 time(s) address= 0x8049a76 function= dumptree         line=  665 file= CFlow.c
+    Block #106: executed    2 time(s) address= 0x8049a98 function= dumptree         line=  666 file= CFlow.c
+    Block #107: executed    1 time(s) address= 0x8049aa6 function= dumptree         line=  666 file= CFlow.c
+    Block #108: executed    1 time(s) address= 0x8049ab0 function= dumptree         line=  668 file= CFlow.c
+    Block #109: executed    1 time(s) address= 0x8049acc function= dumptree         line=  671 file= CFlow.c
+    Block #110: executed    1 time(s) address= 0x8049adb function= dumptree         line=  673 file= CFlow.c
+    Block #111: executed    0 time(s) address= 0x8049b0c function= dumptree         line=  678 file= CFlow.c
+    Block #112: executed    1 time(s) address= 0x8049b2d function= dumptree         line=  680 file= CFlow.c
+    Block #113: executed   15 time(s) address= 0x8049b38 function= dumptree         line=  682 file= CFlow.c
+    Block #114: executed   15 time(s) address= 0x8049b44 function= dumptree         line=  684 file= CFlow.c
+    Block #115: executed    0 time(s) address= 0x8049b58 function= dumptree         line=  688 file= CFlow.c
+    Block #116: executed   29 time(s) address= 0x8049b6c function= dumptree         line=  691 file= CFlow.c
+    Block #117: executed   15 time(s) address= 0x8049b78 function= dumptree         line=  691 file= CFlow.c
+    Block #118: executed   14 time(s) address= 0x8049b84 function= dumptree         line=  693 file= CFlow.c
+    Block #119: executed   14 time(s) address= 0x8049b93 function= dumptree         line=  693 file= CFlow.c
+    Block #120: executed   14 time(s) address= 0x8049ba2 function= dumptree         line=  693 file= CFlow.c
+    Block #121: executed    1 time(s) address= 0x8049bb0 function= dumptree         line=  695 file= CFlow.c
+    Block #122: executed   13 time(s) address= 0x8049bd0 function= dumptree         line=  699 file= CFlow.c
+    Block #123: executed   14 time(s) address= 0x8049bec function= dumptree         line=  701 file= CFlow.c
+    Block #124: executed   42 time(s) address= 0x8049c0c function= dumptree         line=  703 file= CFlow.c
+    Block #125: executed   14 time(s) address= 0x8049c1a function= dumptree         line=  703 file= CFlow.c
+    Block #126: executed   28 time(s) address= 0x8049c24 function= dumptree         line=  705 file= CFlow.c
+    Block #127: executed   14 time(s) address= 0x8049c40 function= dumptree         line=  708 file= CFlow.c
+    Block #128: executed   14 time(s) address= 0x8049c4e function= dumptree         line=  710 file= CFlow.c
+    Block #129: executed    0 time(s) address= 0x8049c84 function= dumptree         line=  716 file= CFlow.c
+    Block #130: executed   14 time(s) address= 0x8049ca0 function= dumptree         line=  718 file= CFlow.c
+    Block #131: executed   14 time(s) address= 0x8049cc0 function= dumptree         line=  720 file= CFlow.c
+    Block #132: executed   14 time(s) address= 0x8049ccf function= dumptree         line=  720 file= CFlow.c
+    Block #133: executed    1 time(s) address= 0x8049cdd function= dumptree         line=  722 file= CFlow.c
+    Block #134: executed    1 time(s) address= 0x8049d19 function= dumptree         line=  727 file= CFlow.c
+    Block #135: executed    0 time(s) address= 0x8049d2c function= dumptree         line=  731 file= CFlow.c
+    Block #136: executed   14 time(s) address= 0x8049d3c function= dumptree         line=  734 file= CFlow.c
+    Block #137: executed   15 time(s) address= 0x8049d70 function= dumptree         line=  739 file= CFlow.c
+    Block #138: executed    1 time(s) address= 0x8049d78 function= initstatemachine line=  759 file= CFlow.c
+    Block #139: executed  129 time(s) address= 0x8049da8 function= initstatemachine line=  761 file= CFlow.c
+    Block #140: executed    1 time(s) address= 0x8049db4 function= initstatemachine line=  761 file= CFlow.c
+    Block #141: executed  128 time(s) address= 0x8049dc0 function= initstatemachine line=  763 file= CFlow.c
+    Block #142: executed   66 time(s) address= 0x8049ddd function= initstatemachine line=  763 file= CFlow.c
+    Block #143: executed   65 time(s) address= 0x8049de9 function= initstatemachine line=  763 file= CFlow.c
+    Block #144: executed   64 time(s) address= 0x8049df5 function= initstatemachine line=  765 file= CFlow.c
+    Block #145: executed   64 time(s) address= 0x8049e0c function= initstatemachine line=  769 file= CFlow.c
+    Block #146: executed  128 time(s) address= 0x8049e1e function= initstatemachine line=  771 file= CFlow.c
+    Block #147: executed    1 time(s) address= 0x8049ebc function= initstatemachine line=  782 file= CFlow.c
+    Block #148: executed    0 time(s) address= 0x8049f3c function= sortdump         line=  824 file= CFlow.c
+    Block #149: executed    0 time(s) address= 0x8049f88 function= sortdump         line=  832 file= CFlow.c
+    Block #150: executed    0 time(s) address= 0x8049fb0 function= sortdump         line=  835 file= CFlow.c
+    Block #151: executed    0 time(s) address= 0x8049fc4 function= sortdump         line=  836 file= CFlow.c
+    Block #152: executed    0 time(s) address= 0x8049fd3 function= sortdump         line=  836 file= CFlow.c
+    Block #153: executed    0 time(s) address= 0x8049fe0 function= sortdump         line=  838 file= CFlow.c
+    Block #154: executed    0 time(s) address= 0x8049ffd function= sortdump         line=  840 file= CFlow.c
+    Block #155: executed    0 time(s) address= 0x804a028 function= sortdump         line=  842 file= CFlow.c
+    Block #156: executed    0 time(s) address= 0x804a037 function= sortdump         line=  842 file= CFlow.c
+    Block #157: executed    0 time(s) address= 0x804a040 function= sortdump         line=  844 file= CFlow.c
+    Block #158: executed    0 time(s) address= 0x804a060 function= sortdump         line=  836 file= CFlow.c
+    Block #159: executed    0 time(s) address= 0x804a070 function= sortdump         line=  851 file= CFlow.c
+    Block #160: executed    0 time(s) address= 0x804a094 function= sortdump         line=  854 file= CFlow.c
+    Block #161: executed    0 time(s) address= 0x804a0ac function= sortdump         line=  854 file= CFlow.c
+    Block #162: executed    0 time(s) address= 0x804a0b4 function= sortdump         line=  856 file= CFlow.c
+    Block #163: executed    0 time(s) address= 0x804a0e4 function= sortdump         line=  860 file= CFlow.c
+    Block #164: executed    0 time(s) address= 0x804a0ec function= mycompare        line=  883 file= CFlow.c
+    Block #165: executed  702 time(s) address= 0x804a134 function= getsucc          line=  916 file= CFlow.c
+    Block #166: executed 1132 time(s) address= 0x804a168 function= getsucc          line=  923 file= CFlow.c
+    Block #167: executed   43 time(s) address= 0x804a18f function= getsucc          line=  925 file= CFlow.c
+    Block #168: executed 1132 time(s) address= 0x804a19b function= getsucc          line=  927 file= CFlow.c
+    Block #169: executed    1 time(s) address= 0x804a1aa function= getsucc          line=  929 file= CFlow.c
+    Block #170: executed 1131 time(s) address= 0x804a1bc function= getsucc          line=  931 file= CFlow.c
+    Block #171: executed  716 time(s) address= 0x804a1ff function= getsucc          line=  934 file= CFlow.c
+    Block #172: executed   15 time(s) address= 0x804a20e function= getsucc          line=  934 file= CFlow.c
+    Block #173: executed  701 time(s) address= 0x804a221 function= getsucc          line=  937 file= CFlow.c
+    Block #174: executed    0 time(s) address= 0x804a230 function= getsucc          line=  940 file= CFlow.c
+    Block #175: executed  701 time(s) address= 0x804a258 function= getsucc          line=  943 file= CFlow.c
+    Block #176: executed   64 time(s) address= 0x804a267 function= getsucc          line=  945 file= CFlow.c
+    Block #177: executed    6 time(s) address= 0x804a2c6 function= getsucc          line=  946 file= CFlow.c
+    Block #178: executed   64 time(s) address= 0x804a2cf function= getsucc          line=  946 file= CFlow.c
+    Block #179: executed  637 time(s) address= 0x804a2e4 function= getsucc          line=  950 file= CFlow.c
+    Block #180: executed   59 time(s) address= 0x804a30d function= getsucc          line=  950 file= CFlow.c
+    Block #181: executed  637 time(s) address= 0x804a316 function= getsucc          line=  950 file= CFlow.c
+    Block #182: executed  265 time(s) address= 0x804a32d function= getsucc          line=  953 file= CFlow.c
+    Block #183: executed  701 time(s) address= 0x804a369 function= getsucc          line=  956 file= CFlow.c
+    Block #184: executed  702 time(s) address= 0x804a376 function= getsucc          line=  957 file= CFlow.c
+    Block #185: executed   39 time(s) address= 0x804a380 function= succpos          line=  979 file= CFlow.c
+    Block #186: executed  567 time(s) address= 0x804a3a8 function= succpos          line=  981 file= CFlow.c
+    Block #187: executed  529 time(s) address= 0x804a3c5 function= succpos          line=  981 file= CFlow.c
+    Block #188: executed   39 time(s) address= 0x804a3d4 function= succpos          line=  983 file= CFlow.c
+    Block #189: executed   38 time(s) address= 0x804a3e3 function= succpos          line=  985 file= CFlow.c
+    Block #190: executed    1 time(s) address= 0x804a404 function= succpos          line=  988 file= CFlow.c
+    Block #191: executed   39 time(s) address= 0x804a40f function= succpos          line=  989 file= CFlow.c
+    Block #192: executed   15 time(s) address= 0x804a418 function= nsuccmemb        line= 1012 file= CFlow.c
+    Block #193: executed   16 time(s) address= 0x804a450 function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #194: executed    1 time(s) address= 0x804a46f function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #195: executed    0 time(s) address= 0x804a47b function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #196: executed    1 time(s) address= 0x804a484 function= nsuccmemb        line= 1018 file= CFlow.c
+    Block #197: executed   15 time(s) address= 0x804a498 function= nsuccmemb        line= 1020 file= CFlow.c
+    Block #198: executed   15 time(s) address= 0x804a4b2 function= nsuccmemb        line= 1022 file= CFlow.c
+    Block #199: executed   23 time(s) address= 0x804a4c8 function= readtoken        line= 1049 file= CFlow.c
+    Block #200: executed   89 time(s) address= 0x804a54c function= readtoken        line= 1054 file= CFlow.c
+    Block #201: executed   89 time(s) address= 0x804a562 function= readtoken        line= 1054 file= CFlow.c
+    Block #202: executed   66 time(s) address= 0x804a581 function= readtoken        line= 1054 file= CFlow.c
+    Block #203: executed    0 time(s) address= 0x804a58d function= readtoken        line= 1054 file= CFlow.c
+    Block #204: executed   66 time(s) address= 0x804a598 function= readtoken        line= 1056 file= CFlow.c
+    Block #205: executed   23 time(s) address= 0x804a5b0 function= readtoken        line= 1058 file= CFlow.c
+    Block #206: executed   15 time(s) address= 0x804a5c0 function= ismember         line= 1082 file= CFlow.c
+    Block #207: executed  105 time(s) address= 0x804a5f0 function= ismember         line= 1084 file= CFlow.c
+    Block #208: executed   90 time(s) address= 0x804a5fe function= ismember         line= 1084 file= CFlow.c
+    Block #209: executed    0 time(s) address= 0x804a61f function= ismember         line= 1084 file= CFlow.c
+    Block #210: executed   90 time(s) address= 0x804a628 function= ismember         line= 1086 file= CFlow.c
+    Block #211: executed   15 time(s) address= 0x804a63c function= ismember         line= 1090 file= CFlow.c
+    Block #212: executed   15 time(s) address= 0x804a64a function= ismember         line= 1090 file= CFlow.c
+    Block #213: executed    0 time(s) address= 0x804a658 function= ismember         line= 1091 file= CFlow.c
+    Block #214: executed    0 time(s) address= 0x804a679 function= ismember         line= 1091 file= CFlow.c
+    Block #215: executed    0 time(s) address= 0x804a688 function= ismember         line= 1091 file= CFlow.c
+    Block #216: executed    0 time(s) address= 0x804a695 function= ismember         line= 1091 file= CFlow.c
+    Block #217: executed   15 time(s) address= 0x804a69e function= ismember         line= 1092 file= CFlow.c
+    Block #218: executed    0 time(s) address= 0x804a6a8 function= qksort           line= 1130 file= CFlow.c
+    Block #219: executed    0 time(s) address= 0x804a6f4 function= qksort           line= 1139 file= CFlow.c
+    Block #220: executed    0 time(s) address= 0x804a705 function= qksort           line= 1139 file= CFlow.c
+    Block #221: executed    0 time(s) address= 0x804a710 function= qksort           line= 1141 file= CFlow.c
+    Block #222: executed    0 time(s) address= 0x804a72d function= qksort           line= 1143 file= CFlow.c
+    Block #223: executed    0 time(s) address= 0x804a73c function= qksort           line= 1147 file= CFlow.c
+    Block #224: executed    0 time(s) address= 0x804a750 function= qksort           line= 1152 file= CFlow.c
+    Block #225: executed    0 time(s) address= 0x804a75c function= qksort           line= 1154 file= CFlow.c
+    Block #226: executed    0 time(s) address= 0x804a78f function= qksort           line= 1158 file= CFlow.c
+    Block #227: executed    0 time(s) address= 0x804a798 function= quicksort        line= 1166 file= CFlow.c
+    Block #228: executed    0 time(s) address= 0x804a7d4 function= quicksort        line= 1170 file= CFlow.c
+    Block #229: executed    0 time(s) address= 0x804a7e2 function= quicksort        line= 1170 file= CFlow.c
+    Block #230: executed    0 time(s) address= 0x804a7f0 function= quicksort        line= 1175 file= CFlow.c
+    Block #231: executed    0 time(s) address= 0x804a807 function= quicksort        line= 1176 file= CFlow.c
+    Block #232: executed    0 time(s) address= 0x804a828 function= quicksort        line= 1179 file= CFlow.c
+    Block #233: executed    0 time(s) address= 0x804a83f function= quicksort        line= 1180 file= CFlow.c
+    Block #234: executed    0 time(s) address= 0x804a85e function= quicksort        line= 1182 file= CFlow.c
+    Block #235: executed    0 time(s) address= 0x804a86c function= quicksort        line= 1183 file= CFlow.c
+    Block #236: executed    0 time(s) address= 0x804a874 function= quicksort        line= 1185 file= CFlow.c
+    Block #237: executed    0 time(s) address= 0x804a898 function= quicksort        line= 1188 file= CFlow.c
+    Block #238: executed    0 time(s) address= 0x804a8c5 function= quicksort        line= 1191 file= CFlow.c
+    Block #239: executed    0 time(s) address= 0x804a8fc function= quicksort        line= 1197 file= CFlow.c
+    Block #240: executed    0 time(s) address= 0x804a940 function= quicksort        line= 1202 file= CFlow.c
+    Block #241: executed    0 time(s) address= 0x804a948 function= swap             line= 1212 file= CFlow.c
+    Block #242: executed    0 time(s) address= 0x804a970 function= swap             line= 1215 file= CFlow.c
+    Block #243: executed    0 time(s) address= 0x804a981 function= swap             line= 1215 file= CFlow.c
+    Block #244: executed    0 time(s) address= 0x804a98c function= swap             line= 1217 file= CFlow.c
+    Block #245: executed    0 time(s) address= 0x804a9b4 function= swap             line= 1221 file= CFlow.c
+
+
+
+Basic block profiling finished on Wed Jul  9 11:52:04 2008
+
+File /u/jr/work/Tools/CFlow.d, 245 basic blocks 
+
+    Block #  1: executed     1 time(s) address= 0x8048d84 function= main             line=  234 file= CFlow.c
+    Block #  2: executed     0 time(s) address= 0x8048db1 function= main             line=  238 file= CFlow.c
+    Block #  3: executed     1 time(s) address= 0x8048dcc function= main             line=  242 file= CFlow.c
+    Block #  4: executed     2 time(s) address= 0x8048dd8 function= main             line=  243 file= CFlow.c
+    Block #  5: executed     1 time(s) address= 0x8048de7 function= main             line=  243 file= CFlow.c
+    Block #  6: executed     1 time(s) address= 0x8048df4 function= main             line=  245 file= CFlow.c
+    Block #  7: executed     1 time(s) address= 0x8048e13 function= main             line=  246 file= CFlow.c
+    Block #  8: executed     1 time(s) address= 0x8048e1f function= main             line=  246 file= CFlow.c
+    Block #  9: executed     0 time(s) address= 0x8048e2c function= main             line=  248 file= CFlow.c
+    Block # 10: executed     0 time(s) address= 0x8048e46 function= main             line=  248 file= CFlow.c
+    Block # 11: executed     0 time(s) address= 0x8048e50 function= main             line=  250 file= CFlow.c
+    Block # 12: executed     0 time(s) address= 0x8048e65 function= main             line=  250 file= CFlow.c
+    Block # 13: executed     0 time(s) address= 0x8048e78 function= main             line=  255 file= CFlow.c
+    Block # 14: executed     0 time(s) address= 0x8048e88 function= main             line=  260 file= CFlow.c
+    Block # 15: executed     0 time(s) address= 0x8048e9c function= main             line=  265 file= CFlow.c
+    Block # 16: executed     0 time(s) address= 0x8048ec6 function= main             line=  267 file= CFlow.c
+    Block # 17: executed     1 time(s) address= 0x8048eec function= main             line=  276 file= CFlow.c
+    Block # 18: executed     0 time(s) address= 0x8048f17 function= main             line=  278 file= CFlow.c
+    Block # 19: executed     1 time(s) address= 0x8048f38 function= main             line=  285 file= CFlow.c
+    Block # 20: executed   345 time(s) address= 0x8049004 function= main             line=  291 file= CFlow.c
+    Block # 21: executed     1 time(s) address= 0x804901d function= main             line=  295 file= CFlow.c
+    Block # 22: executed   344 time(s) address= 0x804903c function= main             line=  293 file= CFlow.c
+    Block # 23: executed     1 time(s) address= 0x804904c function= main             line=  300 file= CFlow.c
+    Block # 24: executed     1 time(s) address= 0x804905b function= main             line=  302 file= CFlow.c
+    Block # 25: executed     1 time(s) address= 0x8049077 function= main             line=  304 file= CFlow.c
+    Block # 26: executed     0 time(s) address= 0x80490a4 function= main             line=  308 file= CFlow.c
+    Block # 27: executed     0 time(s) address= 0x80490c0 function= main             line=  313 file= CFlow.c
+    Block # 28: executed     1 time(s) address= 0x80490d7 function= main             line=  315 file= CFlow.c
+    Block # 29: executed   344 time(s) address= 0x80490e4 function= findproc         line=  345 file= CFlow.c
+    Block # 30: executed    58 time(s) address= 0x80491ad function= findproc         line=  359 file= CFlow.c
+    Block # 31: executed   344 time(s) address= 0x80491c8 function= findproc         line=  361 file= CFlow.c
+    Block # 32: executed   176 time(s) address= 0x80491db function= findproc         line=  361 file= CFlow.c
+    Block # 33: executed   176 time(s) address= 0x8049205 function= findproc         line=  361 file= CFlow.c
+    Block # 34: executed   154 time(s) address= 0x804922b function= findproc         line=  364 file= CFlow.c
+    Block # 35: executed   154 time(s) address= 0x804924c function= findproc         line=  367 file= CFlow.c
+    Block # 36: executed     0 time(s) address= 0x8049265 function= findproc         line=  367 file= CFlow.c
+    Block # 37: executed   154 time(s) address= 0x8049270 function= findproc         line=  369 file= CFlow.c
+    Block # 38: executed   154 time(s) address= 0x8049285 function= findproc         line=  375 file= CFlow.c
+    Block # 39: executed   100 time(s) address= 0x80492a7 function= findproc         line=  376 file= CFlow.c
+    Block # 40: executed    24 time(s) address= 0x80492b3 function= findproc         line=  376 file= CFlow.c
+    Block # 41: executed   130 time(s) address= 0x80492c0 function= findproc         line=  378 file= CFlow.c
+    Block # 42: executed   109 time(s) address= 0x80492f6 function= findproc         line=  383 file= CFlow.c
+    Block # 43: executed    21 time(s) address= 0x8049338 function= findproc         line=  388 file= CFlow.c
+    Block # 44: executed     1 time(s) address= 0x8049347 function= findproc         line=  390 file= CFlow.c
+    Block # 45: executed    21 time(s) address= 0x804935e function= findproc         line=  392 file= CFlow.c
+    Block # 46: executed    24 time(s) address= 0x804938c function= findproc         line=  398 file= CFlow.c
+    Block # 47: executed   236 time(s) address= 0x8049410 function= findproc         line=  403 file= CFlow.c
+    Block # 48: executed    24 time(s) address= 0x8049421 function= findproc         line=  403 file= CFlow.c
+    Block # 49: executed   212 time(s) address= 0x804942c function= findproc         line=  405 file= CFlow.c
+    Block # 50: executed    24 time(s) address= 0x8049448 function= findproc         line=  407 file= CFlow.c
+    Block # 51: executed     0 time(s) address= 0x8049477 function= findproc         line=  411 file= CFlow.c
+    Block # 52: executed    24 time(s) address= 0x804948e function= findproc         line=  413 file= CFlow.c
+    Block # 53: executed   344 time(s) address= 0x80494ae function= findproc         line=  416 file= CFlow.c
+    Block # 54: executed   284 time(s) address= 0x80494ec function= makename         line=  441 file= CFlow.c
+    Block # 55: executed   249 time(s) address= 0x8049550 function= makename         line=  449 file= CFlow.c
+    Block # 56: executed     9 time(s) address= 0x8049576 function= makename         line=  449 file= CFlow.c
+    Block # 57: executed     2 time(s) address= 0x8049585 function= makename         line=  449 file= CFlow.c
+    Block # 58: executed     7 time(s) address= 0x8049590 function= makename         line=  451 file= CFlow.c
+    Block # 59: executed   242 time(s) address= 0x80495a4 function= makename         line=  453 file= CFlow.c
+    Block # 60: executed     2 time(s) address= 0x80495b4 function= makename         line=  455 file= CFlow.c
+    Block # 61: executed     0 time(s) address= 0x80495d7 function= makename         line=  458 file= CFlow.c
+    Block # 62: executed     2 time(s) address= 0x8049600 function= makename         line=  461 file= CFlow.c
+    Block # 63: executed    42 time(s) address= 0x8049618 function= makename         line=  467 file= CFlow.c
+    Block # 64: executed     0 time(s) address= 0x8049650 function= makename         line=  471 file= CFlow.c
+    Block # 65: executed    42 time(s) address= 0x8049678 function= makename         line=  474 file= CFlow.c
+    Block # 66: executed   284 time(s) address= 0x8049684 function= makename         line=  476 file= CFlow.c
+    Block # 67: executed    44 time(s) address= 0x8049690 function= makename         line=  478 file= CFlow.c
+    Block # 68: executed   284 time(s) address= 0x80496e0 function= makename         line=  485 file= CFlow.c
+    Block # 69: executed     0 time(s) address= 0x80496ec function= makename         line=  487 file= CFlow.c
+    Block # 70: executed   284 time(s) address= 0x8049714 function= makename         line=  490 file= CFlow.c
+    Block # 71: executed     2 time(s) address= 0x8049724 function= findname         line=  514 file= CFlow.c
+    Block # 72: executed     2 time(s) address= 0x804977c function= findname         line=  521 file= CFlow.c
+    Block # 73: executed     0 time(s) address= 0x804979d function= findname         line=  521 file= CFlow.c
+    Block # 74: executed     0 time(s) address= 0x80497ac function= findname         line=  521 file= CFlow.c
+    Block # 75: executed     0 time(s) address= 0x80497b4 function= findname         line=  523 file= CFlow.c
+    Block # 76: executed     2 time(s) address= 0x80497c8 function= findname         line=  526 file= CFlow.c
+    Block # 77: executed   286 time(s) address= 0x80497d8 function= hashfunc         line=  550 file= CFlow.c
+    Block # 78: executed  2331 time(s) address= 0x8049808 function= hashfunc         line=  552 file= CFlow.c
+    Block # 79: executed   286 time(s) address= 0x8049816 function= hashfunc         line=  552 file= CFlow.c
+    Block # 80: executed  2045 time(s) address= 0x8049820 function= hashfunc         line=  552 file= CFlow.c
+    Block # 81: executed   286 time(s) address= 0x8049838 function= hashfunc         line=  554 file= CFlow.c
+    Block # 82: executed   218 time(s) address= 0x804984c function= addlist          line=  586 file= CFlow.c
+    Block # 83: executed   109 time(s) address= 0x8049879 function= addlist          line=  589 file= CFlow.c
+    Block # 84: executed    17 time(s) address= 0x804988c function= addlist          line=  589 file= CFlow.c
+    Block # 85: executed   109 time(s) address= 0x8049894 function= addlist          line=  589 file= CFlow.c
+    Block # 86: executed    56 time(s) address= 0x80498a3 function= addlist          line=  592 file= CFlow.c
+    Block # 87: executed     0 time(s) address= 0x80498c2 function= addlist          line=  595 file= CFlow.c
+    Block # 88: executed    56 time(s) address= 0x80498ec function= addlist          line=  598 file= CFlow.c
+    Block # 89: executed    17 time(s) address= 0x80498f8 function= addlist          line=  600 file= CFlow.c
+    Block # 90: executed    39 time(s) address= 0x804990c function= addlist          line=  604 file= CFlow.c
+    Block # 91: executed   162 time(s) address= 0x8049920 function= addlist          line=  609 file= CFlow.c
+    Block # 92: executed    92 time(s) address= 0x804992c function= addlist          line=  609 file= CFlow.c
+    Block # 93: executed    70 time(s) address= 0x8049940 function= addlist          line=  609 file= CFlow.c
+    Block # 94: executed   162 time(s) address= 0x804994f function= addlist          line=  609 file= CFlow.c
+    Block # 95: executed   854 time(s) address= 0x804995c function= addlist          line=  611 file= CFlow.c
+    Block # 96: executed   162 time(s) address= 0x804996b function= addlist          line=  611 file= CFlow.c
+    Block # 97: executed   692 time(s) address= 0x8049974 function= addlist          line=  613 file= CFlow.c
+    Block # 98: executed   162 time(s) address= 0x8049988 function= addlist          line=  615 file= CFlow.c
+    Block # 99: executed     0 time(s) address= 0x80499ab function= addlist          line=  618 file= CFlow.c
+    Block #100: executed   162 time(s) address= 0x80499d4 function= addlist          line=  621 file= CFlow.c
+    Block #101: executed   218 time(s) address= 0x80499e3 function= addlist          line=  624 file= CFlow.c
+    Block #102: executed   122 time(s) address= 0x8049a20 function= dumptree         line=  655 file= CFlow.c
+    Block #103: executed   104 time(s) address= 0x8049a51 function= dumptree         line=  661 file= CFlow.c
+    Block #104: executed   104 time(s) address= 0x8049a66 function= dumptree         line=  663 file= CFlow.c
+    Block #105: executed     1 time(s) address= 0x8049a76 function= dumptree         line=  665 file= CFlow.c
+    Block #106: executed     2 time(s) address= 0x8049a98 function= dumptree         line=  666 file= CFlow.c
+    Block #107: executed     1 time(s) address= 0x8049aa6 function= dumptree         line=  666 file= CFlow.c
+    Block #108: executed     1 time(s) address= 0x8049ab0 function= dumptree         line=  668 file= CFlow.c
+    Block #109: executed     1 time(s) address= 0x8049acc function= dumptree         line=  671 file= CFlow.c
+    Block #110: executed     1 time(s) address= 0x8049adb function= dumptree         line=  673 file= CFlow.c
+    Block #111: executed     0 time(s) address= 0x8049b0c function= dumptree         line=  678 file= CFlow.c
+    Block #112: executed     1 time(s) address= 0x8049b2d function= dumptree         line=  680 file= CFlow.c
+    Block #113: executed   104 time(s) address= 0x8049b38 function= dumptree         line=  682 file= CFlow.c
+    Block #114: executed   104 time(s) address= 0x8049b44 function= dumptree         line=  684 file= CFlow.c
+    Block #115: executed     0 time(s) address= 0x8049b58 function= dumptree         line=  688 file= CFlow.c
+    Block #116: executed   225 time(s) address= 0x8049b6c function= dumptree         line=  691 file= CFlow.c
+    Block #117: executed   104 time(s) address= 0x8049b78 function= dumptree         line=  691 file= CFlow.c
+    Block #118: executed   121 time(s) address= 0x8049b84 function= dumptree         line=  693 file= CFlow.c
+    Block #119: executed   121 time(s) address= 0x8049b93 function= dumptree         line=  693 file= CFlow.c
+    Block #120: executed   103 time(s) address= 0x8049ba2 function= dumptree         line=  693 file= CFlow.c
+    Block #121: executed    14 time(s) address= 0x8049bb0 function= dumptree         line=  695 file= CFlow.c
+    Block #122: executed   107 time(s) address= 0x8049bd0 function= dumptree         line=  699 file= CFlow.c
+    Block #123: executed   121 time(s) address= 0x8049bec function= dumptree         line=  701 file= CFlow.c
+    Block #124: executed   521 time(s) address= 0x8049c0c function= dumptree         line=  703 file= CFlow.c
+    Block #125: executed   121 time(s) address= 0x8049c1a function= dumptree         line=  703 file= CFlow.c
+    Block #126: executed   400 time(s) address= 0x8049c24 function= dumptree         line=  705 file= CFlow.c
+    Block #127: executed   121 time(s) address= 0x8049c40 function= dumptree         line=  708 file= CFlow.c
+    Block #128: executed   103 time(s) address= 0x8049c4e function= dumptree         line=  710 file= CFlow.c
+    Block #129: executed    18 time(s) address= 0x8049c84 function= dumptree         line=  716 file= CFlow.c
+    Block #130: executed   121 time(s) address= 0x8049ca0 function= dumptree         line=  718 file= CFlow.c
+    Block #131: executed   121 time(s) address= 0x8049cc0 function= dumptree         line=  720 file= CFlow.c
+    Block #132: executed   103 time(s) address= 0x8049ccf function= dumptree         line=  720 file= CFlow.c
+    Block #133: executed    14 time(s) address= 0x8049cdd function= dumptree         line=  722 file= CFlow.c
+    Block #134: executed    14 time(s) address= 0x8049d19 function= dumptree         line=  727 file= CFlow.c
+    Block #135: executed     0 time(s) address= 0x8049d2c function= dumptree         line=  731 file= CFlow.c
+    Block #136: executed   121 time(s) address= 0x8049d3c function= dumptree         line=  734 file= CFlow.c
+    Block #137: executed   122 time(s) address= 0x8049d70 function= dumptree         line=  739 file= CFlow.c
+    Block #138: executed     1 time(s) address= 0x8049d78 function= initstatemachine line=  759 file= CFlow.c
+    Block #139: executed   129 time(s) address= 0x8049da8 function= initstatemachine line=  761 file= CFlow.c
+    Block #140: executed     1 time(s) address= 0x8049db4 function= initstatemachine line=  761 file= CFlow.c
+    Block #141: executed   128 time(s) address= 0x8049dc0 function= initstatemachine line=  763 file= CFlow.c
+    Block #142: executed    66 time(s) address= 0x8049ddd function= initstatemachine line=  763 file= CFlow.c
+    Block #143: executed    65 time(s) address= 0x8049de9 function= initstatemachine line=  763 file= CFlow.c
+    Block #144: executed    64 time(s) address= 0x8049df5 function= initstatemachine line=  765 file= CFlow.c
+    Block #145: executed    64 time(s) address= 0x8049e0c function= initstatemachine line=  769 file= CFlow.c
+    Block #146: executed   128 time(s) address= 0x8049e1e function= initstatemachine line=  771 file= CFlow.c
+    Block #147: executed     1 time(s) address= 0x8049ebc function= initstatemachine line=  782 file= CFlow.c
+    Block #148: executed     0 time(s) address= 0x8049f3c function= sortdump         line=  824 file= CFlow.c
+    Block #149: executed     0 time(s) address= 0x8049f88 function= sortdump         line=  832 file= CFlow.c
+    Block #150: executed     0 time(s) address= 0x8049fb0 function= sortdump         line=  835 file= CFlow.c
+    Block #151: executed     0 time(s) address= 0x8049fc4 function= sortdump         line=  836 file= CFlow.c
+    Block #152: executed     0 time(s) address= 0x8049fd3 function= sortdump         line=  836 file= CFlow.c
+    Block #153: executed     0 time(s) address= 0x8049fe0 function= sortdump         line=  838 file= CFlow.c
+    Block #154: executed     0 time(s) address= 0x8049ffd function= sortdump         line=  840 file= CFlow.c
+    Block #155: executed     0 time(s) address= 0x804a028 function= sortdump         line=  842 file= CFlow.c
+    Block #156: executed     0 time(s) address= 0x804a037 function= sortdump         line=  842 file= CFlow.c
+    Block #157: executed     0 time(s) address= 0x804a040 function= sortdump         line=  844 file= CFlow.c
+    Block #158: executed     0 time(s) address= 0x804a060 function= sortdump         line=  836 file= CFlow.c
+    Block #159: executed     0 time(s) address= 0x804a070 function= sortdump         line=  851 file= CFlow.c
+    Block #160: executed     0 time(s) address= 0x804a094 function= sortdump         line=  854 file= CFlow.c
+    Block #161: executed     0 time(s) address= 0x804a0ac function= sortdump         line=  854 file= CFlow.c
+    Block #162: executed     0 time(s) address= 0x804a0b4 function= sortdump         line=  856 file= CFlow.c
+    Block #163: executed     0 time(s) address= 0x804a0e4 function= sortdump         line=  860 file= CFlow.c
+    Block #164: executed     0 time(s) address= 0x804a0ec function= mycompare        line=  883 file= CFlow.c
+    Block #165: executed 21158 time(s) address= 0x804a134 function= getsucc          line=  916 file= CFlow.c
+    Block #166: executed 42524 time(s) address= 0x804a168 function= getsucc          line=  923 file= CFlow.c
+    Block #167: executed  1341 time(s) address= 0x804a18f function= getsucc          line=  925 file= CFlow.c
+    Block #168: executed 42524 time(s) address= 0x804a19b function= getsucc          line=  927 file= CFlow.c
+    Block #169: executed     1 time(s) address= 0x804a1aa function= getsucc          line=  929 file= CFlow.c
+    Block #170: executed 42523 time(s) address= 0x804a1bc function= getsucc          line=  931 file= CFlow.c
+    Block #171: executed 21727 time(s) address= 0x804a1ff function= getsucc          line=  934 file= CFlow.c
+    Block #172: executed   570 time(s) address= 0x804a20e function= getsucc          line=  934 file= CFlow.c
+    Block #173: executed 21157 time(s) address= 0x804a221 function= getsucc          line=  937 file= CFlow.c
+    Block #174: executed     0 time(s) address= 0x804a230 function= getsucc          line=  940 file= CFlow.c
+    Block #175: executed 21157 time(s) address= 0x804a258 function= getsucc          line=  943 file= CFlow.c
+    Block #176: executed  1028 time(s) address= 0x804a267 function= getsucc          line=  945 file= CFlow.c
+    Block #177: executed   117 time(s) address= 0x804a2c6 function= getsucc          line=  946 file= CFlow.c
+    Block #178: executed  1028 time(s) address= 0x804a2cf function= getsucc          line=  946 file= CFlow.c
+    Block #179: executed 20129 time(s) address= 0x804a2e4 function= getsucc          line=  950 file= CFlow.c
+    Block #180: executed   682 time(s) address= 0x804a30d function= getsucc          line=  950 file= CFlow.c
+    Block #181: executed 20129 time(s) address= 0x804a316 function= getsucc          line=  950 file= CFlow.c
+    Block #182: executed  7613 time(s) address= 0x804a32d function= getsucc          line=  953 file= CFlow.c
+    Block #183: executed 21157 time(s) address= 0x804a369 function= getsucc          line=  956 file= CFlow.c
+    Block #184: executed 21158 time(s) address= 0x804a376 function= getsucc          line=  957 file= CFlow.c
+    Block #185: executed   499 time(s) address= 0x804a380 function= succpos          line=  979 file= CFlow.c
+    Block #186: executed 18735 time(s) address= 0x804a3a8 function= succpos          line=  981 file= CFlow.c
+    Block #187: executed 18237 time(s) address= 0x804a3c5 function= succpos          line=  981 file= CFlow.c
+    Block #188: executed   499 time(s) address= 0x804a3d4 function= succpos          line=  983 file= CFlow.c
+    Block #189: executed   498 time(s) address= 0x804a3e3 function= succpos          line=  985 file= CFlow.c
+    Block #190: executed     1 time(s) address= 0x804a404 function= succpos          line=  988 file= CFlow.c
+    Block #191: executed   499 time(s) address= 0x804a40f function= succpos          line=  989 file= CFlow.c
+    Block #192: executed   178 time(s) address= 0x804a418 function= nsuccmemb        line= 1012 file= CFlow.c
+    Block #193: executed   351 time(s) address= 0x804a450 function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #194: executed   173 time(s) address= 0x804a46f function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #195: executed     0 time(s) address= 0x804a47b function= nsuccmemb        line= 1016 file= CFlow.c
+    Block #196: executed   173 time(s) address= 0x804a484 function= nsuccmemb        line= 1018 file= CFlow.c
+    Block #197: executed   178 time(s) address= 0x804a498 function= nsuccmemb        line= 1020 file= CFlow.c
+    Block #198: executed   178 time(s) address= 0x804a4b2 function= nsuccmemb        line= 1022 file= CFlow.c
+    Block #199: executed   344 time(s) address= 0x804a4c8 function= readtoken        line= 1049 file= CFlow.c
+    Block #200: executed  1552 time(s) address= 0x804a54c function= readtoken        line= 1054 file= CFlow.c
+    Block #201: executed  1552 time(s) address= 0x804a562 function= readtoken        line= 1054 file= CFlow.c
+    Block #202: executed  1208 time(s) address= 0x804a581 function= readtoken        line= 1054 file= CFlow.c
+    Block #203: executed     0 time(s) address= 0x804a58d function= readtoken        line= 1054 file= CFlow.c
+    Block #204: executed  1208 time(s) address= 0x804a598 function= readtoken        line= 1056 file= CFlow.c
+    Block #205: executed   344 time(s) address= 0x804a5b0 function= readtoken        line= 1058 file= CFlow.c
+    Block #206: executed   176 time(s) address= 0x804a5c0 function= ismember         line= 1082 file= CFlow.c
+    Block #207: executed  1169 time(s) address= 0x804a5f0 function= ismember         line= 1084 file= CFlow.c
+    Block #208: executed  1015 time(s) address= 0x804a5fe function= ismember         line= 1084 file= CFlow.c
+    Block #209: executed    22 time(s) address= 0x804a61f function= ismember         line= 1084 file= CFlow.c
+    Block #210: executed   993 time(s) address= 0x804a628 function= ismember         line= 1086 file= CFlow.c
+    Block #211: executed   176 time(s) address= 0x804a63c function= ismember         line= 1090 file= CFlow.c
+    Block #212: executed   154 time(s) address= 0x804a64a function= ismember         line= 1090 file= CFlow.c
+    Block #213: executed    22 time(s) address= 0x804a658 function= ismember         line= 1091 file= CFlow.c
+    Block #214: executed    22 time(s) address= 0x804a679 function= ismember         line= 1091 file= CFlow.c
+    Block #215: executed     0 time(s) address= 0x804a688 function= ismember         line= 1091 file= CFlow.c
+    Block #216: executed    22 time(s) address= 0x804a695 function= ismember         line= 1091 file= CFlow.c
+    Block #217: executed   176 time(s) address= 0x804a69e function= ismember         line= 1092 file= CFlow.c
+    Block #218: executed     0 time(s) address= 0x804a6a8 function= qksort           line= 1130 file= CFlow.c
+    Block #219: executed     0 time(s) address= 0x804a6f4 function= qksort           line= 1139 file= CFlow.c
+    Block #220: executed     0 time(s) address= 0x804a705 function= qksort           line= 1139 file= CFlow.c
+    Block #221: executed     0 time(s) address= 0x804a710 function= qksort           line= 1141 file= CFlow.c
+    Block #222: executed     0 time(s) address= 0x804a72d function= qksort           line= 1143 file= CFlow.c
+    Block #223: executed     0 time(s) address= 0x804a73c function= qksort           line= 1147 file= CFlow.c
+    Block #224: executed     0 time(s) address= 0x804a750 function= qksort           line= 1152 file= CFlow.c
+    Block #225: executed     0 time(s) address= 0x804a75c function= qksort           line= 1154 file= CFlow.c
+    Block #226: executed     0 time(s) address= 0x804a78f function= qksort           line= 1158 file= CFlow.c
+    Block #227: executed     0 time(s) address= 0x804a798 function= quicksort        line= 1166 file= CFlow.c
+    Block #228: executed     0 time(s) address= 0x804a7d4 function= quicksort        line= 1170 file= CFlow.c
+    Block #229: executed     0 time(s) address= 0x804a7e2 function= quicksort        line= 1170 file= CFlow.c
+    Block #230: executed     0 time(s) address= 0x804a7f0 function= quicksort        line= 1175 file= CFlow.c
+    Block #231: executed     0 time(s) address= 0x804a807 function= quicksort        line= 1176 file= CFlow.c
+    Block #232: executed     0 time(s) address= 0x804a828 function= quicksort        line= 1179 file= CFlow.c
+    Block #233: executed     0 time(s) address= 0x804a83f function= quicksort        line= 1180 file= CFlow.c
+    Block #234: executed     0 time(s) address= 0x804a85e function= quicksort        line= 1182 file= CFlow.c
+    Block #235: executed     0 time(s) address= 0x804a86c function= quicksort        line= 1183 file= CFlow.c
+    Block #236: executed     0 time(s) address= 0x804a874 function= quicksort        line= 1185 file= CFlow.c
+    Block #237: executed     0 time(s) address= 0x804a898 function= quicksort        line= 1188 file= CFlow.c
+    Block #238: executed     0 time(s) address= 0x804a8c5 function= quicksort        line= 1191 file= CFlow.c
+    Block #239: executed     0 time(s) address= 0x804a8fc function= quicksort        line= 1197 file= CFlow.c
+    Block #240: executed     0 time(s) address= 0x804a940 function= quicksort        line= 1202 file= CFlow.c
+    Block #241: executed     0 time(s) address= 0x804a948 function= swap             line= 1212 file= CFlow.c
+    Block #242: executed     0 time(s) address= 0x804a970 function= swap             line= 1215 file= CFlow.c
+    Block #243: executed     0 time(s) address= 0x804a981 function= swap             line= 1215 file= CFlow.c
+    Block #244: executed     0 time(s) address= 0x804a98c function= swap             line= 1217 file= CFlow.c
+    Block #245: executed     0 time(s) address= 0x804a9b4 function= swap             line= 1221 file= CFlow.c
+
+
+

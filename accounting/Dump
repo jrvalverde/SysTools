@@ -1,0 +1,323 @@
+#!/bin/sh
+
+# Dump some fsystems
+#	Dump [-m machine] [-o onlymachine] [-l level] [-f filesystem]*
+#
+# reads file fsystems of format :
+#	frequency  : system  : tape_incr_num  : filesystems
+# where frequency is one of 'full' (full dump) or 'daily'
+# defaults to 'full'
+# can be restricted to a specific system with -o
+#
+# options -m is used to bypass the file fsystems.  requires -f to be used.
+# level can be changed from default "0" with -l
+
+# filenames
+fsystems=/usr/local/etc/dump/file.systems
+logfile=/usr/local/etc/dump/Dump.log
+full_tapefile=/usr/local/etc/dump/full.tape.num
+daily_tapefile=/usr/local/etc/dump/daily.tape.num
+os_type_file=/usr/local/etc/dump/hosts.os
+
+# number of tapes we have for each type of Dump
+max_num_full_tapes=4
+max_num_daily_tapes=6
+
+# default to automatic full dump
+tapefile=$full_tapefile
+max_tape_num=$max_num_full_tapes	# number of tapes
+level="0"				# 0 or 9
+manual="no"				# yes or no
+dumptype="full"				# full or daily
+
+# dump defaults
+device="/dev/nrmt0h"			# compression
+tapelen=2640
+tapedens=61000
+blocks=64
+
+# programs
+newsrunning=/usr/local/news/bin/input/newsrunning
+dump=/usr/sbin/dump
+rdump=/usr/sbin/rdump
+
+# initialize
+onlymachine=""
+filesystems=""
+old_tape_incr_num=""
+me=`hostname | sed 's/^.*\.//'`
+echo=					# set echo=echo is testing
+usage="$0 [-d] [full | daily] [-l level] [-m] [-o only_system] [-f filesystem]*"
+
+my_OS=`uname`
+case $my_OS in
+SunOS)
+	device="/dev/nrst0"
+	tapelen=15000
+	tapedens=15000
+	blocks=64
+	grep_options="-s"
+	dump=/usr/etc/dump
+	;;
+OSF1)
+	device="/dev/nrmt0h"			# compression
+	tapelen=2640
+	tapedens=61000
+	blocks=64
+	grep_options="-s -q"
+	dump=/usr/sbin/dump
+	;;
+*)
+	echo $0: Unknown system type: $OS.  Dont know what device to use.
+	exit 1
+	;;
+esac
+
+while :
+do
+	case "$1" in
+	-o)
+		case "$2" in
+		'')     echo "$usage" >&2; exit 1;;
+		esac
+		onlymachine=$2
+		shift
+		shift
+		;;
+	-m)
+		case "$2" in
+		'')     echo "$usage" >&2; exit 1;;
+		esac
+		system=$2
+		manual="yes"
+		shift
+		shift
+		;;
+	-f)
+		case "$2" in
+		'')     echo "$usage" >&2; exit 1;;
+		esac
+		filesystems="${filesystems} $2"
+		shift
+		shift
+		;;
+	-l)
+		case "$2" in
+		'')     echo "$usage" >&2; exit 1;;
+		esac
+		level="$2"
+		shift
+		shift
+		;;
+	-d)
+		echo=echo
+		shift
+		;;
+	-*)
+		echo "$usage" >&2
+		exit 1
+		;;
+	full)
+		level="0"
+		tapefile=$full_tapefile
+		dumptype="full"
+		max_tape_num=$max_num_full_tapes
+		shift
+		;;
+	daily)
+		level="9"
+		tapefile=$daily_tapefile
+		dumptype="daily"
+		max_tape_num=$max_num_daily_tapes
+		shift
+		;;
+        *)      break
+		;;
+        esac
+done
+
+if [ ! -r $tapefile ]; then
+	echo 1 > $tapefile
+fi
+
+cp -p /.rhosts /.rhosts.normal
+if [ -f /.rhosts.dump ] ; then
+	cp -p /.rhosts.dump /.rhosts
+	chmod 644 /.rhosts
+fi
+
+if [ -x $newsrunning ] ; then
+	# we are a news machine
+	trap "cp -p /.rhosts.normal /.rhosts ; $newsrunning on ; exit " 0 1 2 15
+	$newsrunning off
+else
+	trap "cp -p /.rhosts.normal /.rhosts ; exit " 0 1 2 15
+fi
+
+if [ "${manual}" = "yes" ] ; then
+	if [ X"${filesystems}" = "X" ]; then
+		echo $0: must use -f option with -m
+		exit 1
+	fi
+	if [ "X${system}" != "X${me}" ] ; then
+		rsh="rsh -n $system"
+		tapeowner=${me}:
+		cmd=${rdump}
+	fi
+	for fs in ${filesystems} ; do
+		echo Dumping filesystem $fs on $system to $device on $me
+		$echo $rsh $cmd -${level}u -d $tapedens -s $tapelen \
+			-b $blocks -f ${tapeowner}${device} ${fs}
+	done
+else
+	if [ ! -r $fsystems ]; then
+		echo $0: cant open $fsystems
+		exit 1
+	fi
+	tapenum=`head -1 $tapefile`
+
+	if [ ! -r $os_type_file ]; then
+		echo $0: cant open $os_type_file
+		exit 1
+	fi
+
+	cat $fsystems | \
+	while read line ; do
+		if [ "X${line}" = "X" ] ; then
+			continue
+		fi
+		echo $line | grep $grep_options '^#'
+		if [ $? = 0 ] ; then
+			continue
+		fi
+		echo $line | grep $grep_options ':'
+		if [ $? != 0 ]; then
+			echo $0: bad line in ${fsystems}: \'${line}\'
+			exit 1
+		fi
+		mode=`echo $line | cut -f1 -d: | sed -e 's/  *//g'`
+		case "${mode}" in
+		full)
+			modenum="0"
+			;;
+		daily)
+			modenum="9"
+			;;
+		*)
+			echo $0: ${fsystems}: bad value: \'${mode}\' in line \'${line}\'
+			exit 1
+			;;
+		esac
+		if [ "${modenum}" != "${level}" ] ; then
+			continue ;
+		fi
+
+		system=`echo $line | cut -f2 -d:| sed -e 's/  *//g'`
+		if [ X"${onlymachine}" != "X" ] ; then
+			if [ "${system}" != "${onlymachine}" ]; then
+				continue
+			fi
+		fi
+
+		tape_incr_num=`echo $line | cut -f3 -d:| sed -e 's/  *//g'`
+		filesystems=`echo $line | cut -f4 -d:`
+
+		rsh=""
+		tapeowner=""
+		cmd=$dump
+
+		if [ "X${system}" != "X${me}" ] ; then
+			tapeowner=${me}:
+		fi
+
+		dump_options="${level}udsbf $tapedens $tapelen \
+			 $blocks ${tapeowner}${device}"
+		rdump=/usr/bin/rdump
+
+		rem_OS=xxxx
+		line=`grep "^${system}" $os_type_file`
+		if [ $? = 0 ] ; then
+			rem_OS=`echo $line | cut -f2 -d" "`
+		fi
+		case $rem_OS in
+		Ultrix)
+			dump_options="${level}uof \
+				 ${tapeowner}${device}"
+			rdump=/bin/rdump
+			;;
+		SunOS)
+			rdump=/usr/etc/rdump
+			;;
+		OSF1)
+			dump_options="-${level}u -d $tapedens -s $tapelen \
+				 -b $blocks -f ${tapeowner}${device}"
+			rdump=/usr/sbin/rdump
+			;;
+		esac
+
+		if [ "X${system}" != "X${me}" ] ; then
+			rsh="rsh -n $system"
+			cmd=${rdump}
+		fi
+
+
+		# note the difference between tape_incr_num and tapenum.
+
+		# tape_incr_num is used in the filesystems file to specify
+		# another tape should be used.  The file is read sequentially
+		# and the number can be *any* string that didn't match the
+		# previous 'number' for that dump type (full or daily)
+
+		# 'tapenum' is the number written on the tape.  There should
+		# be no confusion between these 2 numbers because the following
+		# message printed out includes the system name which will be
+		# written on the tape.  When tape_incr_num is increased in the
+		# filesystems file, it will always be to dump another (one or
+		# more) systems.
+
+		if [ "${old_tape_incr_num}" != "${tape_incr_num}" ] ; then
+			old_tape_incr_num=$tape_incr_num
+			echo ""
+			echo ""
+			echo -n "Insert tape type=$dumptype number=$tapenum" \
+				 "for $system, press return : "
+			read crap < /dev/tty
+			echo ""
+			echo Rewinding device $device on $me
+			if [ "${my_OS}" = "SunOS" ]; then
+				# Stupid Sun.  wake up you stupid drive...
+				$echo	mt -f $device rew
+				$echo	mt -f $device rew
+			fi
+			$echo	mt -f $device rew
+		fi
+			
+		for fs in ${filesystems} ; do
+			echo Dumping filesystem $fs on $system to $device on $me
+			$echo $rsh $cmd $dump_options $fs
+		done
+		dayt=`date | sed -e 's/  */ /g' | cut -f1-4 -d" "`
+		echo "${dayt}: ${system}:	($dumptype)" \
+			 "#$tapenum" >> $logfile
+		echo "	${filesystems}" >> $logfile
+	done
+	echo "-----------------------------------------" >> $logfile
+	tapenum=`echo $tapenum + 1 | bc`
+	if [ "${tapenum}"  -gt $max_tape_num ]; then
+		echo 1 > $tapefile
+	else
+		echo $tapenum > $tapefile
+	fi
+fi
+
+echo ""
+echo Done dump.  Rewinding device $device on $me
+$echo	mt -f $device rew
+if [ "${my_OS}" = "SunOS" ]; then
+	# Stupid Sun.  wake up you stupid drive...
+	$echo	mt -f $device rew
+	$echo	mt -f $device rew
+fi
+
+echo All done.
+exit 0

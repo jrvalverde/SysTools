@@ -1,0 +1,150 @@
+#!/usr/local/bin/tclsh
+
+# report *changed* files.  does NOT report newly created files.
+
+set directories         { /usr/local/bin /usr/bin /usr/sbin /sbin
+			  /usr/local/maintenance /etc }
+set ignore_files	{ /etc/motd /etc/passwd /etc/dumpdates /etc/namedb
+			  /sbin/swapdefault /etc/ntp.drift }
+set extra_files		{ /vmunix }
+set admin		security
+set chksum_file		/usr/spool/news-clean/articles
+set chksum_file_new	/usr/spool/news-clean/articles_new
+set change_file		/tmp/newsstuff_foo.1
+set subject		"Files Changed on [exec hostname].  Security Problem?"
+set progname		$argv0
+set os			[ exec uname ]
+set mail		"mail"
+
+# bloody DEC...
+if { $os == "OSF1" } {
+	set mail mailx
+}
+
+exec rm -f $change_file
+
+set catcherr [catch {open $change_file w} change_fd ]
+if { $catcherr == 1 } {
+	set errmsg [format "%s: %s" $progname $change_fd ]
+	puts stderr $errmsg
+	exit 1
+}
+set catcherr [catch {open $chksum_file_new w} chk_fd_new ]
+if { $catcherr == 1 } {
+	set errmsg [format "%s: %s" $progname $chk_fd_new ]
+	puts stderr $errmsg
+	exit 1
+}
+
+set catcherr [catch {open $chksum_file r} chk_fd ]
+if { $catcherr == 0 } {
+	while { [gets $chk_fd line] != -1 } {
+		set num [scan $line "%s %s %s" filename checksum blocks ]
+		if { $num != 3 } {
+			set errmsg [format "%s: bad line '%s' in %s" \
+				$progname $line $chksum_file ]
+			puts stderr  $errmsg
+			continue
+		}
+
+		# watch out for files the change often that we dont care about
+		set found no
+		foreach file $ignore_files {
+			set ret [string compare $file $filename]
+			if { $ret == 0 } {
+				set found yes
+				break
+			}
+		}
+		if { $found == "yes" } continue
+
+		# get the new sum
+		set catcherr [catch {exec sum $filename} sum ]
+		if { $catcherr != 0 } {
+			set errmsg [format "%s: %s" $progname $sum ]
+			puts stderr $errmsg
+			continue
+		}
+		set num [scan $sum "%s %s" n_checksum n_blocks ]
+		if { $num != 2 } {
+			set errmsg [format "%s: bad return from sum: '%s'" \
+				$progname $sum ]
+			puts stderr  $errmsg
+			continue
+		}
+
+		# compare the 2 checksums
+		if { ($checksum != $n_checksum) || ( $blocks != $n_blocks) } {
+			puts $change_fd $filename
+		} else {
+			# keep track of files to save lots of processing later
+			# when we go to build the new checksum file
+
+			set filenames($filename) $filename
+			puts $chk_fd_new $line
+		}
+	}
+	close $chk_fd
+	close $change_fd
+
+	# see if we found any differences.  If so, let the sys admin know
+	set size [file size $change_file]
+	if { $size != 0 } {
+		exec $mail -s $subject $admin < $change_file
+	}
+}
+
+# now create a new checksum file.  We have already written 99% of it out
+# already.  But we have to look for new files and process new entries for
+# those that have changed.
+
+foreach dir $directories {
+	catch { cd $dir } cderr
+	if { $cderr != "" } {
+		set errmsg [format "%s: %s" $progname $cderr]
+		puts stderr  $errmsg
+		close $change_fd
+		exit 1
+	}
+	set files [glob *]
+	foreach file $files {
+		# skip this guy if the file doesn't exist
+		if { [file exists $file] != 1 } continue
+
+		# skip this guy if we've already written him out above
+		if { [ info exists filenames($dir/$file) ] }  continue
+
+		set catcherr [catch {exec sum $file} sum ]
+		if { $catcherr != 0 } {
+			set errmsg [format "%s: %s" $progname $sum ]
+			puts stderr $errmsg
+			continue
+		}
+		set output_str [format "%s/%s %s\n" $dir $file $sum]
+		puts $chk_fd_new $output_str nonewline
+	}
+}
+
+# and any extra special files
+foreach file $extra_files {
+	# skip this guy if the file doesn't exist
+	if { [file exists $file] != 1 } continue
+
+	# skip this guy if we've already written him out above
+	if { [ info exists filenames($file) ] }  continue
+
+	set catcherr [catch {exec sum $file} sum ]
+	if { $catcherr != 0 } {
+		set errmsg [format "%s: %s" $progname $sum ]
+		puts stderr $errmsg
+		continue
+	}
+	set output_str [format "%s %s\n" $file $sum]
+	puts $chk_fd_new $output_str nonewline
+}
+
+
+close $chk_fd_new
+exec rm -f $change_file
+exec mv $chksum_file_new $chksum_file
+exit 0

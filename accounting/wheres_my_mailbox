@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# print out which system the main mail hub is sending a users mail to.
+# This has no knowldeg of .forward files.
+
+userfile=/usr/local/etc/userdb/userfile
+progname=`basename $0`
+me=`whoami`
+
+if [ ! -r $userfile ]; then
+	echo $progname: cant open $userfile
+	exit 1
+fi
+
+line=`grep -s "^${me}" $userfile`
+
+if [ $? != "0" ]; then
+	echo $progname: cant find $me in $userfile
+	exit 1
+fi
+
+m_host=`echo $line | cut -f5 -d:`
+
+
+echo your mail for ${me}@ebi.ac.uk is being sent to $m_host
+
+exit 0

@@ -1,0 +1,133 @@
+#!/usr/local/bin/tclsh
+
+set me			$argv0
+set thishost		[ exec hostname ]
+set progname		[ file tail $argv0 ]
+set ftp_stats		/var/adm/xferlog
+set current_system	""
+set num_systems		0
+set total_bytes		0
+set total_files		0
+set final_total_bytes	0
+set final_total_files	0
+
+for { set i 1 } { $i <= $argc } { incr i } {
+	set arg [ lindex $argv [ expr $i - 1] ]
+	if { [ string index $arg 0 ] == "-" } {
+		set arg [ format "DASH%s" $arg ]
+		switch $arg {
+			DASH-v	{ set verbose yes }
+			DASH-f  { set ftp_stats [ lindex $argv $i ] ; incr i }
+			default	{ 
+				  puts stderr [format "%s: unknown option: %s" \
+					$progname $arg]
+				  exit 1
+			}
+		}
+	}
+}
+
+if { ! [ file exists $ftp_stats ] } {
+	puts stderr [ format "%s: %s not found" $progname $ftp_stats ]
+	exit 1
+}
+
+# grab beginning and ending date here since the records we read later will
+# be sorted.
+set begin_date [ exec head -1 $ftp_stats | cut -f1-5 -d " " ]
+set end_date [ exec tail -1 $ftp_stats | cut -f1-5 -d " " ]
+
+if { [ file size $ftp_stats ] == 0 } {
+	puts stdout [format "%s: %s: empty file" $progname $ftp_stats ]
+	exit 1
+}
+
+puts stdout [ format \
+	"\t\tFtp stats for %s for period beginning\n\n\t%s and ending %s\n\n" \
+	$thishost $begin_date $end_date ]
+puts stdout [ format "\t%-38s\t%12s\t%12s\n" \
+	"System (and users)" "Files" "Bytes" ]
+
+# sort first by system name and then by username
+set cmd_line	[ format "{| sort -k 7,7 -k 14,14 %s }" $ftp_stats ]
+set fd [ eval open $cmd_line r ]
+if { $fd < 0 } {
+	puts stderr [ format "%s: cant open %s" $progname $ftp_stats ]
+	exit 1
+}
+
+while { [ gets $fd line ] >= 0 } {
+	set num \
+	    [ scan $line "%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" \
+		weekday month day tyme year transfer_tyme system bytes file \
+		transfer_type action_flag direction access_mode username \
+		service_name authentication_method authenticated_user_id ]
+	if { $num != 17 } {
+		set num \
+		    [ scan $line \
+			"%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s" \
+			weekday month day tyme year transfer_tyme system \
+			bytes file action_flag direction access_mode username \
+			service_name authentication_method \
+			authenticated_user_id ]
+		if { $num != 16 } {
+			puts stderr [ format "%s: bad line in %s: %s" \
+				$progname $ftp_stats $line ]
+			puts stderr [ format "%s: number of fields = %d" \
+				$progname $num ]
+			continue
+		}
+	}
+
+	if { $system != $current_system } {
+		if { $num_systems != 0 } {
+			puts stdout [ format "\t%-38s\t%12d\t%12d" \
+				$current_user $user_files  $user_bytes ]
+			puts stdout [ format \
+				"\t%38s\t%12s\t%12s" \
+				 " " "----------" "----------" ]
+			puts stdout [ format "\t%38s\t%12d\t%12d" \
+				" " $total_files $total_bytes]
+		} 
+		puts $system
+		# re-initialize
+		set current_system	$system
+		set current_user	$username
+		set user_files		1
+		set user_bytes		$bytes
+		set total_files		1
+		set total_bytes		$bytes
+		incr			num_systems
+	} else {
+		if { $username == $current_user } {
+			incr user_files
+			set user_bytes [ expr $user_bytes + $bytes ]
+		} else {
+			puts stdout [ format "\t%-38s\t%12d\t%12d" \
+				$current_user $user_files  $user_bytes ]
+			set current_user	$username
+			set user_files		1
+			set user_bytes		$bytes
+		}
+		incr total_files
+		set total_bytes [ expr $total_bytes + $bytes ]
+	}
+	incr final_total_files
+	set final_total_bytes [ expr $final_total_bytes + $bytes ]
+}
+if { $num_systems != 0 } {
+	puts stdout [ format "\t%-38s\t%12d\t%12d" \
+		$current_user $user_files  $user_bytes ]
+	puts stdout [ format \
+		"\t%-38s\t%12s\t%12s" \
+		 " " "----------" "----------" ]
+	puts stdout [ format "\t%-38s\t%12d\t%12d\n" \
+		" " $total_files $total_bytes]
+
+	set str [ format "Total files and bytes for %s systems :" $num_systems ]
+	puts stdout [ format "\n\t%38s\t%12d\t%12d" \
+		$str $final_total_files $final_total_bytes ]
+}
+
+close $fd
+exit 0

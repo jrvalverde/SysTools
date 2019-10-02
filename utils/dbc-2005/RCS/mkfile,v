@@ -1,0 +1,48 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2005.08.03.08.02.32;	author root;	state Exp;
+branches;
+next	;
+
+
+desc
+@VMS mkfile for dbconv [j]
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@dbconv.exe : dbconv.obj dbsetup.obj dbproc.obj
+
+	$ link dbconv,dbsetup,dbproc,'rtlib'
+
+	$ purge
+
+
+
+dbconv.obj : dbconv.c dbconv.h
+
+	$ cc dbconv
+
+
+
+dbsetup.obj : dbsetup.c dbconv.h
+
+	$ cc dbsetup
+
+
+
+dbproc.obj : dbproc.c dbconv.h
+
+	$ cc dbproc
+
+@

@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+#	Kill all ftp sessions (to be used when all slots are filled with 
+#	hung sessions, or every so often).
+#
+# -- find all running processes, get "(ftpd)" iddle ones, remove the grepper, 
+#    select "\n  something" (i.e. PID) and thus obtain the "(ftpd)" pids.
+#
+# -- find then for each of these iddle processes the time they have been
+#    sleeping.
+#
+# -- if they have been sleeping for more than the allowed timeout, then
+#    kill them.
+#
+#			JRValverde (19 - jul - 1995)
+#			JRValverde (27 - jul - 1995)
+#
+#   Enforce a minimum timeout preiod of 1 hour. I.e. can't kill ftpd's younger
+#   than that.
+#
+for pid in `/bin/ps -e | grep $1 | grep -v grep | sed -e 's/^  *//' -e 's/ .*//'`
+do
+	/bin/kill -9 $pid
+done

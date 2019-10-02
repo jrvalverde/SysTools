@@ -1,0 +1,50 @@
+#	Bourne Shell script to create libraries
+#
+#	This script is designed to use ranlib where it
+#	exists and lorder | tsort elsewhere
+#
+#	mklib always creates a library from scratch; it
+#	doesn't handle updates
+#
+#	Copyright 1985 by Rabbit Software Corporation
+
+case $1 in
+"")	echo "Usage: mklib ar-flags libname object-files"
+	exit 1
+	;;
+esac
+arflags=$1			# get flags for ar
+shift
+
+libname=$1			# get target library name
+shift
+
+tmpname=/tmp/scr.$$		# make a temp library name
+
+if [ -f /usr/bin/ranlib -o -f /bin/ranlib]
+then
+	# This portion if ranlib exists
+
+	if ar $arflags $tmpname $*
+	then
+		if cp $tmpname $libname
+		then
+			ranlib $libname
+		fi
+	fi
+
+else
+
+	# This portion if ranlib not found
+
+	if ar $arflags $tmpname `lorder $* | tsort`
+	then
+		cp $tmpname $libname
+	fi
+fi
+
+stat=$?
+
+rm $tmpname		# Clean up temp file
+
+exit $stat

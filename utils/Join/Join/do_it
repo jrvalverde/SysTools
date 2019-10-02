@@ -1,0 +1,70 @@
+#	This is a Sh-Shell script
+#
+#	This command receives three arguments:
+#	$1 -- Library file in DATA format
+#	$2 -- Keyword file in DATA format
+#	$3 -- output file
+#
+if (test $# -lt 3) then
+	echo "Usage: do_it Library.DAT descriptors.DAT output.TAB"
+	exit
+fi
+
+a2t $1 f1
+nawk '{FS="\t";OFS="\t";{print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10}}' f1 > f2
+rm f1
+
+nawk '{printf("%4d\t%s\n",NR,$0)}' f2 | \
+nawk '{FS="\t";if($2=="C"){printf("%s\t%s\n",$5,$0)}else{printf("\t%s\n",$0)}}' | \
+sort > f1
+rm f2
+
+f2t $2 f2
+
+sort f2 > f3
+rm f2
+
+dbj f1 f3 f4
+rm f1
+rm f3
+
+sort f4 > f5
+rm f4
+
+nawk '{FS="\t";OFS="\t";print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,tolower($12),tolower($13)}' f5 > $3
+rm f5
+
+#
+#	Count "C" lines
+#
+# nawk '{if ($1 == "C") print $1}' file.tab | lc
+#
+#	Number records
+#
+# nawk '{printf("%4d\t%s\n", NR, $0)}' file.tab > fno.tab
+#
+#	Duplicate key-field
+#
+# nawk '{FS="\t"; if($2 == "C") {printf("%s\t%s\n",$5,$0)} else {printf("\t%s\n",$0)}}' \
+#	fno.tab > fnok.tab
+#
+#	Convert descriptors file from DAT to TAB format
+#
+# f2t file.dat file.tab
+#
+#	Sort by key-field
+#
+# sort file.tab > file.srt
+#
+#	Join
+#
+# dbj file1.srt file2.srt file3.out
+#
+#	Sort by number
+#
+# sort file.out > file.srt
+#
+#	Strip numbers
+#
+# nawk '{FS="\t";OFS="\t";print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14}' file.in > file.out
+#

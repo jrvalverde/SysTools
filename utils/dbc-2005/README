@@ -1,0 +1,61 @@
+				DBConv
+				======
+			José R. Valverde (July, 2005)
+
+A small utility to convert line-oriented text database files into 
+character-separated values database files.
+
+I wrote this utility to facilitate import of bioinformatics databases
+(which are traditionally distributed as line-oriented flat files) into
+tab-delimited format. More recently this kind for format has found
+new life in various popular tools (like LDAP LDIF) and I retook the
+code to extend it and suit it better to the UNIX phylosophy of
+small, pluggable tools.
+
+A straightforward extension to be introduced was to make it 
+produce CSV files, and once at it, it was natural to make it more
+generic. The result has been a new version of an ancient tool that
+hopefully will find new life.
+
+To learn more about DBConv, you can read the included man page.
+
+INSTALLATION
+------------
+
+A Makefile for UNIX systems and an mkfile for VMS are included.
+DBConv has been ported (in its former release) to other systems 
+like MS-DOS and MacOS (even with nifty icons). It is a very
+simpole tool, and in any case should have no problem compiling
+as it should have no system dependencies.
+
+For this release an effort has been made to adapt the old K&R
+C code to more recent ANSI standards. Still, some glitch may
+remain hidden.
+
+To make DBConvert compile it using
+
+	cc DBconv.c dbproc.c dbsetup.c -o dbconv
+
+or use the provided Makefile (on UNIX systems) or mkfile
+(for VMS).
+
+Then copy the executable dbconv to a suitableplace in the users'
+search path (usually /usr/local/bin) and the file dbconv.1 to 
+the place for manual pages for applications (usually section 1, 
+/usr/local/man/man1) and you are done.
+
+LICENSE
+-------
+
+DBConv is licensed under the terms of the GNU GPL and LGPL. A copy
+of them is included in directory ./c/. Please review them before
+using this program to learn if it suits your (legal) needs.
+
+SUPPORT
+-------
+
+The usual disclaimers apply (no guarantees, etc...). I will try my
+best to support this program, but don't hold your breadth. You may
+direct bug reports, enhance requests, etc.. to
+
+		jrvalverde@acm.org

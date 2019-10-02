@@ -1,0 +1,74 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.6	//
+EXIT_OK	dbconv.h	62;"	d
+EXIT_OK	dbconv.h	73;"	d
+FALSE	dbconv.h	50;"	d
+FIELD_OVERFLOW	dbconv.h	67;"	d
+FIELD_OVERFLOW	dbconv.h	77;"	d
+FILE_NOT_FOUND	dbconv.h	66;"	d
+FILE_NOT_FOUND	dbconv.h	76;"	d
+FLD_DEF_SIZE	dbconv.h	44;"	d
+FLD_INC_SIZE	dbconv.h	45;"	d
+MAXFIELDS	dbconv.h	43;"	d
+MAXLINE	dbconv.h	46;"	d
+MAXPATHLEN	dbconv.h	47;"	d
+MEMORY_OVERFLOW	dbconv.h	68;"	d
+MEMORY_OVERFLOW	dbconv.h	78;"	d
+NO	dbconv.h	53;"	d
+NO_FIELDS_GIVEN	dbconv.h	64;"	d
+NO_FIELDS_GIVEN	dbconv.h	74;"	d
+NO_REC_DELIM	dbconv.h	65;"	d
+NO_REC_DELIM	dbconv.h	75;"	d
+OUT_FILE_ERROR	dbconv.h	69;"	d
+OUT_FILE_ERROR	dbconv.h	79;"	d
+TRUE	dbconv.h	49;"	d
+VMS_ERROR	dbconv.h	58;"	d
+VMS_FATAL	dbconv.h	60;"	d
+VMS_INFO	dbconv.h	59;"	d
+VMS_SUCCESS	dbconv.h	57;"	d
+VMS_WARNING	dbconv.h	56;"	d
+YES	dbconv.h	52;"	d
+add_field	dbsetup.c	/^static bool add_field()$/;"	f	file:
+bool	dbconv.h	92;"	d
+buff	dbsetup.c	/^static char buff[MAXLINE];$/;"	v	file:
+db	DBConv.c	/^flag ref, db;$/;"	v
+db_default	DBConv.c	/^char db_default[MAXPATHLEN] = "-";$/;"	v
+db_file	DBConv.c	/^FILE *db_file;$/;"	v
+db_filnam	DBConv.c	/^char *db_filnam = NULL;$/;"	v
+flag	dbconv.h	91;"	d
+fld_name	dbconv.h	/^    char *fld_name[MAXFIELDS];	\/* Field names *\/$/;"	m	struct:__anon1
+fld_nmbr	dbconv.h	/^    int fld_nmbr;		\/* Actual number of fields *\/$/;"	m	struct:__anon1
+fld_size	dbconv.h	/^    int fld_size[MAXFIELDS];	\/* Field sizes *\/$/;"	m	struct:__anon1
+fld_text	dbconv.h	/^    char *fld_text[MAXFIELDS];	\/* Field contents *\/$/;"	m	struct:__anon1
+get_rc_delim	dbsetup.c	/^static bool get_rc_delim()$/;"	f	file:
+init_record	dbproc.c	/^static void init_record()$/;"	f	file:
+is_eor	dbproc.c	/^static bool is_eor(line)$/;"	f	file:
+lookup	dbproc.c	/^static bool lookup(line, pos)$/;"	f	file:
+main	DBConv.c	/^int main(argc, argv)$/;"	f
+main	shhid.c	/^void main()$/;"	f
+open_files	DBConv.c	/^static void open_files()$/;"	f	file:
+out_default	DBConv.c	/^char out_default[MAXPATHLEN] = "-";$/;"	v
+out_file	DBConv.c	/^FILE *out_file;$/;"	v
+out_filnam	DBConv.c	/^char *out_filnam = NULL;$/;"	v
+out_rs	DBConv.c	/^char out_rs = '\\n'; 	\/* record separator (named after ASCII RS) *\/$/;"	v
+out_us	DBConv.c	/^char out_us = '\\t'; 	\/* unit\/field separator (named after ASCII US)*\/$/;"	v
+parse_arguments	DBConv.c	/^static void parse_arguments(argc, argv)$/;"	f	file:
+print_header	DBConv.c	/^int print_header;$/;"	v
+process_database	dbproc.c	/^void process_database()$/;"	f
+quote_output	DBConv.c	/^int quote_output;$/;"	v
+rc	DBConv.c	/^record_t rc;$/;"	v
+rec_dlmt	dbconv.h	/^    char *rec_dlmt;		\/* End of record delimiter *\/$/;"	m	struct:__anon1
+record_t	dbconv.h	/^} record_t;$/;"	t	typeref:struct:__anon1
+ref	DBConv.c	/^flag ref, db;$/;"	v
+ref_default	DBConv.c	/^char ref_default[] = "DBConv.cf";$/;"	v
+ref_file	DBConv.c	/^FILE *ref_file;$/;"	v
+ref_filnam	DBConv.c	/^char *ref_filnam = NULL;$/;"	v
+save_header	dbproc.c	/^static void save_header()$/;"	f	file:
+save_record	dbproc.c	/^static void save_record()$/;"	f	file:
+setup_record	dbsetup.c	/^void setup_record()$/;"	f
+usage	DBConv.c	/^static void usage()$/;"	f	file:
+yesno_answer	dbsetup.c	/^static flag yesno_answer()$/;"	f	file:
