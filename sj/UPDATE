@@ -1,0 +1,27 @@
+#define COMPILE cc -c -g
+#define PRIMARIES\
+	/* addressing */ 	s.h address.c \
+	/* operators */		operator.c yank.c \
+	/* other */		commands.c s.c keyboard.c \
+	/* the buffer */	Bman.c buffer.c \
+	/* the screen */	Sman.c screen.c \
+	/* new */		adjust.c
+
+#define OBJECTS s.o commands.o keyboard.o address.o yank.o \
+	operator.o Bman.o buffer.o Sman.o screen.o lib.o adjust.o
+
+s -> OBJECTS
+	cc -g -o s OBJECTS
+
+gondor -> .gondor
+.gondor -> PRIMARIES UPDATE
+	../section1.1/tweak .gondor
+	rcp YOUNGER gondor:/usr/usr/webb/597/p/s
+
+print -> .print
+.print -> PRIMARIES
+	../section1.1/tweak .print
+	igrind YOUNGER &
+
+lint ->
+	csh -c "lint -abchpx PRIMARIES ../section1.1/lib.c >& lint.messages &"
