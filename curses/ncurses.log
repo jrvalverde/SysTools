@@ -1,0 +1,257 @@
+--12:26:56--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html'
+Resolviendo en.tldp.org... hecho.
+Conectando con en.tldp.org[152.2.210.81]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 12,304 [text/html]
+
+    0K .......... ..                                         100%   37.20 KB/s
+
+12:26:57 (37.20 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html' guardado [12304/12304]
+
+Cargando robots.txt; por favor ignore los errores.
+--12:26:57--  http://en.tldp.org/robots.txt
+           => `en.tldp.org/robots.txt'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 404 Not Found
+12:26:57 ERROR 404: Not Found.
+
+--12:26:57--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/intro.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/intro.html'
+Conectando con en.tldp.org[152.2.210.81]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 19,639 [text/html]
+
+    0K .......... .........                                  100%   59.93 KB/s
+
+12:26:58 (59.93 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/intro.html' guardado [19639/19639]
+
+--12:26:58--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 5,919 [text/html]
+
+    0K .....                                                 100%  722.53 KB/s
+
+12:26:58 (722.53 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html' guardado [5919/5919]
+
+--12:26:58--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/gory.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/gory.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 1,957 [text/html]
+
+    0K .                                                     100%    1.87 MB/s
+
+12:26:58 (1.87 MB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/gory.html' guardado [1957/1957]
+
+--12:26:58--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/init.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/init.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 7,312 [text/html]
+
+    0K .......                                               100%  714.06 KB/s
+
+12:26:58 (714.06 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/init.html' guardado [7312/7312]
+
+--12:26:58--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/awordwindows.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/awordwindows.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 4,055 [text/html]
+
+    0K ...                                                   100%  791.99 KB/s
+
+12:26:59 (791.99 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/awordwindows.html' guardado [4055/4055]
+
+--12:26:59--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/printw.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/printw.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 10,140 [text/html]
+
+    0K .........                                             100%   17.01 KB/s
+
+12:26:59 (17.01 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/printw.html' guardado [10140/10140]
+
+--12:26:59--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/scanw.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/scanw.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 5,677 [text/html]
+
+    0K .....                                                 100%   17.27 KB/s
+
+12:27:01 (17.27 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/scanw.html' guardado [5677/5677]
+
+--12:27:01--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/attrib.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/attrib.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 11,195 [text/html]
+
+    0K ..........                                            100%   36.08 KB/s
+
+12:27:01 (36.08 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/attrib.html' guardado [11195/11195]
+
+--12:27:01--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/windows.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/windows.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 12,364 [text/html]
+
+    0K .......... ..                                         100%   38.45 KB/s
+
+12:27:02 (38.45 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/windows.html' guardado [12364/12364]
+
+--12:27:02--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/color.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/color.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 6,436 [text/html]
+
+    0K ......                                                100%    7.87 KB/s
+
+12:27:03 (7.87 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/color.html' guardado [6436/6436]
+
+--12:27:03--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/keys.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/keys.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 6,231 [text/html]
+
+    0K ......                                                100%   32.37 KB/s
+
+12:27:03 (32.37 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/keys.html' guardado [6231/6231]
+
+--12:27:03--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/mouse.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/mouse.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 9,495 [text/html]
+
+    0K .........                                             100%   51.23 KB/s
+
+12:27:03 (51.23 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/mouse.html' guardado [9495/9495]
+
+--12:27:03--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/screen.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/screen.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 4,566 [text/html]
+
+    0K ....                                                  100%  495.44 KB/s
+
+12:27:04 (495.44 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/screen.html' guardado [4566/4566]
+
+--12:27:04--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/misc.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/misc.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 7,522 [text/html]
+
+    0K .......                                               100%   46.20 KB/s
+
+12:27:04 (46.20 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/misc.html' guardado [7522/7522]
+
+--12:27:04--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/otherlib.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/otherlib.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 1,948 [text/html]
+
+    0K .                                                     100%    1.86 MB/s
+
+12:27:04 (1.86 MB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/otherlib.html' guardado [1948/1948]
+
+--12:27:04--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/panels.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/panels.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 24,282 [text/html]
+
+    0K .......... .......... ...                             100%   48.59 KB/s
+
+12:27:05 (48.59 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/panels.html' guardado [24282/24282]
+
+--12:27:05--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/menus.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/menus.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 34,618 [text/html]
+
+    0K .......... .......... .......... ...                  100%   72.24 KB/s
+
+12:27:05 (72.24 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/menus.html' guardado [34618/34618]
+
+--12:27:05--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/forms.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/forms.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 52,288 [text/html]
+
+    0K .......... .......... .......... .......... .......... 97%   78.25 KB/s
+   50K .                                                     100%    1.04 MB/s
+
+12:27:06 (79.79 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/forms.html' guardado [52288/52288]
+
+--12:27:06--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/tools.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/tools.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 10,155 [text/html]
+
+    0K .........                                             100%  450.77 KB/s
+
+12:27:06 (450.77 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/tools.html' guardado [10155/10155]
+
+--12:27:06--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/justforfun.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/justforfun.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 4,954 [text/html]
+
+    0K ....                                                  100%  691.13 KB/s
+
+12:27:07 (691.13 KB/s) - `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/justforfun.html' guardado [4954/4954]
+
+--12:27:07--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html'
+Reutilizando la conexi?n con en.tldp.org:80.
+Petici?n HTTP enviada, esperando respuesta... 416 Requested Range Not Satisfiable
+
+    El fichero ya ha sido totalmente recuperado, no hay nada que hacer.
+
+--12:27:07--  http://en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/p_padala@yahoo.com
+           => `en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/p_padala@yahoo.com'
+Conectando con en.tldp.org[152.2.210.81]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 404 Not Found
+12:27:07 ERROR 404: Not Found.
+
+
+ACABADO --12:27:07--
+Descargados: 253,057 bytes en 21 ficheros
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html... 106-0
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/intro.html... 3-6
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html... 7-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/gory.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/init.html... 7-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/awordwindows.html... 8-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/printw.html... 9-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/scanw.html... 7-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/attrib.html... 7-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/windows.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/color.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/keys.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/mouse.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/screen.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/misc.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/otherlib.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/panels.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/menus.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/forms.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/tools.html... 6-2
+Convirtiendo en.tldp.org/HOWTO/NCURSES-Programming-HOWTO/justforfun.html... 3-2
+21 ficheros convertidos en 0.02 segundos.

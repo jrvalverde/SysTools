@@ -1,0 +1,227 @@
+--12:42:12--  http://www.linuxjournal.com/article.php?sid=2807
+           => `www.linuxjournal.com/article.php?sid=2807'
+Resolviendo www.linuxjournal.com... hecho.
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .........                           7.62 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:17 (7.62 KB/s) - `www.linuxjournal.com/article.php?sid=2807' guardado [30009]
+
+Cargando robots.txt; por favor ignore los errores.
+--12:42:17--  http://www.linuxjournal.com/robots.txt
+           => `www.linuxjournal.com/robots.txt'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 418 [text/plain]
+
+    0K                                                       100%  408.20 KB/s
+
+12:42:17 (408.20 KB/s) - `www.linuxjournal.com/robots.txt' guardado [418/418]
+
+--12:42:17--  http://www.linuxjournal.com/themes/NewLJ/style/style.css
+           => `www.linuxjournal.com/themes/NewLJ/style/style.css'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 1,928 [text/css]
+
+    0K .                                                     100%    1.84 MB/s
+
+12:42:18 (1.84 MB/s) - `www.linuxjournal.com/themes/NewLJ/style/style.css' guardado [1928/1928]
+
+--12:42:18--  http://www.linuxjournal.com/banners.php?op=click&bid=203
+           => `www.linuxjournal.com/banners.php?op=click&bid=203'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 302 Found
+Localizaci?n: http://www.promicrosystems.com [siguiendo]
+--12:42:19--  http://www.promicrosystems.com/
+           => `www.promicrosystems.com/index.html'
+Resolviendo www.promicrosystems.com... hecho.
+Conectando con www.promicrosystems.com[63.99.209.34]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 302 Object moved
+Localizaci?n: /main/ [siguiendo]
+--12:42:19--  http://www.promicrosystems.com/main/
+           => `www.promicrosystems.com/main/index.html'
+Conectando con www.promicrosystems.com[63.99.209.34]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 14,443 [text/html]
+
+    0K .......... ....                                       100%   46.86 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:20 (46.86 KB/s) - `www.promicrosystems.com/main/index.html' guardado [14443/14443]
+
+--12:42:20--  http://www.linuxjournal.com/images/banners/promicro/Promicro1016.gif
+           => `www.linuxjournal.com/images/banners/promicro/Promicro1016.gif'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 10,469 [image/gif]
+
+    0K ..........                                            100%   21.66 KB/s
+
+12:42:21 (21.66 KB/s) - `www.linuxjournal.com/images/banners/promicro/Promicro1016.gif' guardado [10469/10469]
+
+--12:42:21--  http://www.linuxjournal.com/themes/NewLJ/images/corner-top-left.png
+           => `www.linuxjournal.com/themes/NewLJ/images/corner-top-left.png'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 296 [image/png]
+
+    0K                                                       100%  289.06 KB/s
+
+12:42:21 (289.06 KB/s) - `www.linuxjournal.com/themes/NewLJ/images/corner-top-left.png' guardado [296/296]
+
+--12:42:21--  http://www.linuxjournal.com/index.php
+           => `www.linuxjournal.com/index.php'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .......... ........                20.26 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:24 (20.26 KB/s) - `www.linuxjournal.com/index.php' guardado [38970]
+
+--12:42:24--  http://www.linuxjournal.com/themes/NewLJ/images/logo_blue.png
+           => `www.linuxjournal.com/themes/NewLJ/images/logo_blue.png'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 9,650 [image/png]
+
+    0K .........                                             100%   29.92 KB/s
+
+12:42:24 (29.92 KB/s) - `www.linuxjournal.com/themes/NewLJ/images/logo_blue.png' guardado [9650/9650]
+
+--12:42:24--  http://www.linuxjournal.com/themes/NewLJ/images/pixel.gif
+           => `www.linuxjournal.com/themes/NewLJ/images/pixel.gif'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 43 [image/gif]
+
+    0K                                                       100%   41.99 KB/s
+
+12:42:24 (41.99 KB/s) - `www.linuxjournal.com/themes/NewLJ/images/pixel.gif' guardado [43/43]
+
+--12:42:24--  http://www.linuxjournal.com/themes/NewLJ/images/corner-top-right.gif
+           => `www.linuxjournal.com/themes/NewLJ/images/corner-top-right.gif'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: 111 [image/gif]
+
+    0K                                                       100%  108.40 KB/s
+
+12:42:25 (108.40 KB/s) - `www.linuxjournal.com/themes/NewLJ/images/corner-top-right.gif' guardado [111/111]
+
+--12:42:25--  http://www.linuxjournal.com/user.php
+           => `www.linuxjournal.com/user.php'
+Reutilizando la conexi?n con www.linuxjournal.com:80.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... ...                               133.93 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:26 (133.93 KB/s) - `www.linuxjournal.com/user.php' guardado [24001]
+
+--12:42:26--  http://www.linuxjournal.com/
+           => `www.linuxjournal.com/index.html'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .......... ........                34.74 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:27 (34.74 KB/s) - `www.linuxjournal.com/index.html' guardado [38953]
+
+--12:42:27--  http://www.linuxjournal.com/subscribe.php
+           => `www.linuxjournal.com/subscribe.php'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 301 Moved Permanently
+Localizaci?n: http://www.linuxjournal.com/modules.php?op=modload&name=NS-subscribe&file=suboptions [siguiendo]
+--12:42:28--  http://www.linuxjournal.com/modules.php?op=modload&name=NS-subscribe&file=suboptions
+           => `www.linuxjournal.com/modules.php?op=modload&name=NS-subscribe&file=suboptions'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... ..........                                    62.26 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:29 (62.26 KB/s) - `www.linuxjournal.com/modules.php?op=modload&name=NS-subscribe&file=suboptions' guardado [21168]
+
+--12:42:29--  http://www.linuxjournal.com/topics.php
+           => `www.linuxjournal.com/topics.php'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... ........                                      57.08 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:29 (57.08 KB/s) - `www.linuxjournal.com/topics.php' guardado [19407]
+
+--12:42:29--  http://www.linuxjournal.com/advertising.php
+           => `www.linuxjournal.com/advertising.php'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .                                   6.18 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:34 (6.18 KB/s) - `www.linuxjournal.com/advertising.php' guardado [22167]
+
+--12:42:34--  http://www.linuxjournal.com/press.php
+           => `www.linuxjournal.com/press.php'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .......... .....                   15.93 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:37 (15.93 KB/s) - `www.linuxjournal.com/press.php' guardado [35963]
+
+--12:42:37--  http://www.linuxjournal.com/modules.php?op=modload&name=NS-author&file=wanted
+           => `www.linuxjournal.com/modules.php?op=modload&name=NS-author&file=wanted'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .......... .                                  20.54 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:39 (20.54 KB/s) - `www.linuxjournal.com/modules.php?op=modload&name=NS-author&file=wanted' guardado [22483]
+
+--12:42:39--  http://www.linuxjournal.com/contact.php
+           => `www.linuxjournal.com/contact.php'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .........                                     27.39 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:41 (27.39 KB/s) - `www.linuxjournal.com/contact.php' guardado [19883]
+
+--12:42:41--  http://www.linuxjournal.com/modules.php?op=modload&name=FAQ&file=index
+           => `www.linuxjournal.com/modules.php?op=modload&name=FAQ&file=index'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... .....                                         20.91 KB/s
+
+Falta la fecha de la ?ltima modificaci?n -- marcas de tiempo apagadas.
+12:42:43 (20.91 KB/s) - `www.linuxjournal.com/modules.php?op=modload&name=FAQ&file=index' guardado [15911]
+
+--12:42:43--  http://www.linuxjournal.com/modules.php?op=modload&name=Members_List&file=index
+           => `www.linuxjournal.com/modules.php?op=modload&name=Members_List&file=index'
+Conectando con www.linuxjournal.com[64.39.18.129]:80... conectado.
+Petici?n HTTP enviada, esperando respuesta... 200 OK
+Longitud: no especificado [text/html]
+
+    0K .......... ....
