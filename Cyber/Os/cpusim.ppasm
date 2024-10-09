@@ -1,0 +1,3375 @@
+     IDT PP0012
+     SBL 1000
+     ORG 1000
+ **  EQU 0
+D    EQU 10
+CARB EQU 11        COUNTER FOR NUMBER OF CARRIES
+MSK7 EQU 12
+SFCT EQU 13        SHIFT COUNT
+CFCT EQU 14
+RSDU EQU 15
+LIST EQU 16
+RVAL EQU 17
+I    EQU 20
+J    EQU 21
+K    EQU 22
+FM   EQU 23
+TMP  EQU 24
+TMP1 EQU 25
+TMP2 EQU 26
+TMP3 EQU 27
+FLCT EQU 30
+CUIN EQU 31        BUFFER TO HOLD CURRENT CENTRAL WORD
+CUI1 EQU 32
+CUI2 EQU 33
+CUI3 EQU 34
+CUI4 EQU 35
+TMP4 EQU 36
+REGL EQU 37
+RELP EQU 40
+RPU  EQU 43        UPPER 12 BITS OF RELATIVE P
+RPL  EQU 44        LOWER 12 BITS OF RELATIVE P
+EXER EQU 45        TYPE OF ERROR OCCURED
+PAU  EQU 46        BASE ADDRESS OF RELATIVE 0
+PAL  EQU 47        LOWER 12 BITS OF ADDRESS OF P = 0
+EMU  EQU 50        UPPER 6 BITS OF EXITS REQUESTED IN EXJ
+FLL  EQU 51        LOWER 12 BITS OF FIELD LENGTH
+FLU  EQU 52        UPPPER 6 BITS OF FIELD LENGTH
+XKEX EQU 53
+XJEX EQU 54
+IAD  EQU 55
+JAD  EQU 56
+KAD  EQU 57
+NORM EQU 60
+MASK EQU 61
+ARG1 EQU 62
+ARG2 EQU 63
+ARG3 EQU 64
+INCA EQU 65
+INCB EQU 66
+CPAD EQU 67        ADDRESSOF P REGISTER
+CXAD EQU 70        ADDRESS OF XCHANGE JUMP TRIGGER
+     LDD 75        ADDRESS OF INPUT REGISTER
+     CRD NORM      READ ARGUEMENTS
+     LDN 00
+     STD 41
+     STD 42
+     RJM 0
+         PRAD
+     STD CPAD
+     RJM 0
+         XJMP
+     STD CXAD
+IDLE LDD 75
+     CRD CUIN      READ INPUT REGISTER
+     LDD CUIN
+     NJN 3
+     LJM 00        INTERRUPT REQUESTED
+         0100      ABORT PROGRAM
+     LDD CXAD      XCHANGE ADDRESS
+     CRD CUIN      READ EXCHANGE JUMP TRIGGER FROM CENTRAL
+     LDN 20        READ AND WRITE 20 OCTAL CENTRAL WORDS
+     STD D
+     LDD CUI3
+     LPN 77
+     SHN 14
+     ADD CUI4
+     NJN XCHG
+     LDM
+         NIN0      NO EXCHANGE JUMP REGUESTED
+     LPN 77
+     ADM
+         NIN1
+     ZJN IDLE      NO PROGRAM RENNING P IS 0
+     LJM
+         NIN0      EXECUTE NEXT SEQUENCE OF CURRENT PROGRAM
+XCHG CRM D
+         EXA       READ EXCHANGE JUMP PACKAGE INTO PERIPHERAL
+     RJM
+         PEXA      PACK EXCHANGE AREA
+     LDD CUI3
+     LPN 77
+     SHN 14
+     ADD CUI4
+     CWM D
+         REGS      WRITE PACKAGE INTO CENTRAL
+     RJM
+         UEXA      UNPACK EXCHANGE PACKAGE
+     LDC
+         7777
+     STD MSK7
+     LDN 0
+     STD CFCT
+     STD FLCT
+     STD EXER      CLEAR CURRENT ERROR FLAG
+     LDM
+         EX01      PICK UP RELATIVE P
+     STM
+         NIN1
+     STD RPL
+     LDM
+         EXA
+     STD RPU
+     ADC
+         2000
+     STM
+         NIN0
+     LDM
+         EX06
+     STM
+         NIN7
+     STM
+         RW5
+     STM
+         RW6
+     STM 00        STORE LOWER 12 BITS OF BIAS
+         C01D      TO FORM CORRECT ADDRESS FOR RETURN JUMP
+     LDM
+         EX05
+     ADC
+         2100
+     STM
+         NIN6
+     STM 00
+         C01C      STORE UPPPER 6 BITS
+     STM 0
+         RW9
+     STM 0
+         RW10
+     LDD CPAD      P REGISTER ADDRESS
+     CWD RELP
+     LDN 0
+     STD RPU
+     STD RPL
+     STD RELP
+     LDD CXAD
+     CWD RELP      SET TRIGGER TO ZERO
+NIN0 LDC **        STARTING ADDRESS OF PROGRAM
+NIN1     **        AND NEXT INSTRUCTION
+NIN6     **
+NIN7     **        BASE ADDRESS
+     CRD CUIN
+EXIN LDD CUIN
+     SHN 14
+     STD FM
+     SCN 77        STORE FM,I,J AND K
+     SHN 3
+     STD I
+     SHN 60
+     STD J
+     LDM
+         CUI1
+     SHN 66
+     STD K
+     LDD I
+     SHN 2
+     ADD I
+     ADC 0
+         X0
+     STD IAD       STORE ADDRESS OF X(I)
+     LDD J
+     SHN 2
+     ADD J
+     ADC 0
+         X0
+     STD JAD       STORE ADDRES AF X(J)
+     LDD K
+     SHN 2
+     ADD K
+     ADC 0
+         X0
+     STD KAD       STORE ADDRESS OF X(K)
+     LDD FM
+     SHN 1
+     STD LIST      CODES ARE *2
+     LJM LIST
+         INST      TRANSFER TO ROUTINE TO PROCESS INSTRUCTIONS
+KVAO LJM
+KVAL     **        LEAVE VALUE OF BIG *K* IN A
+     LDD CUI2
+     SHN 71        PACK VALUE OF K IN CURRENT INSTRUCTION BUFFER
+     STD TMP4
+     LDD CUI1
+     SHN 06
+     ADD TMP4
+     NJN KVAO
+     LDD TMP4
+     ZJN KVAO
+     LDC 77
+         7777
+     UJN KVAO      CHECK FOR MINUS ZERO
+INST LJM 0
+         STOP
+     LJM
+         C01
+     LJM
+         C02
+     LJM
+         GTKX
+     LJM
+         C04
+     LJM
+         GKNE
+     LJM
+         C06       B(I) ) OR = B(J) GO TO K
+     LJM
+         C07       GO TO K IF B(I) ( B(J)
+     LJM
+         FIFJ
+     LJM
+         LJ*K
+     LJM
+         LJ+K
+     LJM
+         C13
+     LJM
+         C14
+     LJM
+         C15
+     LJM
+         C16
+     LJM
+         C17
+     LJM
+         C20
+     LJM
+         C21
+     LJM
+         C22
+     LJM
+         C23
+     LJM
+         C24
+     LJM
+         C25
+     LJM
+         C26       FM = 26   UNPACK
+     LJM
+         C27       FM = 27      PACK
+     LJM
+         C30           UNROUNDED ADD
+     LJM
+         C31        UNROUNDED SUBTRACT
+     LJM
+         C32       DOUBLE PRECISION ADD
+     LJM
+         C33       DOUBLE PRECISION SUBTRACT
+     LJM
+         C34       ROUNDED FLOATING ADD
+     LJM
+         C35       ROUNDED FLOATING SUBTRACT
+     LJM
+         C36
+     LJM
+         C37
+     LJM
+         C40       UNROUNDED MULTIPLY
+     LJM
+         C41         ROUNDED MULTIPLY
+     LJM
+         C42       DOUBLE PRECISION MULTIPLY
+     LJM
+         C43
+     LJM
+         C44       UNROUNDED DIVIDE
+     LJM
+         C44       ROUNDED DIVIDE
+     LJM
+         ADD1
+     LJM
+         C47
+     LJM
+         C50
+     LJM
+         C51
+     LJM
+         C52
+     LJM
+         C53
+     LJM
+         C54
+     LJM
+         C55
+     LJM
+         C56
+     LJM
+         C57
+     LJM
+         C60
+     LJM
+         C61
+     LJM
+         C62
+     LJM
+         C63
+     LJM
+         C64
+     LJM
+         C65
+     LJM
+         C66
+     LJM
+         C67
+     LJM
+         C70
+     LJM
+         C71
+     LJM
+         C72
+     LJM
+         C73
+     LJM
+         C74
+     LJM
+         C75
+     LJM
+         C76
+     LJM
+         C77
+PEXX LJM 0
+PEXA     **        PACK EXCHANGE JUMP PACKAGE
+     LDN 17
+     STD TMP
+     LDN 47
+     STD TMP1
+PX1  LDM TMP
+         B0        START WITHH B7 LOWER 12 BITS
+     STM TMP1
+         REGS      PACK INTO EXCHANGE
+     SOD TMP1
+     SOD TMP
+     LDM TMP
+         B0        START WITH B7 UPPER 6  BITS
+     LPN 77        SAVE LOWER 6 BITS
+     STD TMP3
+     AOD TMP
+     LDM TMP
+         A0        START WITH LOWER 12 BITS OF A7
+     STD TMP2
+     LPN 77
+     SHN 6
+     ADD TMP3
+     STM TMP1
+         REGS
+     SOD TMP1
+     SOD TMP
+     LDD TMP2
+     SCN 77
+     SHN 06
+     ADM TMP
+         A0
+     SHN 06
+     STM TMP1
+         REGS
+     LCN 3
+     RAD TMP1      DECREMEMT COUNTER BY 3
+     SOD TMP
+     MJN 3
+     LJM
+         PX1
+     LDD RPL       SET RELATIVE ADDRESS
+     STM
+         RE01
+     LDD RPU       UPPER 6 BITS OF RELATIVE JADDRESS
+     STM
+         REGS      PACK INTO EXCHANGE JUMP PACKAGE
+     LDD PAL       PACK BASE ADDRESS
+     STM
+         RE06
+     LDD PAU       UPPER 6 BITS OF BASE ADDRESS
+     STM
+         RE05
+     LDN 0
+     STM
+         RE20
+     LDD EMU       EXIT REGUEST FLAGS
+     STM
+         RE17
+     LDD FLL       VIELD LENGTH
+     STM
+         RE13
+     LDD FLU
+     STM
+         RE12
+     LDN 0
+     STD TMP
+     LDM TMP
+         X0
+     STM TMP
+         RE50
+     AOD TMP
+     SBN 50
+     NJN 71
+     LDN 4
+     STD TMP1
+     LDN 24
+     STD TMP
+     LDN 0
+     STM TMP
+         REGS
+     STM TMP
+         RE01
+     LDN 5
+     RAD TMP
+     SOD TMP1
+     NJN 67
+     LJM
+         PEXX
+UEXX LJM 0         EXIT
+UEXA     **        UNPACK EXCHANGE PACKAGE
+     LDN 0
+     STD TMP
+     LDM TMP
+         EX50      TRANSFER X0 THRU X7 FROM EXCHANGE TO REGISTERSP
+     STM TMP
+         X0
+     AOD TMP
+     SBN 50
+     NJN 71
+     LDM
+         EXA
+     STD RPU
+     LDM           STORE BASE ADDRESS OF RELATIVE 0
+         EX01
+     STD RPL
+     LDM
+         EX05
+     STD PAU
+     LDM
+         EX06
+     STD PAL
+     LDM
+         EX17
+     STD EMU
+     LDM
+         EX13
+     STD FLL
+     LDM
+         EX12
+     STD FLU
+     LDN 17
+     STD TMP1
+     LDN 47
+     STD TMP
+UE1  LDM TMP
+         EXA
+     STM TMP1
+         B0        STORE B REGISTERS
+     SOD TMP
+     SOD TMP1
+     LDM TMP
+         EXA
+     LPN 77
+     STM TMP1
+         B0        UPPER 6 BITS OF B REGISTER
+     AOD TMP1
+     LDM TMP
+         EXA
+     SHN 71
+     STD TMP2
+     SOD TMP
+     LDM TMP
+         EXA
+     SHN 6
+     ADD TMP2
+     STM TMP1
+         A0
+     SHN 63
+     STD TMP2
+     SOD TMP1
+     LDD TMP2
+     STM TMP1
+         A0
+     LCN 3
+     RAD TMP
+     SOD TMP1
+     MJN 3
+     LJM
+         UE1
+     LJM
+         UEXX
+     LJM 00
+XJMP     **
+     LDD ARG2
+     LPN 77        FORM ADDRESS OF EXCHANGE JUMP
+     SHN 14
+     ADD ARG3
+     UJN 71
+     LJM 00
+PRAD     **
+     LDD ARG2      LOWER 6 BITS
+     SHN 71
+     SHN 14        FORM ADDRESS OF P REGISTER
+     ADD ARG1
+     SHN 6
+     UJN 70
+     LJM
+RDB      **
+     SHN 1
+     ADC
+         B0
+     UJN 72
+     LJM
+RDA      **
+     SHN 1
+     ADC
+         A0        BASE ADDRESS OF A REGISTERS
+     UJN 72
+     LJM
+RDX      **
+     STD RVAL
+     SHN 2
+     ADD RVAL
+     ADC
+         X0
+     UJN 70
+     LJM 0
+CLXI     **        CLEAR X (I) FOR Z 70 SERIES
+     LDN 0
+     STD TMP
+     LDD IAD       ADDRESS OF X(I)
+     STM
+         CLXA
+     LDN
+     STM TMP       STORE ZEROS TO X(I) + (TMP)
+CLXA     **
+     AOD TMP
+     SBN 5
+     NJN 72
+     UJN 62
+RDWO LJM 0         ENTERED BY 50 SERIES INSTRUCTIONS
+RDWT     **        TO READ OR WRITE X(I) TO OR FROM A(I)
+     LDD I
+     ZJN 74        EXIT NO MEMORY REFERENCE REQUIRED
+     LDD IAD       ADDRESS OF X(I)
+     STM
+         RW7
+     STM
+         RW8
+     LDD I
+     SHN 1
+     ADC 0
+         A0        BASE ADDRESS OF A(I) REGOSTER
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDI TMP1
+     STM
+         RW1
+     STM
+         RW2
+     LMD MSK7
+     STM 00
+         RNG6
+     LDI TMP
+     LPN 37        CLEAR BIT I$$17
+     ADC
+         2000
+     STM
+         RW3
+     STM
+         RW4
+     ADC 00
+         0100
+     LMN 77
+     STM 00
+         RNG5
+     LDD FLU
+     SHN 14
+     ADD FLL       COMPUTE BASE ADDRESS + FIELD LENGTH
+RNG5 ADC **
+RNG6     **        COMPLIMENT OF MEMORY REFERENCE ADDRESS
+     PJN RNGX      IN RANGE
+RERR LDD I
+     SBN 6
+     PJN 3         WRITE
+     RJM 00
+         CLXI      READ //     READ ZEROS
+     LDD EMU
+     LPN 1
+     NJN 3         STOP REQUESTED
+     LJM 00
+         RDWO      NO STOP REQUESTED
+     STD EXER STORE ERROR TYPE
+     LJM 00
+         STP1      STOP
+RNGX LDN 1
+     STD TMP2
+     LDD I
+     SBN 6
+     PJN RW4
+RW3  LDC **
+RW1      **
+RW9      **
+RW5      **        BASE ADDRESS OF RELATIVE ZERO
+     CRM TMP2
+RW7      **
+     LJM
+         RDWO
+RW4  LDC **
+RW2      **
+RW10     **
+RW6      **
+     CWM TMP2
+RW8      **
+     LJM
+         RDWO
+BITO LJM 0
+BITS     **
+     STD TMP
+     LDN 0         RIGHT SHIFT X (I)
+     STD SFCT      BY (SFCT) + (RDDU)
+     STD RSDU
+     LDD TMP
+     ZJN BITO
+     SBN 6
+     STD TMP
+     MJN 5
+     AOD SFCT
+     LDD TMP
+     ZJN BITO
+     UJN 71
+     ADN 6
+     LPN 7         SAVE LOWER 3 BITS
+     STD RSDU      REMAINDER OF SHIFTS LESS THAN 6
+     UJN BITO
+STXX LJM 00
+STXI     **
+     LDD IAD       ADDRESS OF X(I)
+     STD TMP
+     LDN
+     STD TMP1
+     LDC
+         7777
+     STI TMP
+     AOD TMP
+     AOD TMP1
+     SBN 3
+     NJN 71
+     LDI TMP
+     LPN 77
+     LMC
+         7700
+     STI TMP
+     UJN STXX
+KTOX LJM 00
+KTOI     **
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         KTA
+     LDD IAD       ADDRESS OF X(I)
+     STM
+         KTB
+     LDN 0
+     STD TMP
+     LDM TMP
+KTA      **
+     STM TMP
+KTB      **
+     AOD TMP
+     SBN 5
+     NJN 71
+     UJN KTOX
+INDX LJM 0
+INDF     **        CHECK FOR INDEFINITE OPERAND COMBINATIONS
+     LDI JAD
+     RJM 0
+         EXPN      EXPONENT OF J OPERAND
+     ZJN INDB      BIASED EXPONENT WAS 2000
+     ADN 0
+     NJN INDB      SENSE EXPONENT NOT INDEF
+INDA RJM 0         EXPONENT WAS INDEF
+         CLXI
+     LDC 0
+         1777
+     STI IAD
+     LDD EMU       EXIT MODE FLAGS
+     LPN 4
+     ZJN 4         NO STOP REQUESTED
+     STD EXER      STORE EXIT TYPE
+     LJM 0
+         STP1      STOP
+     LJM 0
+         ADD1
+INDB LDI KAD
+     RJM 0
+         EXPN
+     ZJN INDX      EXIT BOTH OPERANDS NOT INDEF
+     ADN 0
+     NJN INDX
+     UJN INDA      K OPERAND IS INDEFINITE
+RGAX LJM 0
+RNGA      **
+     LDN 0
+     STD TMP4
+     LDI JAD
+     SHN 6
+     PJN 2
+     AOD TMP4
+     LDI KAD
+     SHN 6
+     PJN 2
+     AOD TMP4
+     LDI JAD
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     NJN RNGB      +-N + X
+     LDI KAD
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     NJN RNGC      +-RANGE + X
+RNGD RJM 0         (+-RANGE) + (+-RANGE)
+         CLXI
+     LDM TMP4
+         FALT      FETCH PROPER EXPONENT
+     STI IAD
+RNGE LDD EMU
+     LPN 2
+     ZJN 4
+     STD EXER
+     LJM 0
+         STP1
+     LJM 0
+         ADD1
+RNGB LDI KAD
+     RJM 00
+         EXPN
+     ADC 77
+         6000
+     ZJN RNGC      (+-N) + (+-RANGE)
+     LJM 0
+         RGAX
+RNGC LDD TMP4
+     SBN 1
+     NJN RNGD      SIGN COMBINATION WAS ++ OR --
+     LDI JAD
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     ZJN 3
+     LDI KAD
+     UJN 2
+     LDI JAD
+     SHN 6
+     PJN 4         (+RANGE) + (+-N)
+     AOD TMP4      (-RANGE) + (+-N)
+     LJM 0
+         RNGD
+     SOD TMP4
+     UJN -3
+FALT     3777      0
+         1777      TMP=1
+         4000      TMP=2
+MPRX LJM 0
+MPRG     **
+     LDI JAD
+     RJM 0
+         EXPN
+     ADC 0
+         1777
+     NJN MPRA      NOT+-0000
+MPRB LDI KAD       J IS 0
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     ZJN MPRC      0.R
+MPRE RJM 0         0.0 OR 0.N
+         CLXI
+     LJM 0
+         ADD1
+MPRA ADC 77
+         4001      1777+1777
+     ZJN MPRH      J OPERANC IS R
+     LDI KAD
+     RJM 0
+         EXPN
+     ADC 0
+         1777
+     ZJN MPRE      N.0
+     ADC 77
+         4001
+     ZJN MPRF      N.R
+     LJM 0
+         MPRX
+MPRH LDI KAD       FETCH K OPERAND
+     RJM 0
+         EXPN
+     ADC 0
+         1777
+MPRC ZJN MPRD      R.0
+MPRF RJM 0
+         CLXI
+     LDC 0
+         3777
+     LMD LIST      SIGN OF PRODUCT
+     STI IAD
+     LJM 0
+         RNGE      GO CHECK FOR EXIT REQUESTED
+MPRD LJM 0
+         INDA      GO SET TO INDEFINITE
+     LJM 0
+MPSN     **        SET JSIGN MASK FOR MULT AND DIVIDE CODES
+     LDI JAD
+     LPC 00
+         4000
+     ADI KAD
+     SHN 64
+     LPN 1
+     ZJN 2
+     LCN 0
+     STD LIST
+     UJN -13
+DVOX LJM 0
+DVOP     **
+     LDI JAD
+     RJM 0
+         EXPN
+     ADC 0
+         1777
+     NJN DVOA
+     RJM 0
+         CLXI
+     LJM 0
+         ADD1
+DVOA LDI JAD
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     NJN DVOC      J NOT +- 3777
+     LDI KAD       R/X
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     NJN DVOB      R/X     X NOT R OR I OR 0
+     LJM 0
+         INDA      R/R
+DVOB RJM 0
+         CLXI
+     LDC 0
+         3777
+     LMD LIST
+     STI IAD
+     LJM 0
+         RNGE
+DVOC LDI KAD       J IS +-N
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     NJN DVOD
+     RJM 0
+         CLXI      N/R
+     LJM 0
+         ADD1
+DVOD LDI KAD
+     RJM 0
+         EXPN
+     ADC 0
+         1777
+     ZJN DVOB      +-N/0
+     LJM 0         +-N/+-N
+         DVOX
+STP1 LDN 0
+     STD CUIN
+     STD CUI3
+     STD CUI4
+     LDD RPU
+     SHN 14
+     ADD RPL
+     SHN 14
+     STD CUI1
+     SHN 63
+     SHN 6
+     STD CUI2
+     LDD EXER
+     ZJN 11
+     STD CUIN
+     LDN 0
+     STD RPU
+     STD RPL        SET RELATIVE 000000 = 000.....00
+     LDD PAU
+     SHN 14
+     ADD PAL
+     CWD CUIN
+     LDD CPAD      CENTRAL P REGISTER ADDRESS
+     CWD RELP
+     LJM
+         IDLE
+RSO  LJM 0
+RSFT     **
+     RJM 0
+         BITS      CONVERT SHIFT COUNT TO MULTIPLES OF 6 + RESIDUE
+     LDD IAD
+     STD TMP2
+     STM 0
+         RSF
+     STM 0
+         RSG
+     SBN 1
+     STM 0
+         RSJ       XI-1
+     LDD SFCT      NUMBER OF 6 BIT SHIFTS
+     ZJN RSN       SHIFT IS LESS THAN 6
+     LDC 0
+     SHN -6        MODIFY FOR SHIFT OF 6
+     STM 0
+         RSI
+     LMN 77
+     STM 0
+         RSH
+RSB  RJM 0
+         RSFN      DO RIGHT SHIFT
+     LDI TMP2
+     LMC 77
+         0000      77DDXX       DD=DATA
+     SHN 6         DDXX77
+     PJN 3
+     SHN 6         XX77DD
+     UJN 2
+     SHN -14       0000DD
+     STI TMP2
+     SOD SFCT
+     NJN RSB
+RSN  LDD RSDU
+     ZJN RSD       EXIT
+     LMN 77        FINAL SHIFT FOR RESUDUE
+     ADC 0
+         1000      FORM RIGHT SHIFT SHN  -N
+     STM 0
+          RSI
+     STM 0
+         RSK
+     LDC 0
+         1014      SHN 14
+     SBD RSDU      FORM LEFT SHIFT   SHN (14-N)
+     STM 0
+         RSH
+     RJM 0
+         RSFN      RIGHT SHIFT BY RESIDUE
+     LDI  TMP2
+     LMC 77
+         0000
+     SHN 6
+     PJN RSC
+     SHN 14
+RSK  SHN **        -N
+     STI TMP2
+     UJN RSD
+RSC  SHN -6
+     UJN RSK
+RSD  LJM 0
+         RSO
+RSX  LJM 0
+RSFN     **
+     LDD REGL      REGISTER LENGTH
+     STD TMP
+RSA  LDM TMP
+RSF      **        ADDRESS OF XI+REGISTER LENGTH
+RSI  SHN **        -N
+     STD TMP1
+     LDM TMP
+RSJ      **        ADDRESS OF XI-1
+     LPN 77
+RSH  SHN **        FORM LEFT SHIFT (14-N)
+     LMD TMP1
+     STM TMP
+RSG      **        XI+REGISTER LENGTH
+     SOD TMP
+     NJN RSA
+     UJN RSX
+LSFO LJM           LEFT SHIFT X(I) BY THE CONTENTS OF A
+LSFT     **
+     RJM
+         BITS      SET UP MULT OF 6 BIT SHIFTS
+     LDD I
+     RJM
+         RDX
+LSFZ STM 00        ENTRANCE FOR NORMALIZE
+         LSF5
+     STM
+         LSF6       ADDRESS OF X(I)
+     ADN 4
+     STD TMP1      ADDRESS OF X(I) + 4
+     LDD SFCT
+     ZJN LSF4      TOTAL SHIFT COUNT IS LEES THAN 6
+LSF3 LDN 0
+     STD TMP2      CLEAR SHIFT OFF VALUE
+     LDN 4
+     STD TMP
+LSF1 LDM TMP
+LSF5     **
+     STM
+         LSF7
+     LDD TMP2
+LSF9 PSN           FORM SHN (6- RSDU) FOR CORRECTION SHIFT
+     LPN 77
+     ADC
+         2000
+     STM
+         LSF8
+LSF8     **
+LSF7     **
+LSF2 SHN 6          THIS SHIFT IS MOD. FOR RESIDUE CORRECTION
+     STM TMP
+LSF6     **
+     SHN 63
+     STD TMP2      STORE SHIFTED OFF BITS
+     SOD TMP
+     PJN LSF1
+     LDD TMP2
+     RAI TMP1      INDIRECT ADDRESS OF X(I) + 4
+     SOD SFCT
+     NJN LSF3      LEFT SHIFT BY 6 MORE BITS
+LSF4 LDD RSDU
+     ZJN 17
+     ADC 0
+         1000      FORM LEFT SHIFT BY (RSDU)
+     STM
+         LSF2      FORM LEFT SHIFT BY CORRECTION COUNT
+     LDN 6
+     SBD RSDU
+     ADC 0
+         1000
+     STM
+         LSF9
+     LDN 0
+     STD RSDU
+     AOD SFCT
+     UJN 57
+     LDC
+         1006      RESTORE LEFT SHIFT OF 6
+     STM
+         LSF2      RESET SHIFT TO NORMAL COUNT OF 6
+     LDN
+     STM
+         LSF9
+     LJM
+         LSFO
+FPAX LJM           FLOATING ADD UNIT
+FPAD     **
+     LDN 11
+     STD REGL
+     LDC 0
+         FPR1
+     STD IAD
+     LDD J
+     RJM
+         RDX
+     STD TMP
+     LDD K
+     RJM
+         RDX
+     STD TMP1
+     LDI TMP       EXPONENT OF X(J)
+     RJM
+         EXPN      UNPACK EXPONENT
+     STD XJEX      TRUE EXPONENT
+     SHN 63        SAVE SIGN OF X(J) EXPONENT
+     STD TMP2
+     LDI TMP1
+     RJM
+         EXPN
+     STD XKEX
+     SBD XJEX      DIFFERENCE OF EXPONENTS
+     SHN 6
+     SBD TMP2      SUBTRACT SIGN OF EXPONENT
+     SHN 14
+     PJN 14
+     LMD MSK7      MAKE EXPONENT POSITIVE
+     STD TMP3
+     LDD TMP
+     STD TMP2
+     LDD TMP1
+     STD TMP       ADDRESS OF SMALLER VALUE
+     LDD TMP2
+     STD TMP1      ADDRESS OF LARGER VALUE TO TMP2
+     LDD XJEX      LARGER EXPONENT TO XKEX
+     STD XKEX
+     UJN 2
+     STD TMP3
+     LDD TMP3
+     ADC 77
+         7600      ASSURE DIFFERENCE NOT GREATER THAN 0177
+     MJN 4
+     LDC
+         0177
+     STD TMP3
+     LDI TMP
+     SHN 6
+     LPC 40
+         0000
+     PJN 2
+     LDD MSK7
+     STM
+         FPR1      EXTEND SIGN OF SMALLER VALUE
+     LDI TMP1
+     SHN 6
+     LPC 40
+         0000
+     PJN  2
+     LDD MSK7
+     STM
+         FPR2
+     AOD TMP1
+     AOD TMP
+     LDN 1
+     STD TMP2
+     LDI TMP
+     STM TMP2
+         FPR1
+     LDI TMP1
+     STM TMP2
+         FPR2
+     AOD TMP
+     AOD TMP1
+     AOD TMP2
+     SBN 5
+     NJN 65
+     LDM 0
+         FPR1
+     LMM 0
+         FPRA
+     STM 0
+         FPZK
+     LDM 0
+         FPR2
+     LMM 0
+         FPRB
+     LPC 0
+FPZK     **
+     SHN 6
+     MJN FPA3
+NOTN LDM 0
+         FPR1
+     ADM
+         FPR2
+     LPN 1
+     ZJN FPA2      SIGNS ARE LIKE
+FPA3 LDM
+         FPR1
+     NJN 4
+     LDC 0
+         4000      SET ROUND BIT FOR POSITIVE COEFF.
+     UJN 3
+     LDC 00
+         3777      SET ROUND BIT FOR NEG COEFF.
+     STM
+         RBT1
+FPA1 LDM
+         FPR2
+     NJN 4
+     LDC
+         4000
+     UJN 3
+     LDC
+         3777
+     STM
+         RBT2
+     UJN 6
+FPA2 LDM
+         FPR1      SET ROUND BIT IN LARGER VALUE
+     STM
+         RBT1
+     UJN FPA1
+FPA4 LDD FM        INSTRUCTION NUMBER
+     SBN 34        TEST FOR ROUNDED OPERATION
+     ZJN 13        ROUNDED ADD
+     SBN 1         CHECK FOR 25 CODE
+     ZJN 11        ROUNDED SUBTRACT
+     LDM 00
+         FPR1      SET ROUND BIT EQUAL TO SIGN EXTENSION
+     STM 00
+         RBT1
+     LDM 00
+         FPR2
+     STM 00
+         RBT2
+     LDN 5
+     STD TMP2
+     LDC
+RBT1     **
+     STM TMP2
+         FPR1      STORE ROUND BIT OR SIGN EXTENSION
+     LDC
+RBT2     **
+     STM TMP2
+         FPR2
+     AOD TMP2
+     LDM
+         FPR1
+     STM TMP2
+         FPR1      EXTEND SIGN INTO LOWER 48 BITS
+     LDM
+         FPR2
+     STM TMP2
+         FPR2
+     AOD TMP2
+     SBN 12
+     NJN 65
+     LDD TMP3
+     ZJN EXEQ      EXPONENTS AREE EQUAL
+     LDD TMP3
+     RJM 0
+         RSFT
+EXEQ LDN 0
+     STD CARB
+     LDN 11
+     STD TMP
+     LDM TMP
+         FPR2
+     ADD CARB      ADD OPERANDS
+     RAM TMP
+         FPR1
+     SHN 63
+     STD CARB
+     SOD TMP
+     PJN 67
+     LDD CARB
+     ZJN 15
+     SHN 13
+     STD CARB
+     LDN 11
+     STD TMP
+     LDD CARB
+     RAM TMP
+         FPR1
+     SHN 63
+     ZJN 4         SENSE END OF CARRY UPS
+     STD CARB
+     SOD TMP
+     PJN -7        RESUME ADD
+     LDM 00
+         FPR1
+     LPN 3
+     ZJN 14
+     SBN 3
+     ZJN 12
+     LDN 1
+     RJM 0
+         RSFT      RIGHT SHIFT FPR1
+     LDD XKEX
+     ADC 77
+         0001
+     LPC 00
+         3777
+     STD XKEX
+     LDM
+         FPR1
+     SHN 6
+     PJN 2
+     LDD MSK7
+     STM
+         FPA7
+     LDN 1
+     STD TMP
+     LDM
+         FPR1
+     STM
+         FPA6
+     LDM TMP
+         FPR1
+     LMC 0000
+FPA6     **
+     NJN 10
+     AOD TMP
+     SBN 12
+     NJN 70
+     STM 0
+         FPA7
+     RJM
+         CLFP      CLEAR FLOATING POINT REGISTERS
+     LDD XKEX       EXPONENT WITH SIGN BIT
+     LMC 00        COMPLIMENT SIGN BIT
+         2000
+     LPC 00
+         3777      SAVE EXPONENT
+     LMC
+FPA7     **        COMPLIMENT EXPONENT IF NEG COEFF
+     STD XKEX
+     LDD I
+     RJM
+         RDX
+     STD TMP
+     LDN 1
+     STD TMP1
+     LDD XKEX
+     STI TMP
+     AOD TMP
+     LDM TMP1
+         FPR1
+     STI TMP
+     AOD TMP
+     AOD TMP1
+     SBN 5         TRANSFER COEFFICIENT TO X (I)
+     NJN 71        LOOP
+     LDD I
+     RJM 0
+         RDX
+     STD IAD
+     LJM
+         FPAX      EXIT
+     LJM 0000
+EXPN     **
+     SHN 6         TEST SIGN OF COEFFICIENT
+     PJN 3
+     LMC 77
+         7700      COMPLIMENT EXPONENT
+     SHN 1         TEST SIGN OF EXPONENT
+     MJN 5         POSITIVE
+     SHN 70
+     LMC 77
+         6000      EXTEND SIGN
+     UJN 4         EXIT
+     SHN 70
+     ADC 77
+         5777      REMOVE BIAS FROM POSITIVE EXPONENT
+     UJN 60        EXIT
+FMPX LJM 0
+FMP      **
+     LDI JAD
+     SHN 6
+     LPC 40
+         0000
+     PJN 2
+     LCN 0
+     STM 0
+         FMP1
+     LDI KAD
+     SHN 6
+     LPC 40
+         0000
+     PJN 2
+     LCN 00
+     STM 00
+         FMP2      SET COEFFICIENTS POSITIVE
+     LDD JAD       INDIRECT ADDRESS OF X(J)
+     STD TMP
+     LDD KAD
+     STD TMP1
+     LDN 1
+     STD TMP2
+     LDN 6
+     STD TMP3
+FMP3 AOD TMP
+     AOD TMP1
+     LDI TMP
+     LMC 00
+FMP1     **
+     STM TMP3
+         FPR1
+     LDI TMP1
+     LMC 00
+FMP2     **
+     STM TMP2
+         X8
+     AOD TMP3
+     AOD TMP2
+     SBN 5
+     NJN FMP3
+     STM 00
+         X8        CLEAR EXPONENT FIELD OF MULTIPLIER
+     LDN 6
+     STD TMP
+     LDN 1
+     STD TMP1
+     LDM TMP
+         FPR1
+     LPC 00
+         4000
+     ADM TMP1
+         X8
+     SHN 63
+     STD NORM
+     LDN 4
+     STD TMP
+FMP5 LDM TMP
+         X8        MULTIPLIER
+     STD RSDU
+     LDN 4
+     STD TMP2
+FMP4 LDD RSDU
+     STD TMP1
+     SHN 74
+     STD RSDU
+     LDD TMP1
+     LPN 7
+     STD TMP1
+     ZJN 5
+     RJM
+         FMAD      ADD MULTIPLICAND TO PRODUCT
+     SOD TMP1
+     NJN 74
+     RJM
+         SFMD      SHIFT MULTIPLICAND LEFT 3
+     SOD TMP2
+     NJN FMP4
+     SOD TMP
+     PSN
+     NJN FMP5
+     LDD NORM
+     ZJN 31        NORMALIZE NOT REQUIRED
+     LDN 2
+     STD TMP
+     LDM TMP
+         FPR2
+     SHN 6
+     PJN 4
+     LDN 0000
+     STD NORM      PRODUCT ALREADY NORMLLIZED
+     UJN 20        CLEAR FLAG     DO NOT DECREMENT EXPONENT
+     LDN 11
+     STD TMP
+     LDN 0000
+     STD CARB
+     LDD CARB      HIGH ORDER BIT SHIFTED OFF
+     SHN 21        LEFT JUSTIFY IN A
+     ADM TMP
+         FPR2      NEXT 12 BITS OF PRODUCT
+     SHN 1
+     STM TMP
+         FPR2      RESTORE SHIFTED VALUE
+     SHN 63
+     STD CARB      STORE SHIFTED OFF BIT
+     SOD TMP       LOOP
+     PJN 65
+     LJM 0000
+         FMPX
+     LJM           LEFT SHIFT MULTIPLICAND BY 3
+SFMD     **
+     LDN 11
+     STD TMP3
+     LDN 0000
+     STD TMP4
+     LDD TMP4
+     SHN 17
+     ADM TMP3
+         FPR1
+     SHN 3
+     STM TMP3
+         FPR1
+     SHN 63
+     STD TMP4
+     SOD TMP3
+     PJN 65
+     UJN 56
+     LJM 0000      ADDMULTIPLICAND TO PRODUCT
+FMAD     **
+     LDN 0
+     STD CARB
+     LDN 11
+     STD TMP4
+     LDM TMP4
+         FPR1
+     ADD CARB
+     RAM TMP4
+         FPR2
+     SHN 63
+     STD CARB
+     SOD TMP4
+     PJN 67
+     UJN 60
+     LJM 00
+CLFP     **
+     LDN 00
+     STD TMP
+     LDN 0
+     STM TMP
+         FPR1      CLEAR FLOATING POINT REGISTER
+     AOD TMP
+     SBN 24        CLEAR FPR1 AND FPR2
+     NJN 72
+     UJN 65
+MPX  LJM 00        EXIT FROM MULTIPLY
+MPY      **
+     RJM
+         CLFP      CLEAR FLOATING POINT PRODUCT REGISTER
+     LDN 6
+     STD TMP
+     LDC
+C40A     **        ROUND BIT
+     STM TMP
+         FPR2      STORE IN PRODUCT REGISTER
+     RJM
+         FMP       MULTIPLY COEFFICIENTS
+     LDC 0
+MPFC     **        48 OR 47
+     STD TMP
+     LDI JAD
+     RJM 0
+         EXPN
+     STD XJEX      EXPONENT OF X(J)
+     SHN 63
+     STD XKEX      SIGN BITS
+     LDI KAD
+     RJM
+         EXPN
+     ADD XJEX      ADD LOWER 12 BITS
+     SHN 6
+     ADD XKEX      ADD UPPER 6 BITS
+     SHN 14
+     STD XJEX      STORE LOSER 12 BITS OF SUM
+     SHN 63
+     STD XKEX      SOTRE UPPER 6 BITS OF SUM
+     LDD NORM      WAS PRODUCT NORMALIZED
+     ZJN 2         NO
+     SOD TMP       YES ADJUST EXPONENT
+     LJM 0
+         MPX
+STOP LDM
+         NIN0
+     LPN 37        CLEAR BIT 2 **17
+     LPN 77
+     STD RPU
+     LDM
+         NIN1
+     STD RPL
+     LDD FLCT
+     SBN 3         IS STOP IN LOWER 15 BITS OF WORD
+     NJN 10        NO SET P = P
+     LDD RPU
+     SHN 14
+     ADD RPL
+     ADN 1         YES SET P = P+1
+     STD RPL
+     SHN 63
+     STD RPU
+     RJM 00
+         PRAD      GET ADDRESS OF P REGISTER
+     CWD RELP      SEND RELATIVE P TO CENTRAL
+     LDN 0
+     STM
+         NIN1
+     LDC
+         2000
+     STM
+         NIN0      CLEAR PROGRAM RUNNING FLAG
+     RJM 0
+         KVAL
+     ZJN STOQ
+     ADN 0
+     NJN STOQ
+     LDC
+         1500
+     STD D         NUMBER OF CENTRAL
+     LDC 02
+         0000
+     CWM D
+         0000
+     LJM 0
+         100
+STOQ LJM 0
+         IDLE
+C01  LDM 0         CALL K     RETURN JUMP TO K+1    P+1 TO K
+         NIN0
+     LPN 77        PACK CURRENT VALUE OF P REGISTER
+     SHN 14
+     ADM
+         NIN1
+     ADN 1
+     STD TMP
+     SHN 71
+     STM
+         C01A
+     LDD TMP
+     SHN 6
+     STM
+         C01B      STORE P+1 INTO UNCONDITIONAL JUMP
+     LDN 1
+     STD TMP
+     RJM
+         KVAL
+C01C     **        BECOMES ADC BIAS
+C01D     **
+     CWM TMP       WRITE UNCONDITIONAL JUMP TO K
+         KCON
+     LDN 0
+     STD FLCT      RESET FIELD COUNTER TO ZERO
+     RJM
+         KVAL
+     ADN 1
+     LJM
+         RESP      STORE P VALUE IN CENTRAL ADDRESS 000016
+KCON     0400
+C01A     0000
+C01B     0000
+         0000
+         0000
+C02  LDN 0
+     STD TMP1
+     STD TMP
+     STD 0
+     STD FLCT      CLEAR FIELD COUNTER FOR INST / WORD
+     LDD I         GO TO K + B(I)
+     ZJN 3
+     RJM
+         RDB
+     STD TMP       INDIRECT ADDRESS OF B(I)
+     ADN 1
+     STD TMP1
+     RJM
+         KVAL      GET VALUE OF BIG K
+     ADI TMP1
+     SHN 6
+     ADI TMP       ADD VALUE OF B(I)
+     SHN 14
+     LJM 00
+         RESP
+GTKX LDD J         FM = 03
+     RJM
+         RDX
+     STD TMP       BASE ADDRESS OF X (J)
+     LDD I
+     ZJN C030
+     LJM
+         NZ
+C030 LDD J         GO TO K IF X(J) IS ZERO
+     RJM
+         RDX       BASE ADDRESS OF X(J)
+     ADN 4
+     STD TMP
+     LDN 5
+     STD TMP1      SET LOOP COUNT
+C03A LDI TMP
+     ZJN C03B
+     LDD JAD
+     ADN 4
+     STD TMP
+     LDN 5
+     STD TMP1
+     LDI TMP
+     LMC 00
+         7777      CHECK FOR MINUS ZERO
+     NJN 5         BYTE OF NOT 7777 FOUND
+     SOD TMP
+     SOD TMP1      LOOP COUNTER
+     NJN 71        COMPLETE REGISTER NOT SCANNEC
+     UJN 6         GO REGISTER X(J) IS MINUS ZERO
+     LJM
+         NOGO      X(J) NOT ZERO
+C03B SOD TMP
+     SOD TMP1
+     NJN C03A
+     LJM
+         GO        NO NON ZERO VALUE FOUND
+NOGO LDN 2         INCREMENT COUNTER FY 2 FIELDS
+     UJN 2
+ADD1 LDN 1         ENTRY FOR 15 BIT INSTRUCTIONS
+     STD CFCT      STORE IN CURRENT FIELD COUNT
+     RAD FLCT      FIELD COUNTER  COUNTS TO 4
+     SBN 4
+     NJN NXFL
+     STD FLCT      RESET FIELD COUNTER
+     AOM 0
+         NIN1      ADVANCE LOWER 12 BITS OF ADDRESS BY 1
+     STD RPL
+     SHN 63
+     RAM 0
+         NIN0      ADD CARRY OVER INTO UPPER 6 BITS
+     LPN 37
+     STD RPU
+     LDD CPAD
+     CWD RELP
+     LJM 0
+         IDLE
+NXFL SOD CFCT
+     NJN HALF      LAST INSTRUCTION WAS 30 BIT ADJUST FOR 2 FIELDS
+     LDD CUI1
+     SHN 3
+     STD CUIN
+     LDD CUI2
+     SHN 3
+     STD CUI1
+     SHN 63
+     RAD CUIN
+     LDD CUI3
+     SHN 3
+     STD CUI2
+     SHN 63
+     RAD CUI1
+     LDD CUI4
+     SHN 3
+     STD CUI3
+     SHN 63
+     RAD CUI2
+     LJM
+         EXIN
+HALF LDD CUI2
+     LPN 77
+     SHN 14
+     LMD CUI3
+     SHN 14
+     STD CUIN
+     LPC 77
+         0000
+     LMD CUI4
+     SHN 14
+     STD CUI1
+     SHN 71
+     STD CUI2
+     LJM 0
+         EXIN
+NZ   SBN 1
+     NJN POS
+C031 LDD J
+     RJM
+         RDX
+     ADN 4
+     STD TMP
+     LDN 5
+     STD TMP1
+C03C LDI TMP
+     ZJN C03D
+     LDD JAD
+     ADN 4
+     STD TMP
+     LDN 5
+     STD TMP1
+     LDI TMP
+     LMC 00
+         7777
+     NJN 5
+     SOD TMP
+     SOD TMP1
+     NJN 71
+     UJN 6
+     LJM
+         GO
+C03D SOD TMP
+     SOD TMP1
+     NJN C03C
+     LJM
+         NOGO
+POS  SBN 1
+     NJN NEG
+     LDI TMP
+     SHN 6
+     PJN GO
+     LJM
+         NOGO
+NEG  SBN 1
+     ZJN 3
+     LJM
+         C034      CHECK FOR FLOATING POINT BRANCH
+     LDI TMP
+     SHN 6
+     MJN 3
+     LJM
+         NOGO
+GO   LDN 0
+     STD FLCT      CLEAR COUNTER DUE TO EXIT FROM CURRENT SEQUENCE
+     RJM
+         KVAL
+RESP STM
+         NIN1      ADDRESS OF NEXT INSTRUCTION
+     STM
+         RPL       RELATIVE P LOWER 12 BITS
+     SHN 63
+     LPN 37        CLEAR BIT 2 **17
+     STM
+         RPU       UPPER 6 BITS OF P
+     ADC 0
+         2000
+     STM 0
+         NIN0
+     LDD CPAD
+     CWD RELP      WRITE RELATIVE P TO ADDRESS 000016
+     LJM
+         IDLE
+STP  STD RPU       SET RELATIVE P = 0
+     STD RPL
+     LJM
+         STP1
+C034 SBN 1
+     NJN C035      NOT = 4
+     LDI JAD       GO TO K IF X(J) IS IN RANGE
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     ZJN 3         NOT IN RANGE
+C03E LJM 00
+         GO
+C03F LJM 00
+         NOGO
+C035 SBN 1
+     NJN C036      NOT = 5
+     LDI JAD       ADDRESS OF J OPERAND
+     RJM 0
+         EXPN
+     ADC 77
+         6000
+     ZJN C03E      GO TO K IF NOT IN RANGE
+     UJN C03F
+C036 SBN 1
+     NJN C037
+     LDI JAD
+     RJM 0
+         EXPN
+     ZJN C03F
+     ADN 0
+     NJN C03E
+     UJN C03F
+C037 LDI JAD
+     RJM 0
+         EXPN
+     ZJN C03E
+     ADN 0
+     NJN C03E
+     UJN C03F
+C04  LDD I
+     RJM
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDD J
+     RJM
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     SBI TMP2
+     NJN 5
+     SHN 14
+     ADI TMP1
+     SBI TMP3
+     ZJN 3
+     LJM
+         NOGO
+     LJM
+         GO
+GKNE LDD I         FM = 05
+     RJM
+         RDB
+     STM
+         GKN3
+     LDD J
+     RJM
+         RDB
+     STM
+         GKN4
+     LDN 0
+     STD TMP
+GKN1 LDM TMP
+GKN3     **
+     SBM TMP
+GKN4     **
+     NJN GKN2      NOT EQUAL  //  GO TO K
+     AOD TMP
+     SBN 2
+     NJN GKN1
+     LJM
+         NOGO      B(I) EQUALS B(J) NO TRANSFER
+GKN2 LJM
+         GO
+C06  LDD I
+     RJM
+         RDB       BASE ADDRESS OF B(I)
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDD J
+     RJM
+         RDB       BASE ADDRESS OF B(J)
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     SHN 14        SIGN OF B(I)
+     MJN C06A
+     LDI TMP2
+     SHN 14        SIGN OF B(J)
+     MJN C06B
+     LDI TMP
+     SBI TMP2
+     SHN 14
+     ADI TMP1
+     SBI TMP3
+     MJN 3
+C06B LJM
+         GO
+     LJM
+         NOGO
+C06A LDI TMP2      B(I) IS MINUS
+     SHN 14
+     PJN 73        B(J) IS ) B(I)
+     UJN 62        TEST MAGNITUDE
+C07  LDD I         GO TO K IF B(I) IS ( B(J)
+     RJM
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDD J
+     RJM
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     SHN 14
+     PJN 4         B(I) IS +
+     LDI TMP2
+     SHN 14
+     PJN C07A      B(J) IS+
+     LDI TMP
+     SBI TMP2
+     SHN 14
+     ADI TMP1
+     SBI TMP3      B(I) - B(J)
+     PJN 3         B(I) IS . OR = B(J) **** NO GO
+C07A LJM
+         GO
+     LJM
+         NOGO
+FIFJ LDN 5
+     STD TMP
+     LDI JAD
+     STI IAD
+     AOD JAD
+     AOD IAD
+     SOD TMP
+     NJN -5
+     LJM
+         ADD1
+LJ*K LDD JAD       BASE ADDRESS OF X(J)
+     STM
+         LP1
+     LDD IAD       ADDRESS OF X(I)
+     STM
+         LP3
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         LP2
+     LDN 4         SET LOOP COUNT
+     STD TMP
+LPLP LDM TMP
+LP1      **
+     STM
+         LP
+     LDM TMP
+LP2      **
+     LPC
+LP       **        LOGICAL PRODUCT
+     STM TMP
+LP3      **
+     SOD TMP
+     PJN LPLP      LOOP
+     LJM
+         ADD1
+LJ+K LDD J
+     RJM
+         RDX
+     STM
+         IOR2
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         IOR3
+     LDD IAD       ADDRESS OF X(I)
+     STM
+         IOR4
+     LDN 4         SET LOOP COUNT
+     STD TMP
+IOR1 LDM TMP
+IOR2     **
+     LMD MSK7
+     STM
+         INOR
+     LDM TMP
+IOR3     **
+     LMD MSK7
+     LPC
+INOR     **        PRESET /  COMPLIMENT OF 1 OF THE OPERANDS
+     LMD MSK7
+     STM TMP       STORE INCLUSIVE OR OF 12 BITS
+IOR4     **
+     SOD TMP
+     PJN IOR1      REPEAT LOOP
+     LJM
+         ADD1
+C13  LDD I         FM = 13   L(I) = F(J) - F(K)
+     RJM
+         RDX
+     STM
+         C13A
+     LDD JAD       ADDRESS OF X(J)
+     STM
+         C13B
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         C13C      K ADDRESS
+     LDN
+     STD TMP
+     LDM TMP
+C13B     **
+     LMM TMP
+C13C     **
+     STM TMP
+C13A     **
+     AOD TMP
+     SBN 5
+     NJN 67
+     LJM
+         ADD1
+C14  LDD I         FM = 14     F(I) = CK
+     RJM
+         RDX
+     STM
+         C14A
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         C14B
+     LDN
+     STD TMP
+     LDM TMP
+C14B     **
+     LMD MSK7
+     STM TMP
+C14A     **
+     AOD TMP
+     SBN 5
+     NJN 70
+     LJM
+         ADD1
+C15  LDD I         FM = 15    L(I) = F(J) * C(K)
+     RJM
+         RDX
+     STM
+         C15A
+     LDD JAD       ADDRESS OF X(J)
+     STM
+         C15B
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         C15C
+     LDN 4         SET LOOP COUNT
+     STD TMP
+     LDM TMP
+C15C     **
+     LMD MSK7
+     STM
+         C15D
+     LDM TMP
+C15B     **
+     LPC
+C15D     **
+     STM TMP
+C15A     **
+     SOD TMP
+     PJN 62        LOOP
+     LJM
+         ADD1
+C16  LDD I         FM = 16      L(I) = F(J) + CK
+     RJM
+         RDX
+     STM
+         C16A      COMPUTE ADRESS FOR L(I)
+     LDD JAD       ADDRESS OF X(J)
+     STM
+         C16B
+     LDD KAD       ADDRESS OF X(K)
+     STM
+         C16C      ADDRESS FO C(K)
+     LDN 4         SET LOOP COUNT
+     STD TMP
+     LDM TMP
+C16C     **
+     STM
+         C16D
+     LDM TMP
+C16B     **
+     LMD MSK7
+     LPC
+C16D     **
+     LMD MSK7
+     STM TMP
+C16A     **
+     SOD TMP
+     PJN 60        LOOP
+     LJM
+         ADD1
+C17  LDN 4         LOOP COUNT
+     STD TMP
+     LDI KAD
+     LMD MSK7
+     LMI JAD
+     STI IAD
+     AOD IAD
+     AOD JAD
+     AOD KAD
+     SOD TMP
+     PJN -10
+     LJM
+         ADD1
+C20  LDD J
+     SHN 3
+     ADD K
+     RJM
+         LSFT
+     LJM
+         ADD1
+C21  LDN 4
+     STD REGL
+     LDD J
+     SHN 3
+     ADD K
+     RJM
+         RSFT
+     LJM
+         ADD1
+C22  RJM
+         KTOI      TRANSFER X(K) TO X(I)
+     LDN 4
+     STD REGL
+     LDD J
+     RJM
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDI TMP
+     SHN 72
+     ZJN 14        SHICT VALUE IS POSITIVE  **  LEFT SHIFT
+     LDI TMP1
+     SHN -6
+     LPN 17
+     LMN 17
+     NJN C22A      RIGHT SHIFT IS MORE THAN 77
+     LDI TMP1
+     LPN 77
+     LMN 77
+     RJM
+         RSFT      RIGHT SHIFT X(I)    SHIFT COUNT IS NEGITIVE
+     UJN 5
+     LDI TMP1
+     LPN 77
+     RJM
+         LSFT
+     LJM
+         ADD1
+C22A RJM 0
+         CLXI
+     UJN -4
+C23  RJM
+         KTOI      TRANSFER X(K) TO X(I)
+     LDN 4
+     STD REGL
+     LDD J
+     RJM
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDI TMP
+     LPN 40         MASK OUT SIGN BIT
+     NJN 11        SHIFT IS NEG  **  LEFT SHIFT
+     LDI TMP1
+     SHN -6
+     NJN C22A
+     LDI TMP1
+     LPN 77
+     RJM
+         RSFT      RIGHT SHIFT X(I)     SHIFT COUNT IS POSITIVE
+     UJN 6
+     LDI TMP1
+     LPN 77
+     LMN 77
+     RJM
+         LSFT
+     LJM
+         ADD1
+C24  LDN 00
+     STM 0
+         C24B      STORE BIT FOR UNROUNDED NORMALIZE
+     UJN 4
+C25  LDC 00
+         4000
+     UJN 72        SET FOR ROUNDED NORMALIZE
+     RJM 0
+         CLFP      CLEAR FLOATING POINT REGISTER
+     LDN 00
+     STD TMP2
+     STD NORM      CLEAR NORMALIZE COUNTER
+     LDD IAD
+     STM 00
+         C24F
+     LDD KAD
+     STM 00
+         C24A
+     LDI KAD
+     STD XKEX      SAVE EXPONENT
+     RJM 00
+         EXPN
+     PJN 7         EXPONENT NOT 3777
+     ADN 0         EXPONENT MAY BE -0
+     NJN 10        EXPONENT NOT 3777 OR 1777
+     RJM 00
+         KTOI
+     LJM 00
+         C24I
+     LMC 00
+         1777
+     UJN -7        CHECK FOR 1777 EXPONENT
+     LDD XKEX
+     SHN 6
+     LPC 40
+         0000      SENSE SIGN OF COEFFICIENT
+     ZJN 2         POSITIVE
+     LCN 00
+     STD MASK      SAVE FOR MASK
+     LDM TMP2
+C24A     **        (KAD)
+     LMD MASK      LOGICAL DIFFERENCE
+     STM TMP2
+         FPR1
+     AOD TMP2
+     SBN 5
+     NJN 70        TRANSFER FROM X(K) TO X(I)  NOT COMPLETEDD
+     STM 00
+         FPR1
+     LDC 00
+C24B     **        ROUND BIT
+     STM TMP2      STORE IN REGISTER TO BE SHIFTED
+         FPR1
+     LDN 1
+     STD TMP1
+     LDN 14
+     STD TMP2
+     LDM TMP1
+         FPR1
+     ZJN C24D      NORMALIZE BY 12
+     STD TMP
+     LDD TMP
+     SHN 1         LOOK FOR FIRST NON-ZERO BIT
+     STD TMP
+     LPC 01
+         0000
+     NJN 13        EXIT NON-ZERO BIT FOUND
+     AOD NORM      INCREMENT NORMALIZE COUNT
+     SOD TMP2
+     NJN 67
+     AOD TMP1
+     SBN 5
+     NJN 56
+     UJN 4         EXIT
+C24D LDN 14
+     RAD NORM      INCREASE NORMALIZE COUNT BY 12
+     UJN 71
+     LDD NORM
+     SBN 60
+     MJN C24H
+     LDM 0
+         C24B
+     ZJN 3         SENSE NOT ROUNDED NORMALIZE
+C24H LDD NORM
+     UJN C24G
+     LJM 0
+         LRL
+C24G RJM 0
+         BITS
+     LDC 00
+         C24C
+     STM 00
+         LSFT
+     LDC 00
+         FPRA
+     LJM 00
+         LSFZ
+C24C LDN 1
+     STD TMP
+     LDM TMP
+         FPR1
+     LMD MASK
+     STM TMP
+C24F     **        (IAD)
+     AOD TMP
+     SBN 5
+     NJN 70
+     LDD XKEX
+     RJM 00
+         EXPN      EXPONENT VALUE
+     SBD NORM      NUMBER OF SHIFTS
+     STD XKEX
+     SHN 65
+     LPN 3
+     SBN 2
+     NJN 17        NO UNDERFLOW
+LRL  RJM 00
+         CLXI      UNDERFLOW CLEAR X(I)
+C24I LDD J
+     ZJN 11        EXIT B REGISTER IS 0
+     RJM 00
+         RDB
+     STD TMP
+     LDN 0
+     STI TMP
+     AOD TMP
+     LDD NORM
+     STI TMP
+     LJM 00
+         ADD1
+     LDD XKEX
+     ADC 00
+         2000      ADD BIAS TO EXPONENT
+     LMD MASK
+     STI IAD
+     UJN 56        SET NORMALIZE COUNT IN B REGISTER
+C26  LDD KAD       UNPACK FLOATING POINT NUMBER
+     SBD IAD
+     ZJN 3         I = K
+     RJM 00
+         KTOI      TRANSFER X(K) TK X(I)
+     LDI IAD
+     STD TMP       SAVE EXPONENT OF X(I)
+     SHN 6
+     PJN 3         COEFFICIENT IS POSITIVE
+     LCN 0         ENTER ALL ONES
+     UJN 2
+     LDN 0
+     STI IAD       EXTEND SIGN OF COEFFICIENT
+     LDD J
+     ZJN C26A      J IS B(O)
+     RJM 00
+         RDB
+     STD TMP1
+     ADN 1
+     STD TMP2      STORE ADDRESSES FOR B(J)
+     LDD TMP
+     RJM 00
+         EXPN      GET EXPONENT VALUE
+     STI TMP2
+     SHN 63
+     STI TMP1      STORE UPPER 6 BITS OF B(J)
+C26A LJM 00
+         ADD1
+C27  LDD K
+     RJM
+         RDX
+     STD TMP       X(K) + 0
+     LDD IAD       ADDRESS OF X(I)
+     STD TMP2      X(I) + 0
+     ADN 1
+     STD TMP3      X(I) + 1
+     LDD J
+     RJM
+         RDB
+     STD TMP4
+     ADN 1
+     STD TMP1      B(I) + 1
+     LDI TMP4
+     SHN 14
+     LMI TMP1      SET LOWER 12 BITS
+     PJN 3         EXPONENT IS POSITIVE
+     LMC 77
+         7777
+     ADC 77
+         6000      TEST ABSOLUTE VALUE FOR LESS THAN 1777
+     MJN 16        UNBIASED EXPONENT IS LESS THAN 1777
+     RJM 00
+         CLXI      EXPONENT IS 1777 OR GREATER
+     LDC 00
+         3777      ERROR WAS ORERFLOW
+     STI IAD
+     LJM 00
+         RNGE      TEST FOR EXIT REAUEST ON OVERFLOW
+     LDI TMP1
+     SHN 7
+     MJN 4         EXPONENT IS ) -1777
+     RJM 0
+         CLXI
+     UJN C27A
+     LDN 0
+     STD TMP4      MASK FOR POSITIVE COEFFICIENT
+     LDI TMP
+     SHN 6         SIGN OF COEFFICIENT
+     PJN 3
+     LCN 0
+     STD TMP4      MASK FOR NEGITIVE COEFFICIENT
+     LDI TMP1
+     LMC 00
+         2000      SET BIAS BIT
+     LPC 00
+         3777
+     LMD TMP4
+     STI TMP2
+     LDN 4
+     STD TMP1
+     AOD TMP
+C27B LDI TMP
+     STI TMP3
+     AOD TMP
+     AOD TMP3
+     SOD TMP1
+     NJN C27B
+C27A LJM 00
+         ADD1
+C30  RJM 0
+         INDF
+     RJM 0
+         RNGA
+     LDD KAD
+     STD TMP
+     LDD JAD
+     STD TMP1
+     RJM 0
+         FPAD
+     LDN 32
+     SBD FM
+     NJN 3         NOT 32
+     LJM 0
+         C32A      32 OR 33
+     ADN 1
+     ZJN -3
+     LJM 0
+         ADD1
+C31  LDN 0
+     STD TMP1
+     LDD KAD
+     STD TMP
+     LDI TMP
+     LMD MSK7
+     STM TMP1
+         X8
+     AOD TMP
+     AOD TMP1
+     SBN 5
+     NJN -7
+     LDN 10
+     STD K
+     LJM 0
+         C30
+C32  LJM 0
+         C30
+C32A LDI IAD
+     RJM 0
+         EXPN
+     SBN 60
+     STD TMP
+     ADC 0
+         1777
+     MJN C32B
+     LDI IAD
+     SHN 6
+     PJN 4
+     LDD TMP
+     LMD MSK7
+     STD TMP
+     LDD TMP
+     LMC 00
+         6000
+     STI IAD
+     LDN 5
+     STD TMP
+     AOD IAD
+     LDM TMP
+         FPR1
+     STI IAD
+     AOD TMP
+     SBN 11
+     NJN 71
+     LJM 0
+         ADD1
+C32B RJM 0
+         CLXI
+     UJN -4
+C33  LJM 0
+         C31       FLT DP SUB
+C34  LJM 0
+         C30       FLT RND ADD
+C35  LJM 0
+         C31       FLTRND SUB
+C36  LDN 0
+     STD CARB      SET CARRY BIT COUNTER TO 0
+     STD TMP3
+     LDD KAD       ADDRESS OF X(K)
+     ADN 4
+     STD TMP
+     LDD JAD       ADDRESS OF X(J)
+     ADN 4
+     STD TMP1
+     LDD IAD       ADDRESS OF X(I)
+     ADN 4
+     STD TMP2
+     LDN 4
+     STD TMP4
+     LDD TMP3      CARRY BIT
+     ADI TMP
+     ADI TMP1
+     STI TMP2
+     SHN 63
+     STD TMP3      CARRY BIT
+     ZJN 2         NO CARRY BIT
+     AOD CARB      ADD 1 TO NUMBER OF CARRIES
+     SOD TMP
+     SOD TMP1
+     SOD TMP2
+     SOD TMP4
+     PJN -14
+     LDN 5
+     STD TMP
+     RAD TMP2
+C36A LDD TMP3
+     ZJN C36B
+     RAI TMP2
+     SHN 63
+     STD TMP3
+     SOD TMP2
+     SOD TMP
+     NJN C36A
+C36B STD TMP
+     LDI IAD
+     LMD MSK7
+     NJN 15        SENSE NOT ALL ONES
+     AOD IAD
+     AOD TMP
+     SBN 5
+     NJN -6
+     LDD CARB
+     SBN 5         IF 5 CARRIES OCCURED AND X(I) IS 7777........7
+     ZJN 6
+     LDD IAD
+     SBN 5
+     STD IAD
+     RJM
+         CLXI
+     LJM
+         ADD1
+C37  LDN 4
+     STD TMP       COMPLEMENT X (K) ADN STORE INTO REGISTER 8
+     LDD KAD
+     STM 0
+         C37A
+     LDM TMP
+C37A     **
+     LMD MSK7
+     STM TMP
+         X8
+     SOD TMP
+     PJN -6
+     LDN 10
+     STD K
+     LDC 00
+         X8
+     STD KAD
+     LJM 0
+         C36       PERFORM ADDITION OF  NEGITIVE VALUE
+C40  LDN 0000      ENTRANCE FOR UNROUNDED MULT.
+C41A STM 00        ENTRANCE FOR ROUNDED MULT.
+         C40A
+     RJM 0
+         MPSN      GET SIGN OF PRODUCT
+     RJM 0
+         INDF
+     RJM 0
+         MPRG
+     LDN 60
+     STM 0
+         MPFC
+MPXX RJM 0
+         MPY
+     LDD TMP
+     SHN 6
+     PJN 2
+     LMN 77        EXTEND SIGN FOR -1
+     SHN 14
+     ADD XJEX
+     SHN 6
+     ADD XKEX
+     SHN 14
+     STI IAD
+     STD XJEX
+     SHN -14
+     STD XKEX      STORE EXPONENT 0ITHA+ 042C54 5XPONENT
+     SHN 14
+     ADD XJEX
+     ADC 77
+         6001
+     ZJN XXX
+     MJN ZZZ
+YYY  RJM 0
+         CLXI
+     LDC 00
+         3777
+     LMD LIST
+     STI IAD
+     LJM 0
+         ADD1
+XXX  LDD NORM
+     NJN YYY       SENSE FOR LEFT SHIFT 1
+ZZZ  LDD XKEX
+     SHN 14
+     ADD XJEX
+     ADC 0
+         1777
+     PJN 5
+UNFL RJM 0
+         CLXI
+     LJM 0
+         ADD1
+     NJN 3
+     LDD NORM      EXPONENT IS -1777 AND NO LEFT SHIFT
+     ZJN -6
+     LDI IAD
+     LMC 00
+         2000
+     LPC 0
+         3777
+     LMD LIST
+     STI IAD
+     LDM 0
+         MPFC
+     ZJN MPDP
+     LDN 2
+     STD TMP1
+     AOD IAD
+     LDM TMP1
+         FPR2
+     LMD LIST      CORRECT PRODUCT FOR SIGN
+     STI IAD
+     AOD TMP1
+     SBN 6
+     NJN 70
+     LJM 0
+         ADD1
+C41  LDC 00
+         4000      SET ROUND BIT
+     LJM 00
+         C41A      PERFORM NORMAL MULT.
+C42  LDN 0         DOUBLE PRECISION
+     STM 00
+         C40A      SET ROUND BIT
+     STM 0
+         MPFC
+     RJM 0
+         MPSN
+     RJM 0
+         INDF
+     RJM 0
+         MPRG
+     LJM 00
+         MPXX
+MPDP LDN 6
+     STD TMP1
+     AOD IAD
+     LDM TMP1
+         FPR2
+     LMD LIST
+     STI IAD
+     AOD TMP1
+     SBN 12
+     NJN 70
+     LJM 00
+         ADD1
+C43  RJM 00
+         CLXI
+     LDD J
+     SHN 3
+     ADD K         SHIFT COUNT OR NUMBER OF ONES TO BE ENTERED
+     ZJN 14
+     SBN 1
+     STD FM
+     LDC
+         4000      ENTER SIGN BIT INTO X REGISTER
+     STI IAD
+     LDN 4
+     STD REGL
+     LDD FM
+     ZJN 3
+     RJM
+         RSFT      EXTEND SIGN BIT BY RIGHT SHIFT FM MINUS 1 PLACES
+     LJM
+         ADD1
+C44  RJM 00
+         CLFP       CLEAR FLOATING POINT REGISTERS
+     RJM 0
+         MPSN
+     RJM 0
+         INDF
+     RJM 00
+         DVOP      CHECK DIVIDE OPERANDS FOR DEFINITE AND INDEFINITE
+     LDD KAD
+     STD TMP       ADDRESS OF DIVISOR
+     LDN 1
+     STD TMP2
+     LCN 0
+     STM 00
+         X8
+     LDI KAD
+     SHN 6
+     LPC 77
+         0000
+     PJN 2         COEFFICIENT IS POSITIVE
+     LCN 00        SET A = ALL ONES
+     STD TMP1      STORE MASK
+     AOD TMP       ADDRESS OF COEFFICIENT
+     LDI TMP       COEFFICIENT OF DIVISOR
+     LMD TMP1      LOGICAL DIFFENRNCE OF COEFFICIENT AND SIGN EXTENSION
+     LMD MSK7      MAKE DIVISOR NEGITIVE
+     STM TMP2
+         X8
+     AOD TMP2
+     SBN 5
+     NJN 67
+     LDD JAD       ADDRESS OF DIVIDEND
+     STD TMP
+     LDN 5
+     STD TMP2
+     LDI TMP
+     SHN 6
+     LPC 77
+         0000
+     PJN 2
+     LCN 00
+     STD TMP1      STORE MASK TO MAKE COEFFICIENT POSITIVE
+     AOD TMP       ADDRESS OF DIVIDEND COEFFICIENT
+     LDI TMP
+     LMD TMP1
+     STM TMP2      STORE DIVIEEND
+         FPR1
+     AOD TMP2
+     SBN 11
+     NJN 70
+     LDD FM
+     SBN 44
+     ZJN 3         SET ROUND BIT
+     LDC 00
+         2525      SET ROUND BIT FOR DIVIDE AND ROUND
+     STD TMP
+     LDD TMP
+     STM TMP2
+         FPR1
+     AOD TMP2
+     SBN 15
+     NJN 72
+     LDN 60
+     STD TMP       SET LOOP COUNT
+     LDN 21
+     STD TMP2
+DVLP LDN 00
+     STD CARB
+     LDN 10
+     STD TMP3
+     LDN 4
+     STD TMP1      COMPARE DIVISOR TO PARTIAL DIVIDEND
+     LDM TMP3      ADD PARTIAL DIVIDEND TO DIVISOR
+         FPR1
+     ADD CARB
+     ADM TMP1
+         X8
+     STM TMP1
+         REGS
+     SHN 63
+     STD CARB      SAVE CARRY UP
+     SOD TMP3
+     SOD TMP1
+     PJN 64
+     LDN 4         SET LOOP COUNT
+     STD TMP1
+     LDD CARB      ADD IN CARRY DOWN BIT
+     ZJN 7          END OF CARRIES
+     RAM TMP1
+         REGS
+     SHN 63        SAVE CARRY UP
+     STD CARB
+     SOD TMP1
+     PJN -7        OONTINUE TO ADD IN CARRY UP
+     LDN 4
+     STD TMP1
+     LDM TMP1
+         REGS      TEST VOR ALL ONES
+     LMD MSK7      COMPLIMENT BYTE
+     NJN 4         NOT MINUS 0000
+     SOD TMP1
+     PJN 72        REPEAT LOOP
+     UJN QUOT
+     LDM 00
+         REGS
+     SHN 6
+     MJN 16         DIVISOR IS LARGER THAN PARTIAL DIVIDEND
+QUOT AOM TMP2      ADD ONE TO QUOTIENT
+         FPR1
+     LDN 10
+     STD TMP3
+     LDN 4
+     STD TMP1
+     LDM TMP1
+         REGS
+     STM TMP3
+         FPR1      RESTORE DIVIDEND
+     SOD TMP3
+     SOD TMP1
+     PJN 71
+     LDD TMP
+     ZJN DVLA      DIVIDE LOOP COMPLETED
+     SOD TMP
+     LDN 21
+     STD TMP1
+     LDN 00
+     STD CARB
+     LDM TMP1      PICKUP BYTE
+         FPR1
+     SHN 1         LEFT SHIFT 1
+     ADD CARB      ADD PREVIOUSLY SHIFTED BIT
+     STM TMP1
+         FPR1      RESTORE BYTE
+     SHN 63
+     STD CARB      SAVE SHIFTED OFF BIT
+     SOD TMP1
+     PJN 66        LOOP
+     LJM 00        DIVIDE LOOP NOT COMPLETED
+         DVLP
+DVLA LDN 60
+     STD TMP
+     LDN 15
+     STD TMP1
+     LDM TMP1
+         FPR1
+     ZJN 17
+     SOD TMP       QUOTIENT OVERFLOW DAJUST EXPONENT DIFFENENCE
+     LDN 20
+     STD TMP1
+     LDM TMP1
+         FPR1
+     LPN 1
+     SHN 14
+     ADM TMP1      RIGHT SHIFT QUOTIENT
+         FPRA
+     SHN 76
+     STM TMP1
+         FPRA
+     SOD TMP1
+     SBN 14
+     NJN 64
+     LDI KAD
+     RJM 00
+         EXPN
+     STD XKEX
+     SHN 63
+     STD XJEX
+     LDI JAD
+     RJM 00
+         EXPN
+     SBD XKEX
+     SHN 6
+     SBD XJEX      MINUS X(K)
+     SHN 14        SAVE EXPONENT
+     STD XKEX
+     SHN -14
+     STD XJEX      STORE EXPONENT
+     LDD XKEX
+     LPC 00
+         6000
+     LMC 00
+         4000
+     NJN 5         NO UNDERFLOW BEFORE SUB 48 OR 47
+     RJM 0
+         CLXI
+     LJM 0
+         ADD1
+     LDD XJEX
+     SHN 14
+     ADD XKEX
+     SBD TMP
+     ADC 00
+         1776
+     ZJN 6
+     PJN DVXX
+     RJM 0
+         CLXI
+     LJM 0
+         ADD1
+     LDD TMP
+     SBN 57
+     ZJN -6
+DVZZ LDD XKEX
+     SBD TMP
+     LPC 00
+         3777
+     LMC 0
+         2000
+     LMD LIST
+     STI IAD
+     AOD IAD
+     LDN 4
+     STD TMP1
+     LDN 16
+     STD TMP2
+     LDM TMP2
+         FPR1
+     LMD LIST
+     STI IAD
+     AOD IAD
+     AOD TMP2
+     SOD TMP1
+     NJN 70
+DVEX LJM 0
+         ADD1
+DVXX ADC 77
+         4001
+     MJN DVZZ
+     RJM 0
+         CLXI
+     LDC 0
+         3777
+     LMD LIST
+     STI IAD
+     UJN DVEX
+C46  LJM
+         ADD1      PASS INSTRUCTION
+C47  LDN 0
+     STD TMP
+     LDD KAD       ADDRESS OF X(K)
+     STD TMP1      X(K) + 0
+     LDN 5
+     STD TMP2      SCAN X(K)
+     LDN 14
+     STD TMP3      BIT COUNTER
+     LDI TMP1
+     STD I         TEMPORARY
+     LDD I
+     SHN 1
+     STD I
+     LPC 01        SAVE HIGHEST ORDER BIT
+         0000
+     ZJN 2         BIT WAS NOT A ONE
+     AOD TMP
+     SOD TMP3
+     NJN 67        GET NEXT BIT
+     AOD TMP1
+     SOD TMP2
+     NJN 60
+     RJM 0
+         CLXI
+     LDN 4
+     RAD IAD
+     LDD TMP
+     STI IAD
+C47A LJM
+         ADD1
+CX7X LJM 00
+CX70     **        CLEAR X(I) FOR 70 SERIES
+     LDN 2
+     STD TMP
+     LDD IAD
+     STM 00
+         CX7A
+     ADN 3
+     STD TMP1
+CX7B LDN 00
+     STM TMP
+CX7A     **
+     SOD TMP
+     PJN CX7B
+     LDI TMP1
+     LPN 77
+     STI TMP1
+     UJN CX7X
+     LJM 00
+CINX     **
+     LDD I
+     RJM 00
+         RDX
+     ADN 3
+     STD INCA
+     ADN 1
+     STD INCB
+     UJN 66
+SMXX LJM 00        SUM OF X(J) AND K
+SMXK     **
+     LDD JAD
+     ADN 3         COMPUTE ADDRESSES FOR LOWER
+     STD TMP       18 BITS OF X(J)
+     ADN 1
+     STD TMP1
+     LDI TMP
+     LPN 77
+     STD TMP
+     RJM 00
+         KVAL
+     ADI TMP1      LOWER 12 BITS
+     SHN 6
+     ADD TMP       UPPER 6 BITS
+     SHN 14
+     UJN SMXX      EXIT
+SMXO LJM 00        SUM OF X(J) AND B(K)
+SMXB     **
+     LDD JAD
+     ADN 3
+     STD TMP
+     ADN 1
+     STD TMP1      ADDRESS OF LOWER 12 BITS
+     LDI TMP
+     LPN 77
+     STD TMP       UPPER 6 BITS
+     LDN 0
+     STD 0
+     STD 1
+     LDD K
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP2      UPPER 6 BITS OF B(K)
+     ADN 1
+     STD TMP3      LOWER 12 BITS OF B(K)
+     LDD TMP
+     ADI TMP2
+     SHN 14
+     ADI TMP1
+     ADI TMP3
+     UJN SMXO      EXIT WITH SUM IN A
+     LJM 00        COMPUTE ADDRESS FOR RESULT REGISTER
+CINA     **        FOR 50 SERIES .  A(I)
+     LDD I
+     SHN 1
+     ADC 0
+         A0        BASE ADDRESS OF A(I)
+     STD INCA
+     ADN 1
+     STD INCB      STORE ADDRESS  OF 6OWER 12 BITS OF REGISTER
+     UJN 66
+     LJM 00        COMPUTE ADDRESS FOR RESULT REGISTER
+CINB     **        FOR 60 SERIES .  B(I)
+     LDN 00
+     STD 00
+     STD 01
+     LDD I
+     ZJN 4
+     SHN 1
+     ADC 0
+         B0
+     STD INCA
+     ADN 1
+     STD INCB
+     UJN 62
+SMAO LJM 00        SUM OF A(J) AND K
+SMAK     **
+     LDD J
+     RJM 00
+         RDA
+     STD TMP       COMPUTED ADDRESS OF A(J)
+     ADN 1
+     STD TMP1
+     RJM 00
+         KVAL
+     ADI TMP1      ADD LOWER 12 BITS
+     SHN 6
+     ADI TMP       ADD UPPER 6 BITS
+     SHN 14
+     UJN SMAO
+SMBO LJM 00        SUM OF B()J AND K
+SMBK     **
+     LDN 0
+     STD 0
+     STD 1
+     LDD J
+     ZJN 3         REGISTER IS B0
+     RJM 00
+         RDB       GET ADDRESS OF B(J)
+     STD TMP
+     ADN 1
+     STD TMP1
+     RJM 00
+         KVAL
+     ADI TMP1
+     SHN 6
+     ADI TMP
+     SHN 14
+     UJN SMBO
+SMAX LJM 00
+SMAB     **        SUM OF A(J) AND B(K)
+     LDD J
+     RJM 0
+         RDA
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDN 0
+     STD 0
+     STD 1
+     LDD K
+     ZJN 3
+     RJM 0
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     ADI TMP2
+     SHN 14
+     ADI TMP1
+     ADI TMP3
+     UJN SMAX
+DFAX LJM 00        DIFFERENCE
+DFAB     **        OF A(J) AND B(K)
+     LDD J
+     RJM 0
+         RDA
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDN 0
+     STD 0
+     STD 1
+     LDD K
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     SBI TMP2
+     SHN 14
+     ADI TMP1
+     SBI TMP3
+     UJN DFAX
+SMBX LJM 00        SUM OF B(J) AND B(K)
+SMBB     **
+     LDN 0
+     STD 0
+     STD 1
+     LDD J
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDD K
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     ADI TMP2
+     SHN 14
+     ADI TMP1
+     ADI TMP3
+     UJN SMBX
+DFBX LJM 00        DIFFERENCE OF B(J) AND B(K)
+DFBB     **
+     LDN 0
+     STD 0
+     STD 1
+     LDD J
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP
+     ADN 1
+     STD TMP1
+     LDD K
+     ZJN 3
+     RJM 00
+         RDB
+     STD TMP2
+     ADN 1
+     STD TMP3
+     LDI TMP
+     SBI TMP2
+     SHN 14
+     ADI TMP1
+     SBI TMP3
+     UJN DFBX
+C50  RJM 00
+         CINA      COMPUTE INCREMENT ADDRESS
+C60A RJM 00
+         SMAK
+C50A STI INCB      STORE LOWER 12 BITS OF SUM
+     SHN 63
+     STI INCA      STORE UPPER 6 BITS OF SUM
+     LDD FM
+     SBN 60
+     PJN 3
+     RJM 00
+         RDWT
+     LJM 00
+         NOGO      INCREMENT FIELD COUNTER FOR 30 BIT SINTRUCTION
+C51  RJM 00
+         CINA
+C61A RJM 00
+         SMBK      ADD B(J) AND K
+     UJN C50A      TRANSFER TO STORE
+C52  RJM 00
+         CINA
+C62A RJM 00
+         SMXK      SUM X(J) AND K
+     UJN C50A
+C53  RJM 00
+         CINA
+C53B RJM 00
+         SMXB      SUM X(J) AND B (K)
+C53A STI INCB
+     SHN 63
+     STI INCA
+     LDD FM
+     SBN 60
+     PJN 3         CODE IS 60 OR LARGER
+     RJM 00
+         RDWT      MAKE CENTRAL MEMORY REFERENCE
+     LJM 00
+         ADD1      15 BIT INSTRUCTION
+C54  RJM 00
+         CINA
+C64A RJM 00
+         SMAB      SUM A(J) AND B(K)
+     UJN C53A
+C55  RJM 00
+         CINA      COMPUTE A(I) ADDRESS
+C65A RJM 00
+         DFAB      DIFFERENCE OF A(J) AND B(K)
+     UJN C53A
+C56  RJM 00
+         CINA
+C66A RJM 00
+         SMBB
+     UJN C53A
+C57  RJM 00
+         CINA
+C67A RJM 00
+         DFBB      DIFFERENCE FO B(J) AND B(K)
+     UJN C53A
+C60  RJM 00
+         CINB       COMPUTE ADDRESSES FOR B(I)
+     LJM 00
+         C60A
+C61  RJM 00
+         CINB
+     LJM 00
+         C61A
+C62  RJM 00
+         CINB
+     LJM 00
+         C62A
+C63  RJM 00
+         CINB
+     LJM 00
+         C53B
+C64  RJM 00
+         CINB
+     LJM 00
+         C64A
+C65  RJM 00
+         CINB
+     LJM 00
+         C65A
+C66  RJM 00
+         CINB
+     LJM 00
+         C66A
+C67  RJM 00
+         CINB
+     LJM 00
+         C67A
+C70  RJM 00
+         CLXI
+     RJM 00
+         CINX      COMPUTE ADDRESS FOR X(I)
+     RJM 00
+         SMAK      SUM A(J) AND K
+C70A STI INCB      STORE LOWER 12 BITS OF SUM
+     SHN 63
+     STI INCA      STORE UPPER 6 BITS OF SUM
+     LPN 40
+     ZJN 3         SUM IS POSITIVE
+     RJM 00
+         STXI      EXTEND SIGN
+     LJM 00
+         NOGO
+C71  RJM 00
+         CLXI      CLEAR X(I) REGISTER
+     RJM 00
+         CINX
+     RJM 00
+         SMBK      SUM OF B(J) AND K
+     UJN C70A
+C72  RJM 00
+         CX70
+     RJM 00
+         CINX
+     RJM 00
+         SMXK      SUM OF X(J) AND K
+     UJN C70A
+C73  RJM 00
+         CX70
+     RJM 00
+         CINX
+     RJM 00
+         SMXB
+C73A STI INCB      STORE LOWER 12 BITS OF SUM
+     SHN 63
+     STI INCA      STORE UPPER 6 BITS OF SUM
+     LPN 40
+     ZJN 3
+     RJM 00
+         STXI      SDT UPPER BITS TO ONE
+     LJM 00
+         ADD1
+C74  RJM 00
+         CLXI
+     RJM 00
+         CINX
+     RJM 00
+         SMAB
+     UJN C73A
+C75  RJM 00
+         CLXI
+     RJM 00
+         CINX
+     RJM 00
+         DFAB
+     UJN C73A
+C76  RJM 00
+         CLXI
+     RJM 00
+         CINX
+     RJM 00
+         SMBB
+     UJN C73A
+C77  RJM 00
+         CLXI
+     RJM 00
+         CINX
+     RJM 00
+         DFBB
+     LJM 00
+         C73A
+A0   BLR 1
+A0+1 BLR 17
+B0   BLR 20
+X0   BLR 50
+X8   BLR 5
+FPR1 BLR 1
+FPRA BLR 11
+FPR2 BLR 1
+FPRB BLR 11
+REGS BLR 1
+RE01 BLR 4
+RE05 BLR 1
+RE06 BLR 4
+RE12 BLR 1
+RE13 BLR 4
+RE17 BLR 1
+RE20 BLR 30
+RE50 BLR 50
+EXA  BLR 1
+EX01 BLR 4
+EX05 BLR 1
+EX06 BLR 4
+EX12 BLR 1
+EX13 BLR 4
+EX17 BLR 1
+EX20 BLR 30
+EX50 BLR 50
+     END

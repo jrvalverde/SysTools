@@ -1,0 +1,100 @@
+
+FC: 1400 - select track 000
+
+FC: 1601 - select head 1
+
+FC: 1200 - write h: 1 t: 000 s 000
+
+FC: 1202 - write h: 1 t: 000 s 002
+
+FC: 1204 - write h: 1 t: 000 s 004
+
+FC: 1206 - write h: 1 t: 000 s 006
+
+FC: 1210 - write h: 1 t: 000 s 010
+
+FC: 1212 - write h: 1 t: 000 s 012
+
+FC: 1214 - write h: 1 t: 000 s 014
+
+FC: 1216 - write h: 1 t: 000 s 016
+
+FC: 1220 - write h: 1 t: 000 s 020
+
+FC: 1222 - write h: 1 t: 000 s 022
+
+FC: 1224 - write h: 1 t: 000 s 024
+
+FC: 1226 - write h: 1 t: 000 s 026
+
+FC: 1230 - write h: 1 t: 000 s 030
+
+FC: 1232 - write h: 1 t: 000 s 032
+
+FC: 1234 - write h: 1 t: 000 s 034
+
+FC: 1236 - write h: 1 t: 000 s 036
+
+FC: 1240 - write h: 1 t: 000 s 040
+
+FC: 1242 - write h: 1 t: 000 s 042
+
+FC: 1244 - write h: 1 t: 000 s 044
+
+FC: 1246 - write h: 1 t: 000 s 046
+
+FC: 1250 - write h: 1 t: 000 s 050
+
+FC: 1252 - write h: 1 t: 000 s 052
+
+FC: 1254 - write h: 1 t: 000 s 054
+
+FC: 1256 - write h: 1 t: 000 s 056
+
+FC: 1260 - write h: 1 t: 000 s 060
+
+FC: 1262 - write h: 1 t: 000 s 062
+
+FC: 1264 - write h: 1 t: 000 s 064
+
+FC: 1266 - write h: 1 t: 000 s 066
+
+FC: 1270 - write h: 1 t: 000 s 070
+
+FC: 1272 - write h: 1 t: 000 s 072
+
+FC: 1274 - write h: 1 t: 000 s 074
+
+FC: 1276 - write h: 1 t: 000 s 076
+
+FC: 1300 - write h: 1 t: 000 s 100
+
+FC: 1302 - write h: 1 t: 000 s 102
+
+FC: 1304 - write h: 1 t: 000 s 104
+
+FC: 1306 - write h: 1 t: 000 s 106
+
+FC: 1310 - write h: 1 t: 000 s 110
+
+FC: 1312 - write h: 1 t: 000 s 112
+
+FC: 1314 - write h: 1 t: 000 s 114
+
+FC: 1316 - write h: 1 t: 000 s 116
+
+FC: 1320 - write h: 1 t: 000 s 120
+
+FC: 1322 - write h: 1 t: 000 s 122
+
+FC: 1324 - write h: 1 t: 000 s 124
+
+FC: 1326 - write h: 1 t: 000 s 126
+
+FC: 1330 - write h: 1 t: 000 s 130
+
+FC: 1332 - write h: 1 t: 000 s 132
+
+FC: 1334 - write h: 1 t: 000 s 134
+
+FC: 1336 - write h: 1 t: 000 s 136
