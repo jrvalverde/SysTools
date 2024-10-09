@@ -1,0 +1,375 @@
+\section{cfs\_\-fh.c File Reference}
+\label{cfs__fh_8c}\index{cfs_fh.c@{cfs\_\-fh.c}}
+
+
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/file.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/errno.h$>$}\par
+{\tt \#include $<$dirent.h$>$}\par
+{\tt \#include $<$rpc/rpc.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}nfsproto.h\char`\"{}}\par
+{\tt \#include \char`\"{}admproto.h\char`\"{}}\par
+{\tt \#include \char`\"{}cfs.h\char`\"{}}\par
+
+
+Include dependency graph for cfs\_\-fh.c:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf hash}(x)\ ((u\_\-long)((x)\&HMASK))
+\item 
+\#define {\bf MAXFDS}\ 12
+\item 
+\#define {\bf MAXCLEARNAME}\ ((NFS\_\-MAXPATHLEN-7)/2)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int {\bf readblock} (blk, {\bf fd}, {\bf offset}, {\bf len}, {\bf key}, {\bf vect}) char $\ast$blk
+\item 
+int {\bf fhtofd} (f, {\bf mode}) {\bf cfs\_\-fileid} $\ast$f
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int {\bf inst} = 0
+\item 
+{\bf instance} $\ast$ {\bf instances} [NINSTANCES]
+\item 
+{\bf fdcache} $\ast$ {\bf fds} = NULL
+\item 
+int {\bf nfds} = 0
+\item 
+int {\bf cfserrno} = NFS\_\-OK
+\item 
+int {\bf fd}
+\item 
+u\_\-long {\bf offset}
+\item 
+u\_\-long {\bf len}
+\item 
+{\bf cfskey} $\ast$ {\bf key}
+\item 
+char $\ast$ {\bf vect}
+\item 
+char $\ast$ {\bf s}
+\item 
+long {\bf l}
+\item 
+int {\bf salt}
+\item 
+{\bf cfs\_\-fileid} {\bf rootnode} = \{1,0,\char`\"{}$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0\char`\"{},\char`\"{}/NOWHERE/null\char`\"{},NULL,NULL,0,NULL,NULL\}
+\item 
+nfstime {\bf roottime} = \{0,0\}
+\item 
+int {\bf ins}
+\item 
+int {\bf uid}
+\item 
+int {\bf mode}
+\item 
+int {\bf u}
+\item 
+stat $\ast$ {\bf sb}
+\item 
+sattr $\ast$ {\bf a}
+\item 
+char $\ast$ {\bf comp}
+\item 
+{\bf fhdata} $\ast$ {\bf h}
+\item 
+char $\ast$ {\bf n}
+\item 
+int {\bf ino}
+\item 
+char $\ast$ {\bf vectname}
+\item 
+int {\bf iid}
+\item 
+char $\ast$ {\bf check}
+\item 
+char $\ast$ {\bf buf}
+\item 
+{\bf cfs\_\-fileid} $\ast$ {\bf t}
+\item 
+char $\ast$ {\bf fn}
+\item 
+char $\ast$ {\bf tn}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{cfs_fh.c@{cfs\_\-fh.c}!hash@{hash}}
+\index{hash@{hash}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define hash(x)\ ((u\_\-long)((x)\&HMASK))}\label{cfs__fh_8c_a0}
+
+
+
+
+Definition at line 64 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!MAXCLEARNAME@{MAXCLEARNAME}}
+\index{MAXCLEARNAME@{MAXCLEARNAME}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAXCLEARNAME\ ((NFS\_\-MAXPATHLEN-7)/2)}\label{cfs__fh_8c_a2}
+
+
+\index{cfs_fh.c@{cfs\_\-fh.c}!MAXFDS@{MAXFDS}}
+\index{MAXFDS@{MAXFDS}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAXFDS\ 12}\label{cfs__fh_8c_a1}
+
+
+
+
+Definition at line 68 of file cfs\_\-fh.c.
+
+\subsection{Function Documentation}
+\index{cfs_fh.c@{cfs\_\-fh.c}!fhtofd@{fhtofd}}
+\index{fhtofd@{fhtofd}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int fhtofd (f, {\bf mode})}\label{cfs__fh_8c_a40}
+
+
+\index{cfs_fh.c@{cfs\_\-fh.c}!readblock@{readblock}}
+\index{readblock@{readblock}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int readblock (blk, {\bf fd}, {\bf offset}, {\bf len}, {\bf key}, {\bf vect})}\label{cfs__fh_8c_a38}
+
+
+
+
+\subsection{Variable Documentation}
+\index{cfs_fh.c@{cfs\_\-fh.c}!a@{a}}
+\index{a@{a}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}sattr $\ast$ {\bf a}}\label{cfs__fh_8c_a26}
+
+
+
+
+Definition at line 845 of file cfs\_\-fh.c.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), and Safer\_\-Encrypt\_\-Block().\index{cfs_fh.c@{cfs\_\-fh.c}!buf@{buf}}
+\index{buf@{buf}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf buf}}\label{cfs__fh_8c_a34}
+
+
+
+
+Definition at line 1198 of file cfs\_\-fh.c.
+
+Referenced by raw\_\-truerand(), and startsession().\index{cfs_fh.c@{cfs\_\-fh.c}!cfserrno@{cfserrno}}
+\index{cfserrno@{cfserrno}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cfserrno} = NFS\_\-OK}\label{cfs__fh_8c_a7}
+
+
+
+
+Definition at line 72 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!check@{check}}
+\index{check@{check}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf check}}\label{cfs__fh_8c_a33}
+
+
+
+
+Definition at line 1125 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!comp@{comp}}
+\index{comp@{comp}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf comp}}\label{cfs__fh_8c_a27}
+
+
+
+
+Definition at line 1053 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!fd@{fd}}
+\index{fd@{fd}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf fd}}\label{cfs__fh_8c_a8}
+
+
+
+
+Definition at line 126 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!fds@{fds}}
+\index{fds@{fds}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf fdcache}$\ast$ {\bf fds} = NULL}\label{cfs__fh_8c_a5}
+
+
+
+
+Definition at line 69 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!fn@{fn}}
+\index{fn@{fn}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf fn}}\label{cfs__fh_8c_a36}
+
+
+
+
+Definition at line 1254 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!h@{h}}
+\index{h@{h}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}nfs\_\-fh $\ast$ {\bf h}}\label{cfs__fh_8c_a28}
+
+
+
+
+Definition at line 1342 of file cfs\_\-fh.c.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), and Safer\_\-Encrypt\_\-Block().\index{cfs_fh.c@{cfs\_\-fh.c}!iid@{iid}}
+\index{iid@{iid}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf iid}}\label{cfs__fh_8c_a32}
+
+
+
+
+Definition at line 1123 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!ino@{ino}}
+\index{ino@{ino}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf ino}}\label{cfs__fh_8c_a30}
+
+
+
+
+Definition at line 1124 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!ins@{ins}}
+\index{ins@{ins}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf ins}}\label{cfs__fh_8c_a19}
+
+
+
+
+Definition at line 540 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!inst@{inst}}
+\index{inst@{inst}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf inst} = 0}\label{cfs__fh_8c_a3}
+
+
+
+
+Definition at line 65 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!instances@{instances}}
+\index{instances@{instances}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf instance}$\ast$ {\bf instances}[NINSTANCES]}\label{cfs__fh_8c_a4}
+
+
+
+
+Definition at line 66 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!key@{key}}
+\index{key@{key}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf cfskey}$\ast$ {\bf key}}\label{cfs__fh_8c_a11}
+
+
+
+
+Definition at line 129 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!l@{l}}
+\index{l@{l}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf l}}\label{cfs__fh_8c_a14}
+
+
+
+
+Definition at line 473 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!len@{len}}
+\index{len@{len}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-long {\bf len}}\label{cfs__fh_8c_a10}
+
+
+
+
+Definition at line 128 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!mode@{mode}}
+\index{mode@{mode}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf mode}}\label{cfs__fh_8c_a21}
+
+
+
+
+Definition at line 692 of file cfs\_\-fh.c.
+
+Referenced by doinput().\index{cfs_fh.c@{cfs\_\-fh.c}!n@{n}}
+\index{n@{n}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long {\bf n}}\label{cfs__fh_8c_a29}
+
+
+
+
+Definition at line 272 of file shs.c.
+
+Referenced by oldrandinit(), and randinit().\index{cfs_fh.c@{cfs\_\-fh.c}!nfds@{nfds}}
+\index{nfds@{nfds}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf nfds} = 0}\label{cfs__fh_8c_a6}
+
+
+
+
+Definition at line 70 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!offset@{offset}}
+\index{offset@{offset}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-long {\bf offset}}\label{cfs__fh_8c_a9}
+
+
+
+
+Definition at line 127 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!rootnode@{rootnode}}
+\index{rootnode@{rootnode}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf cfs\_\-fileid} {\bf rootnode} = \{1,0,\char`\"{}$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0$\backslash$0\char`\"{},\char`\"{}/NOWHERE/null\char`\"{},NULL,NULL,0,NULL,NULL\}}\label{cfs__fh_8c_a16}
+
+
+
+
+Definition at line 522 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!roottime@{roottime}}
+\index{roottime@{roottime}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}nfstime {\bf roottime} = \{0,0\}}\label{cfs__fh_8c_a17}
+
+
+
+
+Definition at line 523 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!s@{s}}
+\index{s@{s}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf s}}\label{cfs__fh_8c_a13}
+
+
+
+
+Definition at line 1161 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!salt@{salt}}
+\index{salt@{salt}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf salt}}\label{cfs__fh_8c_a15}
+
+
+
+
+Definition at line 474 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!sb@{sb}}
+\index{sb@{sb}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct stat$\ast$ {\bf sb}}\label{cfs__fh_8c_a25}
+
+
+
+
+Definition at line 756 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!t@{t}}
+\index{t@{t}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf cfs\_\-fileid} $\ast$ {\bf t}}\label{cfs__fh_8c_a35}
+
+
+
+
+Definition at line 1255 of file cfs\_\-fh.c.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), and Safer\_\-Encrypt\_\-Block().\index{cfs_fh.c@{cfs\_\-fh.c}!tn@{tn}}
+\index{tn@{tn}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf tn}}\label{cfs__fh_8c_a37}
+
+
+
+
+Definition at line 1256 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!u@{u}}
+\index{u@{u}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf u}}\label{cfs__fh_8c_a22}
+
+
+
+
+Definition at line 663 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!uid@{uid}}
+\index{uid@{uid}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf uid}}\label{cfs__fh_8c_a20}
+
+
+
+
+Definition at line 619 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!vect@{vect}}
+\index{vect@{vect}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf vect}}\label{cfs__fh_8c_a12}
+
+
+
+
+Definition at line 1056 of file cfs\_\-fh.c.\index{cfs_fh.c@{cfs\_\-fh.c}!vectname@{vectname}}
+\index{vectname@{vectname}!cfs_fh.c@{cfs\_\-fh.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf vectname}}\label{cfs__fh_8c_a31}
+
+
+
+
+Definition at line 1057 of file cfs\_\-fh.c.

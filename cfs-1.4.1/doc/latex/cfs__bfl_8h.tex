@@ -1,0 +1,262 @@
+\section{cfs\_\-bfl.h File Reference}
+\label{cfs__bfl_8h}\index{cfs_bfl.h@{cfs\_\-bfl.h}}
+
+
+
+
+This graph shows which files directly or indirectly include this file:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf c2l}({\bf c}, {\bf l})
+\item 
+\#define {\bf c2ln}({\bf c}, l1, l2, {\bf n})
+\item 
+\#define {\bf l2c}({\bf l}, {\bf c})
+\item 
+\#define {\bf l2cn}(l1, l2, {\bf c}, {\bf n})
+\item 
+\#define {\bf n2ln}({\bf c}, l1, l2, {\bf n})
+\item 
+\#define {\bf l2nn}(l1, l2, {\bf c}, {\bf n})
+\item 
+\#define {\bf n2l}({\bf c}, {\bf l})
+\item 
+\#define {\bf l2n}({\bf l}, {\bf c})
+\item 
+\#define {\bf BF\_\-PTR2}
+\item 
+\#define {\bf BF\_\-M}\ 0x3fc
+\item 
+\#define {\bf BF\_\-0}\ 22L
+\item 
+\#define {\bf BF\_\-1}\ 14L
+\item 
+\#define {\bf BF\_\-2}\ 6L
+\item 
+\#define {\bf BF\_\-3}\ 2L
+\item 
+\#define {\bf BF\_\-ENC}(LL, R, S, P)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_0@{BF\_\-0}}
+\index{BF_0@{BF\_\-0}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-0\ 22L}\label{cfs__bfl_8h_a10}
+
+
+
+
+Definition at line 195 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_1@{BF\_\-1}}
+\index{BF_1@{BF\_\-1}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-1\ 14L}\label{cfs__bfl_8h_a11}
+
+
+
+
+Definition at line 196 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_2@{BF\_\-2}}
+\index{BF_2@{BF\_\-2}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-2\ 6L}\label{cfs__bfl_8h_a12}
+
+
+
+
+Definition at line 197 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_3@{BF\_\-3}}
+\index{BF_3@{BF\_\-3}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-3\ 2L}\label{cfs__bfl_8h_a13}
+
+
+
+
+Definition at line 198 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_ENC@{BF\_\-ENC}}
+\index{BF_ENC@{BF\_\-ENC}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-ENC(LL, R, S, P)}\label{cfs__bfl_8h_a14}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+        BF_LONG t,u,v; \
+        u=R>>BF_0; \
+        v=R>>BF_1; \
+        u&=BF_M; \
+        v&=BF_M; \
+        t=  *(BF_LONG *)((unsigned char *)&(S[  0])+u); \
+        u=R>>BF_2; \
+        t+= *(BF_LONG *)((unsigned char *)&(S[256])+v); \
+        v=R<<BF_3; \
+        u&=BF_M; \
+        v&=BF_M; \
+        t^= *(BF_LONG *)((unsigned char *)&(S[512])+u); \
+        LL^=P; \
+        t+= *(BF_LONG *)((unsigned char *)&(S[768])+v); \
+        LL^=t; \
+        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 203 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_M@{BF\_\-M}}
+\index{BF_M@{BF\_\-M}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-M\ 0x3fc}\label{cfs__bfl_8h_a9}
+
+
+
+
+Definition at line 194 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!BF_PTR2@{BF\_\-PTR2}}
+\index{BF_PTR2@{BF\_\-PTR2}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-PTR2}\label{cfs__bfl_8h_a8}
+
+
+
+
+Definition at line 191 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!c2l@{c2l}}
+\index{c2l@{c2l}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define c2l({\bf c}, {\bf l})}\label{cfs__bfl_8h_a0}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}(l =((unsigned long)(*((c)++)))    , \
+                         l|=((unsigned long)(*((c)++)))<< 8L, \
+                         l|=((unsigned long)(*((c)++)))<<16L, \
+                         l|=((unsigned long)(*((c)++)))<<24L)
+\end{verbatim}\normalsize 
+
+
+Definition at line 96 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!c2ln@{c2ln}}
+\index{c2ln@{c2ln}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define c2ln({\bf c}, l1, l2, {\bf n})}\label{cfs__bfl_8h_a1}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+                        c+=n; \
+                        l1=l2=0; \
+                        switch (n) { \
+                        case 8: l2 =((unsigned long)(*(--(c))))<<24L; \
+                        case 7: l2|=((unsigned long)(*(--(c))))<<16L; \
+                        case 6: l2|=((unsigned long)(*(--(c))))<< 8L; \
+                        case 5: l2|=((unsigned long)(*(--(c))));     \
+                        case 4: l1 =((unsigned long)(*(--(c))))<<24L; \
+                        case 3: l1|=((unsigned long)(*(--(c))))<<16L; \
+                        case 2: l1|=((unsigned long)(*(--(c))))<< 8L; \
+                        case 1: l1|=((unsigned long)(*(--(c))));     \
+                                } \
+                        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 103 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!l2c@{l2c}}
+\index{l2c@{l2c}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define l2c({\bf l}, {\bf c})}\label{cfs__bfl_8h_a2}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}(*((c)++)=(unsigned char)(((l)     )&0xff), \
+                         *((c)++)=(unsigned char)(((l)>> 8L)&0xff), \
+                         *((c)++)=(unsigned char)(((l)>>16L)&0xff), \
+                         *((c)++)=(unsigned char)(((l)>>24L)&0xff))
+\end{verbatim}\normalsize 
+
+
+Definition at line 119 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!l2cn@{l2cn}}
+\index{l2cn@{l2cn}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define l2cn(l1, l2, {\bf c}, {\bf n})}\label{cfs__bfl_8h_a3}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+                        c+=n; \
+                        switch (n) { \
+                        case 8: *(--(c))=(unsigned char)(((l2)>>24L)&0xff); \
+                        case 7: *(--(c))=(unsigned char)(((l2)>>16L)&0xff); \
+                        case 6: *(--(c))=(unsigned char)(((l2)>> 8L)&0xff); \
+                        case 5: *(--(c))=(unsigned char)(((l2)     )&0xff); \
+                        case 4: *(--(c))=(unsigned char)(((l1)>>24L)&0xff); \
+                        case 3: *(--(c))=(unsigned char)(((l1)>>16L)&0xff); \
+                        case 2: *(--(c))=(unsigned char)(((l1)>> 8L)&0xff); \
+                        case 1: *(--(c))=(unsigned char)(((l1)     )&0xff); \
+                                } \
+                        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 126 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!l2n@{l2n}}
+\index{l2n@{l2n}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define l2n({\bf l}, {\bf c})}\label{cfs__bfl_8h_a7}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}(*((c)++)=(unsigned char)(((l)>>24L)&0xff), \
+                         *((c)++)=(unsigned char)(((l)>>16L)&0xff), \
+                         *((c)++)=(unsigned char)(((l)>> 8L)&0xff), \
+                         *((c)++)=(unsigned char)(((l)     )&0xff))
+\end{verbatim}\normalsize 
+
+
+Definition at line 178 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!l2nn@{l2nn}}
+\index{l2nn@{l2nn}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define l2nn(l1, l2, {\bf c}, {\bf n})}\label{cfs__bfl_8h_a5}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+                        c+=n; \
+                        switch (n) { \
+                        case 8: *(--(c))=(unsigned char)(((l2)    )&0xff); \
+                        case 7: *(--(c))=(unsigned char)(((l2)>> 8)&0xff); \
+                        case 6: *(--(c))=(unsigned char)(((l2)>>16)&0xff); \
+                        case 5: *(--(c))=(unsigned char)(((l2)>>24)&0xff); \
+                        case 4: *(--(c))=(unsigned char)(((l1)    )&0xff); \
+                        case 3: *(--(c))=(unsigned char)(((l1)>> 8)&0xff); \
+                        case 2: *(--(c))=(unsigned char)(((l1)>>16)&0xff); \
+                        case 1: *(--(c))=(unsigned char)(((l1)>>24)&0xff); \
+                                } \
+                        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 157 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!n2l@{n2l}}
+\index{n2l@{n2l}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define n2l({\bf c}, {\bf l})}\label{cfs__bfl_8h_a6}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}(l =((unsigned long)(*((c)++)))<<24L, \
+                         l|=((unsigned long)(*((c)++)))<<16L, \
+                         l|=((unsigned long)(*((c)++)))<< 8L, \
+                         l|=((unsigned long)(*((c)++))))
+\end{verbatim}\normalsize 
+
+
+Definition at line 172 of file cfs\_\-bfl.h.\index{cfs_bfl.h@{cfs\_\-bfl.h}!n2ln@{n2ln}}
+\index{n2ln@{n2ln}!cfs_bfl.h@{cfs\_\-bfl.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define n2ln({\bf c}, l1, l2, {\bf n})}\label{cfs__bfl_8h_a4}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+                        c+=n; \
+                        l1=l2=0; \
+                        switch (n) { \
+                        case 8: l2 =((unsigned long)(*(--(c))))    ; \
+                        case 7: l2|=((unsigned long)(*(--(c))))<< 8; \
+                        case 6: l2|=((unsigned long)(*(--(c))))<<16; \
+                        case 5: l2|=((unsigned long)(*(--(c))))<<24; \
+                        case 4: l1 =((unsigned long)(*(--(c))))    ; \
+                        case 3: l1|=((unsigned long)(*(--(c))))<< 8; \
+                        case 2: l1|=((unsigned long)(*(--(c))))<<16; \
+                        case 1: l1|=((unsigned long)(*(--(c))))<<24; \
+                                } \
+                        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 141 of file cfs\_\-bfl.h.

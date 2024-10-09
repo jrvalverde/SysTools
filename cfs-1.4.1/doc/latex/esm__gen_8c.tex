@@ -1,0 +1,70 @@
+\section{esm\_\-gen.c File Reference}
+\label{esm__gen_8c}\index{esm_gen.c@{esm\_\-gen.c}}
+
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}global.h\char`\"{}}\par
+{\tt \#include \char`\"{}rsaref.h\char`\"{}}\par
+{\tt \#include \char`\"{}esm.h\char`\"{}}\par
+
+
+Include dependency graph for esm\_\-gen.c:\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf main} ()
+\item 
+{\bf printparams} (dh) R\_\-DH\_\-PARAMS $\ast$dh
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{esm_gen.c@{esm\_\-gen.c}!main@{main}}
+\index{main@{main}!esm_gen.c@{esm\_\-gen.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}main ()}\label{esm__gen_8c_a0}
+
+
+
+
+Definition at line 27 of file esm\_\-gen.c.
+
+References dhparams, printparams(), randinit(), and rs.
+
+
+
+\footnotesize\begin{verbatim}28 {
+29         R_DH_PARAMS dhparams[3];
+30         unsigned char p0[512],p1[512],p2[512],g0[512],g1[512],g2[512];
+31         int x;
+32         
+33         randinit();
+34 
+35         fprintf(stderr,"Generating 512\n");
+36         dhparams[0].prime=p0;
+37         dhparams[0].generator=g0;
+38         if (x=R_GenerateDHParams(&dhparams[0],512,256,&rs))
+39                 fprintf(stderr,"failed %x\n",x);
+40         fprintf(stderr,"Generating 768\n");
+41         dhparams[1].prime=p1;
+42         dhparams[1].generator=g1;
+43         if (x=R_GenerateDHParams(&dhparams[1],768,384,&rs))
+44                 fprintf(stderr,"failed %x\n",x);
+45         fprintf(stderr,"Generating 1024\n");
+46         dhparams[2].prime=p2;
+47         dhparams[2].generator=g2;
+48         if (x=R_GenerateDHParams(&dhparams[2],1024,512,&rs))
+49                 fprintf(stderr,"failed %x\n",x);
+50         fprintf(stderr,"Printing\n");
+51         printparams(dhparams);
+52         exit(0);
+53 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:\index{esm_gen.c@{esm\_\-gen.c}!printparams@{printparams}}
+\index{printparams@{printparams}!esm_gen.c@{esm\_\-gen.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}printparams (dh)}\label{esm__gen_8c_a1}
+
+
+
+
+Referenced by main().

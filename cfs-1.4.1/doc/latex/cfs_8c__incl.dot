@@ -1,0 +1,30 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node51 [label="cfs.c",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node52 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node52 [label="stdio.h",height=0.2,width=0.4,color="grey75"];
+  Node53 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node53 [label="sys/types.h",height=0.2,width=0.4,color="grey75"];
+  Node54 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node54 [label="sys/file.h",height=0.2,width=0.4,color="grey75"];
+  Node55 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node55 [label="sys/socket.h",height=0.2,width=0.4,color="grey75"];
+  Node56 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node56 [label="netdb.h",height=0.2,width=0.4,color="grey75"];
+  Node57 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node57 [label="rpc/rpc.h",height=0.2,width=0.4,color="grey75"];
+  Node58 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node58 [label="sys/time.h",height=0.2,width=0.4,color="grey75"];
+  Node59 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node59 [label="sys/resource.h",height=0.2,width=0.4,color="grey75"];
+  Node60 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node60 [label="signal.h",height=0.2,width=0.4,color="grey75"];
+  Node61 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node61 [label="nfsproto.h",height=0.2,width=0.4,color="grey75"];
+  Node62 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node62 [label="admproto.h",height=0.2,width=0.4,color="grey75"];
+  Node63 -> Node51 [dir=back,color="midnightblue",fontsize=10,style="solid"];
+  Node63 [label="cfs.h",height=0.2,width=0.4,color="red",URL="$cfs_8h.html"];
+}

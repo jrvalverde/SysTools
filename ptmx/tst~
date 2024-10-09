@@ -1,0 +1,5 @@
+#!/bin/sh
+
+./p /bin/su - jr -c ls << EOF
+1/1K way
+EOF

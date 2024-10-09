@@ -1,0 +1,90 @@
+\section{shs.c File Reference}
+\label{shs_8c}\index{shs.c@{shs.c}}
+
+
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}shs.h\char`\"{}}\par
+
+
+Include dependency graph for shs.c:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf MASK}\ (unsigned long)0xffffffff\-L
+\item 
+\#define {\bf S}({\bf n}, x)\ (u\_\-long)(((x)$<$$<$({\bf n}))$|$((MASK\&(x))$>$$>$(32-({\bf n}))))
+\item 
+\#define {\bf CHARSTOLONG}(wp, {\bf s}, i)\ \{$\ast$wp++ = (u\_\-long)((((u\_\-long)({\bf s}[i])\&0xff)$<$$<$24)$|$(((u\_\-long)({\bf s}[i+1])\&0xff)$<$$<$16)$|$(((u\_\-long)({\bf s}[i+2])\&0xff)$<$$<$8)$|$(u\_\-long)({\bf s}[i+3]\&0xff));\}
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+{\bf c1}
+\item 
+{\bf c2}
+\item 
+{\bf c3}
+\item 
+unsigned char $\ast$ {\bf s}
+\item 
+unsigned int {\bf n}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{shs.c@{shs.c}!CHARSTOLONG@{CHARSTOLONG}}
+\index{CHARSTOLONG@{CHARSTOLONG}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CHARSTOLONG(wp, {\bf s}, i)\ \{$\ast$wp++ = (u\_\-long)((((u\_\-long)({\bf s}[i])\&0xff)$<$$<$24)$|$(((u\_\-long)({\bf s}[i+1])\&0xff)$<$$<$16)$|$(((u\_\-long)({\bf s}[i+2])\&0xff)$<$$<$8)$|$(u\_\-long)({\bf s}[i+3]\&0xff));\}}\label{shs_8c_a2}
+
+
+\index{shs.c@{shs.c}!MASK@{MASK}}
+\index{MASK@{MASK}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MASK\ (unsigned long)0xffffffff\-L}\label{shs_8c_a0}
+
+
+
+
+Definition at line 64 of file shs.c.\index{shs.c@{shs.c}!S@{S}}
+\index{S@{S}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define S({\bf n}, x)\ (u\_\-long)(((x)$<$$<$({\bf n}))$|$((MASK\&(x))$>$$>$(32-({\bf n}))))}\label{shs_8c_a1}
+
+
+
+
+\subsection{Variable Documentation}
+\index{shs.c@{shs.c}!c1@{c1}}
+\index{c1@{c1}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf c1}}\label{shs_8c_a6}
+
+
+
+
+Definition at line 95 of file shs.c.\index{shs.c@{shs.c}!c2@{c2}}
+\index{c2@{c2}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf c2}}\label{shs_8c_a7}
+
+
+
+
+Definition at line 95 of file shs.c.\index{shs.c@{shs.c}!c3@{c3}}
+\index{c3@{c3}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf c3}}\label{shs_8c_a8}
+
+
+
+
+Definition at line 95 of file shs.c.\index{shs.c@{shs.c}!n@{n}}
+\index{n@{n}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long {\bf n}}\label{shs_8c_a10}
+
+
+
+
+Definition at line 272 of file shs.c.\index{shs.c@{shs.c}!s@{s}}
+\index{s@{s}!shs.c@{shs.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ {\bf s}}\label{shs_8c_a9}
+
+
+
+
+Definition at line 202 of file shs.c.

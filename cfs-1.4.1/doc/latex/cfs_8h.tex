@@ -1,0 +1,415 @@
+\section{cfs.h File Reference}
+\label{cfs_8h}\index{cfs.h@{cfs.h}}
+
+
+{\tt \#include \char`\"{}mcg.h\char`\"{}}\par
+{\tt \#include \char`\"{}safer.h\char`\"{}}\par
+{\tt \#include \char`\"{}cfs\_\-bf.h\char`\"{}}\par
+{\tt \#include $<$stdlib.h$>$}\par
+
+
+Include dependency graph for cfs.h:
+
+This graph shows which files directly or indirectly include this file:\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf cfs\_\-fileid}
+\item 
+struct {\bf cfskey}
+\item 
+struct {\bf fdcache}
+\item 
+union {\bf fh\_\-u}
+\item 
+struct {\bf fhdata}
+\item 
+struct {\bf instance}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf H\_\-REG}\ 0
+\item 
+\#define {\bf H\_\-ATTACH}\ 0
+\item 
+\#define {\bf H\_\-ROOT}\ 1
+\item 
+\#define {\bf H\_\-INVALID}\ 9
+\item 
+\#define {\bf CFS\_\-PORT}\ 3049
+\item 
+\#define {\bf NINSTANCES}\ 64
+\item 
+\#define {\bf CFSBLOCK}\ 8
+\item 
+\#define {\bf STD\_\-DES}\ 0
+\item 
+\#define {\bf THREE\_\-DES}\ 1
+\item 
+\#define {\bf IDEA}\ 2
+\item 
+\#define {\bf BLOWFISH}\ 3
+\item 
+\#define {\bf SKIPJACK}\ 4
+\item 
+\#define {\bf MCG}\ 5
+\item 
+\#define {\bf SAFER\_\-SK128}\ 6
+\item 
+\#define {\bf TRUE\_\-THREE\_\-DES}\ 7
+\item 
+\#define {\bf HSIZE}\ 1024
+\item 
+\#define {\bf HMASK}\ 0x3ff
+\item 
+\#define {\bf LARGESMSIZE}\ (32768$\ast$CFSBLOCK)
+\item 
+\#define {\bf SMALLSMSIZE}\ (512$\ast$CFSBLOCK)
+\item 
+\#define {\bf CFS\_\-READ}\ O\_\-RDONLY
+\item 
+\#define {\bf CFS\_\-WRITE}\ (O\_\-RDWR)
+\item 
+\#define {\bf become}(x)
+\item 
+\#define {\bf keyof}(f)\ (\&((f) $\rightarrow$ {\bf ins} $\rightarrow$ {\bf key}))
+\item 
+\#define {\bf vectof}(f)\ ((f) $\rightarrow$ {\bf vect})
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf fhdata} {\bf fhdata}
+\item 
+typedef {\bf fh\_\-u} {\bf fh\_\-u}
+\item 
+typedef {\bf cfs\_\-fileid} {\bf cfs\_\-fileid}
+\item 
+typedef {\bf fdcache} {\bf fdcache}
+\item 
+typedef {\bf cfskey} {\bf cfskey}
+\item 
+typedef {\bf instance} {\bf instance}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ {\bf admmsg} ()
+\item 
+char $\ast$ {\bf encryptname} ()
+\item 
+char $\ast$ {\bf decryptname} ()
+\item 
+{\bf cfs\_\-fileid} $\ast$ {\bf geth} ()
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int {\bf cfserrno}
+\item 
+int {\bf errno}
+\item 
+int {\bf cursecs}
+\item 
+char {\bf zerovect} [$\,$]
+\item 
+char $\ast$ {\bf admerrs} [$\,$]
+\item 
+{\bf instance} $\ast$ {\bf instances} [$\,$]
+\item 
+nfstime {\bf roottime}
+\item 
+{\bf cfs\_\-fileid} {\bf rootnode}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{cfs.h@{cfs.h}!become@{become}}
+\index{become@{become}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define become(x)}\label{cfs_8h_a21}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}((x)==NULL?(seteuid(0)||setegid(0)) :\
+                   (setegid(rgid(x)) || seteuid(ruid(x))))
+\end{verbatim}\normalsize 
+
+
+Definition at line 203 of file cfs.h.\index{cfs.h@{cfs.h}!BLOWFISH@{BLOWFISH}}
+\index{BLOWFISH@{BLOWFISH}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BLOWFISH\ 3}\label{cfs_8h_a10}
+
+
+
+
+Definition at line 50 of file cfs.h.\index{cfs.h@{cfs.h}!CFS_PORT@{CFS\_\-PORT}}
+\index{CFS_PORT@{CFS\_\-PORT}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CFS\_\-PORT\ 3049}\label{cfs_8h_a4}
+
+
+
+
+Definition at line 35 of file cfs.h.\index{cfs.h@{cfs.h}!CFS_READ@{CFS\_\-READ}}
+\index{CFS_READ@{CFS\_\-READ}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CFS\_\-READ\ O\_\-RDONLY}\label{cfs_8h_a19}
+
+
+
+
+Definition at line 170 of file cfs.h.\index{cfs.h@{cfs.h}!CFS_WRITE@{CFS\_\-WRITE}}
+\index{CFS_WRITE@{CFS\_\-WRITE}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CFS\_\-WRITE\ (O\_\-RDWR)}\label{cfs_8h_a20}
+
+
+
+
+Definition at line 171 of file cfs.h.\index{cfs.h@{cfs.h}!CFSBLOCK@{CFSBLOCK}}
+\index{CFSBLOCK@{CFSBLOCK}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CFSBLOCK\ 8}\label{cfs_8h_a6}
+
+
+
+
+Definition at line 42 of file cfs.h.\index{cfs.h@{cfs.h}!H_ATTACH@{H\_\-ATTACH}}
+\index{H_ATTACH@{H\_\-ATTACH}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define H\_\-ATTACH\ 0}\label{cfs_8h_a1}
+
+
+
+
+Definition at line 27 of file cfs.h.\index{cfs.h@{cfs.h}!H_INVALID@{H\_\-INVALID}}
+\index{H_INVALID@{H\_\-INVALID}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define H\_\-INVALID\ 9}\label{cfs_8h_a3}
+
+
+
+
+Definition at line 29 of file cfs.h.\index{cfs.h@{cfs.h}!H_REG@{H\_\-REG}}
+\index{H_REG@{H\_\-REG}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define H\_\-REG\ 0}\label{cfs_8h_a0}
+
+
+
+
+Definition at line 26 of file cfs.h.\index{cfs.h@{cfs.h}!H_ROOT@{H\_\-ROOT}}
+\index{H_ROOT@{H\_\-ROOT}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define H\_\-ROOT\ 1}\label{cfs_8h_a2}
+
+
+
+
+Definition at line 28 of file cfs.h.\index{cfs.h@{cfs.h}!HMASK@{HMASK}}
+\index{HMASK@{HMASK}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define HMASK\ 0x3ff}\label{cfs_8h_a16}
+
+
+
+
+Definition at line 103 of file cfs.h.\index{cfs.h@{cfs.h}!HSIZE@{HSIZE}}
+\index{HSIZE@{HSIZE}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define HSIZE\ 1024}\label{cfs_8h_a15}
+
+
+
+
+Definition at line 102 of file cfs.h.\index{cfs.h@{cfs.h}!IDEA@{IDEA}}
+\index{IDEA@{IDEA}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IDEA\ 2}\label{cfs_8h_a9}
+
+
+
+
+Definition at line 49 of file cfs.h.\index{cfs.h@{cfs.h}!keyof@{keyof}}
+\index{keyof@{keyof}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define keyof(f)\ (\&((f) $\rightarrow$ {\bf ins} $\rightarrow$ {\bf key}))}\label{cfs_8h_a22}
+
+
+
+
+Definition at line 206 of file cfs.h.\index{cfs.h@{cfs.h}!LARGESMSIZE@{LARGESMSIZE}}
+\index{LARGESMSIZE@{LARGESMSIZE}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LARGESMSIZE\ (32768$\ast$CFSBLOCK)}\label{cfs_8h_a17}
+
+
+
+
+Definition at line 105 of file cfs.h.\index{cfs.h@{cfs.h}!MCG@{MCG}}
+\index{MCG@{MCG}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MCG\ 5}\label{cfs_8h_a12}
+
+
+
+
+Definition at line 52 of file cfs.h.\index{cfs.h@{cfs.h}!NINSTANCES@{NINSTANCES}}
+\index{NINSTANCES@{NINSTANCES}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define NINSTANCES\ 64}\label{cfs_8h_a5}
+
+
+
+
+Definition at line 39 of file cfs.h.\index{cfs.h@{cfs.h}!SAFER_SK128@{SAFER\_\-SK128}}
+\index{SAFER_SK128@{SAFER\_\-SK128}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-SK128\ 6}\label{cfs_8h_a13}
+
+
+
+
+Definition at line 53 of file cfs.h.\index{cfs.h@{cfs.h}!SKIPJACK@{SKIPJACK}}
+\index{SKIPJACK@{SKIPJACK}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SKIPJACK\ 4}\label{cfs_8h_a11}
+
+
+
+
+Definition at line 51 of file cfs.h.\index{cfs.h@{cfs.h}!SMALLSMSIZE@{SMALLSMSIZE}}
+\index{SMALLSMSIZE@{SMALLSMSIZE}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SMALLSMSIZE\ (512$\ast$CFSBLOCK)}\label{cfs_8h_a18}
+
+
+
+
+Definition at line 106 of file cfs.h.\index{cfs.h@{cfs.h}!STD_DES@{STD\_\-DES}}
+\index{STD_DES@{STD\_\-DES}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define STD\_\-DES\ 0}\label{cfs_8h_a7}
+
+
+
+
+Definition at line 47 of file cfs.h.\index{cfs.h@{cfs.h}!THREE_DES@{THREE\_\-DES}}
+\index{THREE_DES@{THREE\_\-DES}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define THREE\_\-DES\ 1}\label{cfs_8h_a8}
+
+
+
+
+Definition at line 48 of file cfs.h.\index{cfs.h@{cfs.h}!TRUE_THREE_DES@{TRUE\_\-THREE\_\-DES}}
+\index{TRUE_THREE_DES@{TRUE\_\-THREE\_\-DES}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TRUE\_\-THREE\_\-DES\ 7}\label{cfs_8h_a14}
+
+
+
+
+Definition at line 54 of file cfs.h.\index{cfs.h@{cfs.h}!vectof@{vectof}}
+\index{vectof@{vectof}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define vectof(f)\ ((f) $\rightarrow$ {\bf vect})}\label{cfs_8h_a23}
+
+
+
+
+Definition at line 207 of file cfs.h.
+
+\subsection{Typedef Documentation}
+\index{cfs.h@{cfs.h}!cfs_fileid@{cfs\_\-fileid}}
+\index{cfs_fileid@{cfs\_\-fileid}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf cfs\_\-fileid}  {\bf cfs\_\-fileid}}\label{cfs_8h_a26}
+
+
+\index{cfs.h@{cfs.h}!cfskey@{cfskey}}
+\index{cfskey@{cfskey}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf cfskey}  {\bf cfskey}}\label{cfs_8h_a28}
+
+
+\index{cfs.h@{cfs.h}!fdcache@{fdcache}}
+\index{fdcache@{fdcache}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf fdcache}  {\bf fdcache}}\label{cfs_8h_a27}
+
+
+\index{cfs.h@{cfs.h}!fh_u@{fh\_\-u}}
+\index{fh_u@{fh\_\-u}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef union {\bf fh\_\-u}  {\bf fh\_\-u}}\label{cfs_8h_a25}
+
+
+\index{cfs.h@{cfs.h}!fhdata@{fhdata}}
+\index{fhdata@{fhdata}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf fhdata}  {\bf fhdata}}\label{cfs_8h_a24}
+
+
+\index{cfs.h@{cfs.h}!instance@{instance}}
+\index{instance@{instance}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf instance}  {\bf instance}}\label{cfs_8h_a29}
+
+
+
+
+\subsection{Function Documentation}
+\index{cfs.h@{cfs.h}!admmsg@{admmsg}}
+\index{admmsg@{admmsg}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ admmsg ()}\label{cfs_8h_a38}
+
+
+\index{cfs.h@{cfs.h}!decryptname@{decryptname}}
+\index{decryptname@{decryptname}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ decryptname ()}\label{cfs_8h_a40}
+
+
+\index{cfs.h@{cfs.h}!encryptname@{encryptname}}
+\index{encryptname@{encryptname}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ encryptname ()}\label{cfs_8h_a39}
+
+
+\index{cfs.h@{cfs.h}!geth@{geth}}
+\index{geth@{geth}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf cfs\_\-fileid}$\ast$ geth ()}\label{cfs_8h_a41}
+
+
+
+
+\subsection{Variable Documentation}
+\index{cfs.h@{cfs.h}!admerrs@{admerrs}}
+\index{admerrs@{admerrs}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf admerrs}[$\,$]}\label{cfs_8h_a34}
+
+
+
+
+Definition at line 173 of file cfs.h.\index{cfs.h@{cfs.h}!cfserrno@{cfserrno}}
+\index{cfserrno@{cfserrno}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cfserrno}}\label{cfs_8h_a30}
+
+
+
+
+Definition at line 164 of file cfs.h.\index{cfs.h@{cfs.h}!cursecs@{cursecs}}
+\index{cursecs@{cursecs}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cursecs}}\label{cfs_8h_a32}
+
+
+
+
+Definition at line 166 of file cfs.h.\index{cfs.h@{cfs.h}!errno@{errno}}
+\index{errno@{errno}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf errno}}\label{cfs_8h_a31}
+
+
+
+
+Definition at line 165 of file cfs.h.\index{cfs.h@{cfs.h}!instances@{instances}}
+\index{instances@{instances}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf instance}$\ast$ {\bf instances}[$\,$]}\label{cfs_8h_a35}
+
+
+
+
+Definition at line 182 of file cfs.h.\index{cfs.h@{cfs.h}!rootnode@{rootnode}}
+\index{rootnode@{rootnode}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf cfs\_\-fileid} {\bf rootnode}}\label{cfs_8h_a37}
+
+
+
+
+Definition at line 184 of file cfs.h.\index{cfs.h@{cfs.h}!roottime@{roottime}}
+\index{roottime@{roottime}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}nfstime {\bf roottime}}\label{cfs_8h_a36}
+
+
+
+
+Definition at line 183 of file cfs.h.\index{cfs.h@{cfs.h}!zerovect@{zerovect}}
+\index{zerovect@{zerovect}!cfs.h@{cfs.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char {\bf zerovect}[$\,$]}\label{cfs_8h_a33}
+
+
+
+
+Definition at line 168 of file cfs.h.

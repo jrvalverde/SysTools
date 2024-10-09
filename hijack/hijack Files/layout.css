@@ -1,0 +1,19 @@
+	#header {
+	
+
+	}
+	#body {
+		min-height:100%;
+		margin-left:0px;
+		margin-right:0px;
+	}
+        #footer {
+                width: 100%;
+                clear: both;
+                height: 50px;
+                position: relative;
+                text-decoration: none;
+                font-size: 12px;
+                font-weight: normal;
+                text-align: center;
+        }

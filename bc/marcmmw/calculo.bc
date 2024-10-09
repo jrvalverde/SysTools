@@ -1,0 +1,66 @@
+/****************************************************
+ *                   calculo.bc                     *
+ ****************************************************
+
+  Autor: Marc Meléndez Schofield
+
+  Programas para calcular numéricamente derivadas
+  e integrales definidas simples.
+
+  Los contenidos de esta librería están incluídos
+  también en calculo_vectorial.bc.
+
+  Se permite la reproducción y modificación total o
+  parcial de este código. */
+
+scale = 10; /* Número de decimales de precisión */
+
+pi = 4*a(1); /* Definimos pi como 4 * arctg(1) */
+
+/* A modo de ejemplo se define la función
+   f(x) = sin(x) */
+
+define f(x) {
+  return s(x);
+}
+
+/*  Función para calcular numéricamente la derivada
+    de la función f(x) en el punto a, con aproxima-
+    ción de paso p. */
+
+define derivada(a, p) {
+  return (f(a + p) - f(a))/p;
+}
+
+/*  Cálculo de la derivada n-ésima */
+
+define derivada_n(n, a, p) {
+  if (n == 0) return a;
+  if (n == 1) return derivada(a, p);
+  if (n < 0)
+  {
+    print "Error: n debe ser un número natural.\n";
+    return 0;
+   }
+   return (derivada_n(n - 1, a + p, p) - derivada_n(n - 1, a, p))/p;
+}
+
+/*  Función para calcular numéricamente la integral
+    definida de la función f(x) entre a y b, con 
+    paso p. */
+
+define integral(a, b, p) {
+  auto x, integ;
+  for(x = a; x < b; x += p)
+    integ += f(x)*p;
+  return integ;
+}
+
+/* Integral aproximada con el algoritmo de Simpson */
+
+define simpson(a, b, p) {
+  auto x, integ;
+  for(x = a; x < b; x += p)
+    integ += p/6*(f(x) + f(x + p) + 4*f(x + p/2));
+  return integ;
+}

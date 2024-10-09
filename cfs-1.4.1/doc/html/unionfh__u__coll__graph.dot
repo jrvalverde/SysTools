@@ -1,0 +1,8 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node21 [label="{fh_u\n|+ opaque\l+ fh\l|}",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node22 -> Node21 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="fh",arrowtail="open",fontname="Helvetica"];
+  Node22 [label="{fhdata\n|+ magic\l+ htype\l+ instance\l+ fileid\l+ check\l+ pad\l|}",height=0.2,width=0.4,color="black",URL="$structfhdata.html"];
+}

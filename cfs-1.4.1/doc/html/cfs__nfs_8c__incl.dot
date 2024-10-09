@@ -1,0 +1,26 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node168 [label="cfs_nfs.c",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node169 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node169 [label="stdio.h",height=0.2,width=0.4,color="grey75"];
+  Node170 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node170 [label="sys/file.h",height=0.2,width=0.4,color="grey75"];
+  Node171 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node171 [label="sys/types.h",height=0.2,width=0.4,color="grey75"];
+  Node172 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node172 [label="sys/stat.h",height=0.2,width=0.4,color="grey75"];
+  Node173 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node173 [label="rpc/rpc.h",height=0.2,width=0.4,color="grey75"];
+  Node174 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node174 [label="errno.h",height=0.2,width=0.4,color="grey75"];
+  Node175 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node175 [label="dirent.h",height=0.2,width=0.4,color="grey75"];
+  Node176 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node176 [label="nfsproto.h",height=0.2,width=0.4,color="grey75"];
+  Node177 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node177 [label="admproto.h",height=0.2,width=0.4,color="grey75"];
+  Node178 -> Node168 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node178 [label="cfs.h",height=0.2,width=0.4,color="red",URL="$cfs_8h.html"];
+}

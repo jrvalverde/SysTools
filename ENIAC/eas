@@ -1,0 +1,942 @@
+#!/bin/sh
+###############################################################################
+#                                                                             #
+# ENIAC assembler by PG, 2004                                                 #
+#                                                                             #
+# Call formats:                                                               #
+#                                                                             #
+#      eas src bin lis                                                        #
+#      source from src, binary output to bin, listing to lis                  #
+#                                                                             #
+#      eas src bin                                                            #
+#      as above, no listing                                                   #
+#                                                                             #
+#      eas - bin -                                                            #
+#      source from stdin, binary output to bin, listing to stdout             #
+#      and so on ...                                                          #
+#                                                                             #
+###############################################################################
+#
+#
+###################\
+exec tclsh "$0" "$@"
+
+set OPE(.data)  data,0,0
+set OPE(.res)	res,0,1
+set OPE(.str)	str,0,1
+set OPE(.list)	list,0,0
+
+set OPE(move)	mach,1,2
+set OPE(mov)	mach,1,2
+set OPE(add)	mach,2,2
+set OPE(sub)	mach,3,2
+set OPE(mul)	mach,4,2
+set OPE(div)	mach,5,2
+set OPE(rem)	mach,6,2
+set OPE(cmp)	mach,7,2
+set OPE(jlt)	mach,8,1
+set OPE(jeq)	mach,9,1
+set OPE(jgt)	mach,10,1
+set OPE(jmp)	mach,11,1
+set OPE(hlt)	mach,12,1
+set OPE(halt)	mach,12,1
+
+set OPE(sea)	mach,13,2
+set OPE(ocs)	mach,14,2
+set OPE(lnd)	mach,15,2
+set OPE(lor)	mach,16,2
+set OPE(lxr)	mach,17,2
+set OPE(lsh)	mach,18,2
+
+proc getinput { } {
+
+	global Flags Source
+
+	set Flags(LNU) 0
+
+	while 1 {
+
+		if [catch { gets $Flags(INP) line } ef] {
+			abt "Cannot read from $Flags(INN), $ef"
+		}
+
+		if { $ef < 0 } {
+			break
+		}
+
+		incr Flags(LNU)
+
+		set Source($Flags(LNU)) $line
+	}
+}
+
+proc getline { } {
+
+	global Flags Source Parts MStack Curline
+
+	incr Flags(CLG)
+
+	while 1 {
+		if $Flags(MLE) {
+			# reading from a macro
+			set mp $Flags(MLE)
+			if { [llength $MStack($mp)] > 0 } {
+				set Curline [lindex $MStack($mp) 0]
+				set MStack($mp) [lrange $MStack($mp) 1 end]
+				break
+			}
+			incr Flags(MLE) -1
+			continue
+		}
+		# lines get numbered from 1
+		incr Flags(CLI)
+		set ln $Flags(CLI)
+		if { $ln > $Flags(LNU) } {
+			return 0
+		}
+		set Curline $Source($ln)
+		break
+	}
+
+	set Parts(LBL) ""
+	set Parts(OPE) ""
+	set Parts(ARG) ""
+
+	set line [string trim $Curline]
+
+	set fc [string index $line 0]
+
+	if { $fc == "#" || $fc == ";" } {
+		# hard comment
+		return 1
+	}
+
+	if ![regexp -nocase "^(\[a-z\]\[a-z0-9_\]*):\[ \t\]*(.*)"\
+	    $line match Parts(LBL) line] {
+		if ![regexp "^(\\.):?\[ \t\]+(.*)" $line match Parts(LBL) line] {
+			if ![regexp -nocase "^(\[a-z\]\[a-z0-9_\]*)\[ \t\]+(=.*)"\
+			    $line match Parts(LBL) line] {
+				regexp -nocase "^(\[a-z\]\[a-z0-9_\]*)\[ \t\]+(macro(\[ \t;\].*|$))"\
+				    $line match Parts(LBL) line
+			}
+		}
+	}
+
+	regexp "^(\[^ \t\]+)\[ \t\]*(.*)" $line match Parts(OPE) line
+	set Parts(OPE) [string tolower $Parts(OPE)]
+
+	if { [string index $Parts(OPE) 0] == ";" } {
+		set Parts(OPE) ""
+		return 1
+	}
+
+	if { $Parts(OPE) == ".str" } {
+		# this one is a bit tricky
+		set Parts(ARG) [stringarg line]
+		if { $line != "" && [string index $line 0] != ";" } {
+			set Parts(ARG) ""
+		}
+	} else {
+		regexp "(\[^;\]*);" $line junk line
+		while 1 {
+			set line [string trim $line]
+			if { $line == "" } {
+				break
+			}
+			if ![regexp "^(\[^,\]+),(.*)" $line match arg line] {
+				set arg $line
+				set line ""
+			}
+			set arg [string trim $arg]
+			lappend Parts(ARG) $arg
+		}
+	}
+	return 1
+}
+
+proc stringarg { ln } {
+
+	upvar $ln line
+
+	set line [string trim $line]
+
+	set del [string index $line 0]
+	if { $del != "'" && $del != "\"" } {
+		return ""
+	}
+
+	set line [string range $line 1 end]
+	set str ""
+
+	set skip 0
+
+	while 1 {
+
+		set c [string index $line 0]
+		set line [string range $line 1 end]
+
+		if { $skip } {
+
+			append str $c
+			set skip 0
+			continue
+		}
+
+
+		if { $c == $del } {
+			break
+		}
+
+		if { $c == "\\" } {
+			if { [string index $line 0] == $del } {
+				set c $del
+				set line [string range $line 1 end]
+			} else {
+				set skip 1
+			}
+		}
+		append str $c
+	}
+
+	set line [string trim $line]
+
+	set res ""
+
+	set str [split [subst -nocommands -novariables $str] ""]
+
+	if { $del == "'" } {
+		# unpacked string - one character per word
+		foreach c $str {
+			scan $c %c ch
+			lappend res $ch
+		}
+		return $res
+	}
+
+	# packed string, for characters per word
+
+	set fill 24
+	set wd 0
+
+	foreach c $str {
+		scan $c %c ch
+		set wd [expr $wd | ($ch << $fill)]
+		if { $fill == 0 } {
+			lappend res $wd
+			set fill 24
+			set wd 0
+		} else {
+			incr fill -8
+		}
+	}
+
+	lappend res $wd
+
+	return $res
+}
+	
+proc dolines { } {
+
+	global Flags Source Parts Macros MStack
+
+	# current input line number
+	set Flags(CLI) 0
+	# current global line counter
+	set Flags(CLG) 0
+	# macro nest level
+	set Flags(MLE) 0
+
+	while { [getline] } {
+		# code generated by the line (for listing)
+		set Flags(EMI) ""
+		set Flags(EML) $Flags(LOC)
+		set ope $Parts(OPE)
+		# macro definition
+		if { $ope == "macro" } {
+
+			set nam [string tolower $Parts(LBL)]
+			set arg $Parts(ARG)
+
+			if { $nam == "macro" || $nam == "endm" } {
+				markerror "illegal macro name: $nam"
+				listline
+				getmac
+				continue
+			}
+			if { $nam == "" } {
+				markerror "macro name missing"
+				listline
+				getmac
+				continue
+			}
+			if { $Flags(STA) == 1 && [info exists Macros($nam)] } {
+				markerror "duplicate macro definition: $nam"
+				listline
+				getmac
+				continue
+			}
+			listline
+			set mbo [getmac]
+			if { $Flags(STA) == 1 } {
+				set Macros($nam) $mbo
+				set Macros($nam,ARG) $arg
+			}
+			continue
+		}
+		# macro reference
+		if [info exists Macros($ope)] {
+			set lbl $Parts(LBL)
+			set arg $Parts(ARG)
+			if { $lbl != "" } {
+				addsym $lbl $Flags(LOC)
+			}
+			if [info exists Macros($ope,ACT)] {
+				markerror "recursive macros illegal"
+				listline
+				continue
+			}
+			set far $Macros($ope,ARG)
+			if { [llength $far] != [llength $arg] } {
+				markerror "wrong number of arguments"
+				listline
+				continue
+			}
+			set mbo $Macros($ope)
+			foreach a $far b $arg {
+				regsub -all $a $mbo $b mbo
+			}
+			incr Flags(MLE)
+			set MStack($Flags(MLE)) $mbo
+			listline
+			continue
+		}
+		dostage_$Flags(STA)
+		listline
+	}
+}
+
+proc getmac { } {
+
+	global Flags Parts Curline
+
+	set mbo ""
+
+	while { [getline] } {
+		listline
+		if { $Parts(OPE) == "endm" } {
+			return $mbo
+		}
+		lappend mbo $Curline
+	}
+
+	set Curline " endm (forced)"
+	markerror "unterminated macro"
+	listline
+}
+
+proc assemble { } {
+
+	global Flags
+
+	set Flags(LIF) 1
+	set Flags(ERR) 0
+	getinput
+
+	set Flags(LOC) 0
+	set Flags(STA) 1
+	dolines
+
+	set Flags(LOC) 0
+	set Flags(LOM) -1
+	set Flags(STA) 2
+	set Flags(IER) ""
+	set Flags(LIF) 1
+	dolines
+
+	if !$Flags(ERR) {
+		gencode
+	}
+}
+
+proc dostage_1 { } {
+
+	global Flags OPE Parts
+
+	set lbl $Parts(LBL)
+	set ope $Parts(OPE)
+	set arg $Parts(ARG)
+
+	# this one is special
+	if { $ope == ".set" || $ope == "=" } {
+		if { $lbl == "" } {
+			markerror "missing label"
+			return
+		}
+		if { [llength $arg] != 1 } {
+			markerror "expression syntax error"
+			return
+		}
+		set val [expression [lindex $arg 0]]
+		if { $val == "" } {
+			return
+		}
+		if { $lbl == "." } {
+			if ![absolute $val off] {
+				markerror "absolute expression required"
+				return
+			}
+			set Flags(LOC) $val
+			return
+		}
+		addsym $lbl $val
+		return
+	}
+
+	if { $lbl != "" } {
+		addsym $lbl $Flags(LOC)
+	}
+
+	if { $ope == "" } {
+		return
+	}
+	if ![info exists OPE($ope)] {
+		markerror "illegal operation"
+		return
+	}
+
+	regexp "(.*),(.*),(.*)" $OPE($ope) match nam cod acn
+
+	stage1_$nam $arg $cod $acn
+}
+
+proc dostage_2 { } {
+
+	global Flags OPE Code Parts
+
+	set lbl $Parts(LBL)
+	set ope $Parts(OPE)
+	set arg $Parts(ARG)
+
+
+	if [errflag] {
+		# this will skip an entire macro
+		return
+	}
+
+	if { $ope == "" } {
+		return
+	}
+
+	if { $ope == ".set" || $ope == "=" } {
+		set val [expression [lindex $arg 0]]
+		if { $val == "" || ![absolute $val] } {
+			markerror "unevaluable expression"
+			set val 0
+		}
+		lappend Flags(EMI) [format %08X $val]
+		if { $lbl == "." } {
+			set Flags(LOC) $val
+		} else {
+			addsym $lbl $val
+		}
+	} else {
+		if { $lbl != "" } {
+			addsym $lbl $Flags(LOC)
+		}
+		regexp "(.*),(.*),(.*)" $OPE($ope) match nam cod acn
+		stage2_$nam $arg $cod $acn
+	}
+}
+
+proc stage1_list { arg dum1 dum2 } {
+
+	global Flags
+
+	set na [llength $arg]
+	if { $na < 1 || $na > 2 } {
+		markerror "one or two arguments expected"
+		return
+	}
+	set v [expression [lindex $arg 0]]
+
+	if ![absolute $v] {
+		markerror "illegal expression"
+		return
+	}
+
+	if { $na > 1 } {
+		set sym [lindex $arg 1]
+		if ![regexp -nocase "^(\[a-z\]\[a-z0-9_\]*)$" $sym] {
+			markerror "second argument must be a symbol"
+			return
+		}
+		if { $Flags(LIF) != 0 } {
+			addsym $sym 1
+		} else {
+			addsym $sym 0
+		}
+	}
+	if { $v == 0 } {
+		set Flags(LIF) 0
+	} else {
+		set Flags(LIF) 2
+	}
+}
+
+proc stage2_list { arg dum1 dum2 } {
+
+	stage1_list $arg $dum1 $dum2
+}
+
+proc stage1_data { arg dum1 dum2 } {
+
+	global Flags
+
+	incr Flags(LOC) [llength $arg]
+}
+
+proc stage1_res { arg dum1 dum2 } {
+
+	global Flags
+
+	if { [llength $arg] != 1 } {
+		markerror "illegal expression syntax"
+		return
+	}
+	set val [expression [lindex $arg 0]]
+	if { $val == "" } {
+		return
+	}
+	if ![absolute $val off] {
+		markerror "absolute expression required"
+		continue
+	}
+	incr Flags(LOC) $val
+}
+
+proc stage1_str { arg dum1 dum2 } {
+
+	global Flags
+
+	set n [llength $arg]
+
+	if { $n == 0 } {
+		markerror "illegal character string"
+		return
+	}
+
+	incr Flags(LOC) $n
+}
+
+proc stage1_mach { arg dum arc } {
+
+	global Flags
+
+	incr Flags(LOC) $arc
+	foreach a $arg {
+		if { [string first "\[" $a] >= 0 } {
+			incr Flags(LOC)
+		}
+	}
+}
+
+proc stage2_data { arg dum1 dum2 } {
+
+	global Flags
+
+	set Flags(LOC+) $Flags(LOC)
+	foreach a $arg {
+		if [errflag] {
+			generate 0
+			continue
+		}
+		set val [expression $a]
+		if { $val == "" || ![absolute $val] } {
+			set val 0
+			markerror "cannot evaluate expression"
+		}
+		generate $val
+	}
+	set Flags(LOC) $Flags(LOC+)
+}
+
+proc stage2_res { arg dum1 dum2 } {
+
+	global Flags
+
+	set val [expression [lindex $arg 0]]
+
+	if { $val == "" || ![absolute $val off] } {
+		set val 0
+		markerror "cannot evaluate expression"
+	}
+
+	lappend Flags(EMI) [format %08X $val]
+
+	incr Flags(LOC) $val
+}
+
+proc stage2_str { arg dum1 dum2 } {
+
+	global Flags
+
+	set n [llength $arg]
+
+	if { $n == 0 } {
+		markerror "illegal character string"
+		return
+	}
+
+	foreach a $arg {
+		generate $a
+	}
+
+	incr Flags(LOC) $n
+}
+
+proc stage2_mach { arg opc rac } {
+
+	global Flags
+
+	if { $rac != [llength $arg] } {
+		markerror "illegal number of operands, $rac required"
+		set arg [list 0 0]
+	}
+
+	set opc [expr $opc << 27]
+
+	set Flags(LOC+) $Flags(LOC)
+
+	foreach a $arg {
+
+		if ![regexp "^(\[^\\\[\]+)\\\[(.+)\\\]$" $a match a indx] {
+			set indx ""
+		}
+		set adr [expression $a]
+		if { $indx != "" } {
+			set opc [expr $opc | 0x4000000]
+		}
+		if ![absolute $adr off] {
+			set adr 0
+			markerror "illegal address expression"
+		}
+		set opc [expr $opc | ($adr & 0x3ffffff)]
+		generate $opc inst
+		set opc 0
+		if { $indx != "" } {
+			set adr [expression $indx]
+			if ![absolute $adr off] {
+				set adr 0
+				markerror "illegal index"
+			}
+			generate [expr $adr & 0x3ffffff]
+		}
+	}
+	set Flags(LOC) $Flags(LOC+)
+}
+
+proc expression { ex } {
+
+	global Flags Symbols
+
+	set xx " $ex"
+	regsub -all "\\." $xx $Flags(LOC) xx
+
+	set fr ""
+	while 1 {
+		set ix [string first "'" $xx]
+		if { $ix < 0 } {
+			set ix [string first "\"" $xx]
+			if { $ix < 0 } {
+				break
+			}
+		}
+		append fr [string range $xx 0 [expr $ix - 1]]
+		set xx [string range $xx $ix end]
+		set lv [stringarg xx]
+		set nv [llength $lv]
+		if { $nv == 0 || $nv > 2 || ($nv == 2 && [lindex $lv 1] != 0) } {
+			return "#"
+		}
+		append fr [lindex $lv 0]
+	}
+	append fr $xx
+
+	set xx $fr
+
+	set fr ""
+	while { [regexp -nocase "\[^0-9a-z_\](\[a-z\]\[a-z0-9_\]*)" $xx match sym] } {
+		if ![info exists Symbols($sym)] {
+			break
+		}
+		set ix [string first $match $xx]
+		append fr [string range $xx 0 $ix]
+		append fr "($Symbols($sym))"
+		set xx [string range $xx [expr $ix + [string length $match]] end]
+	}
+	append fr $xx
+
+	if [catch { expr $fr } val] {
+		return $ex
+	}
+
+	if { [string first "." $val] >= 0 } {
+		set val "#"
+	}
+
+	return $val
+}
+
+proc absolute { val {off ""} } {
+
+	if [catch { expr $val } val] {
+		return 0
+	}
+
+	if { $off != "" } {
+		set upper [expr $val & 0xfc000000]
+		if { $upper != 0 } {
+			if { $upper != [expr 0xfc000000] } {
+				return 0
+			}
+			if { [expr $val & 0x2000000] == 0 } {
+				return 0
+			}
+		}
+	}
+
+	return 1
+}
+
+proc addsym { lbl val } {
+
+	global Symbols
+
+	if { $lbl == "." } {
+		markerror "illegal symbol '.'"
+	}
+	set Symbols($lbl) $val
+}
+
+proc generate { val {tp ""} } {
+
+	global Flags Code
+
+	set Code($Flags(LOC+)) $val
+
+	if { $Flags(LOC+) > $Flags(LOM) } {
+		set Flags(LOM) $Flags(LOC+)
+	}
+
+	if { $tp == "" } {
+		lappend Flags(EMI) [format %08X $val]
+	} else {
+		lappend Flags(EMI) [format "%02X %1X %07X" [expr ($val >> 27) & 0x1f] [expr ($val >> 26) & 1] [expr $val & 0x3ffffff]]
+	}
+
+	incr Flags(LOC+)
+}
+
+proc markerror { txt } {
+
+	global Errors Flags
+
+	set Errors($Flags(CLG)) $txt
+	set Flags(ERR) 1
+	set FLags(IER) $txt
+}
+
+proc errflag { } {
+
+	global Errors Flags
+
+	if [info exists Errors($Flags(CLG))] {
+		return 1
+	}
+	return 0
+}
+
+proc errmess { } {
+
+	global Errors Flags
+
+	set Flags(ERM) ""
+
+	if { $Flags(STA) != 2 } {
+		return
+	}
+
+	if { $Flags(IER) != "" } {
+		set Flags(ERM) $Flags(IER)
+		set Flags(IER) ""
+	} elseif { [errflag] } {
+		set Flags(ERM) $Errors($Flags(CLG))
+	} else {
+		return
+	}
+
+	puts stderr "Line $Flags(CLI): $Flags(ERM)"
+
+	if { $Flags(LIS) == "" } {
+		return
+	}
+
+	if [catch { puts $Flags(LIS) "ERROR: $Flags(ERM)" } ef] {
+		abt "Cannot write to $Flags(LIN), $ef"
+	}
+}
+
+proc listline { } {
+
+	global Source Flags Curline
+
+	errmess
+
+	if { $Flags(LIS) == "" || $Flags(STA) != 2 } {
+		return
+	}
+
+	if { $Flags(LIF) == 2 } {
+		set Flags(LIF) 1
+		return
+	} elseif { $Flags(LIF) == 0 && $Flags(ERM) == "" } {
+		return
+	}
+
+	set fi 1
+
+	if { $Flags(EMI) == "" } {
+		set Flags(EMI) "--------"
+	}
+
+	foreach ec $Flags(EMI) {
+		if $fi {
+			set li [format %07X $Flags(EML)]
+		} else {
+			set li "       "
+		}
+		if { $Flags(MLE) != 0 } {
+			append li " M "
+		} else {
+			append li "   "
+		}
+		if { [string length $ec] < 12 } {
+			append li "    "
+		}
+		append li $ec
+		if $fi {
+			set fi 0
+			append li "  $Curline"
+		}
+		if [catch { puts $Flags(LIS) $li } ef] {
+			abt "Cannot write to $Flags(LIN), $ef"
+		}
+	}
+}
+
+proc gencode { } {
+
+	global Flags Code
+
+	set chunks ""
+
+	set out 1
+	for { set l 0 } { 1 } { incr l } {
+		if [info exists Code($l)] {
+			if $out {
+				set st $l
+				set le 0
+				set out 0
+			}
+			incr le
+		} else {
+			if $out {
+				continue
+			}
+			lappend chunks [list $st $le]
+			if { $l > $Flags(LOM) } {
+				break
+			}
+			set out 1
+		}
+	}
+
+	foreach c $chunks {
+
+		set st [lindex $c 0]
+		set le [lindex $c 1]
+		outbin $st
+		outbin $le
+
+		while { $le > 0 } {
+			outbin $Code($st)
+			incr st
+			incr le -1
+		}
+	}
+
+	catch { close $Flags(OUT) }
+}
+
+proc outbin { val } {
+
+	global Flags
+
+	if [catch { puts -nonewline $Flags(OUT) [binary format I $val] } ef] {
+		abt "Cannot write to $Flags(OUN), $ef"
+	}
+}
+
+proc abt { err } {
+
+	puts stderr $err
+	error 99
+}
+		
+proc main { } {
+
+	global argv Flags
+
+	set Flags(LIS) ""
+
+	set ifile [lindex $argv 0]
+	set ofile [lindex $argv 1]
+	set lfile [lindex $argv 2]
+
+	if { $lfile != "" } {
+		if { $lfile == "-" } {
+			set Flags(LIS) stdout
+			set Flags(LIN) "standard output"
+		} else {
+			if [catch { open $lfile "w" } Flags(LIS)] {
+				abt "Cannot open $lfile, $Flags(LIS)"
+			}
+			set Flags(LIN) $lfile
+		}
+	}
+
+	if { $ifile == "" || $ifile == "-" } {
+		set Flags(INP) stdin
+		set Flags(INN) "standard input"
+	} else {
+		if [catch { open $ifile "r" } Flags(INP)] {
+			abt "Cannot open $ifile, $Flags(INP)"
+		}
+		set Flags(INN) $ifile
+	}
+
+	if { $ofile == "" || $ofile == "-" } {
+		set Flags(OUT) stdout
+		set Flags(OUN) "standard output"
+	} else {
+		if [catch { open $ofile "w" } Flags(OUT)] {
+			abt "Cannot open $ofile, $Flags(OUT)"
+		}
+		fconfigure $Flags(OUT) -translation binary
+		set Flags(OUN) $ofile
+	}
+
+	assemble
+}
+
+main

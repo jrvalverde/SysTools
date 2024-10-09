@@ -1,0 +1,15 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node3 [label="{cfs_fileid\n|+ fileid\l+ key\l+ vect\l+ vectname\l+ name\l+ fd\l+ parent\l+ next\l+ ins\l|}",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node4 -> Node3 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="fd",arrowtail="open",fontname="Helvetica"];
+  Node4 [label="{fdcache\n|+ file\l+ fd\l+ mode\l+ next\l+ prev\l|}",height=0.2,width=0.4,color="black",URL="$structfdcache.html"];
+  Node3 -> Node4 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="file",arrowtail="open",fontname="Helvetica"];
+  Node5 -> Node3 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="ins",arrowtail="open",fontname="Helvetica"];
+  Node5 [label="{instance\n|+ file\l+ path\l+ name\l+ key\l+ check\l+ uid\l+ id\l+ highsec\l+ anon\l+ timeout\l+ idle\l+ access\l+ dead\l|}",height=0.2,width=0.4,color="black",URL="$structinstance.html"];
+  Node3 -> Node5 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="file",arrowtail="open",fontname="Helvetica"];
+  Node6 -> Node5 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="key",arrowtail="open",fontname="Helvetica"];
+  Node6 [label="{cfskey\n|+ cipher\l+ primary\l+ secondary\l+ des\l+ primary1\l+ primary2\l+ secondary1\l+ secondary2\l+ des3\l+ primary3\l+ secondary3\l+ dest3\l+ primary\l+ secondary\l+ mcg\l+ primary\l+ secondary\l+ bf\l+ primary\l+ secondary\l+ safer\l+ var\l+ smsize\l+ primask\l+ secmask\l|}",height=0.2,width=0.4,color="red",URL="$structcfskey.html"];
+  Node3 -> Node3 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="next",arrowtail="open",fontname="Helvetica"];
+}

@@ -1,0 +1,220 @@
+\section{cfskey Struct Reference}
+\label{structcfskey}\index{cfskey@{cfskey}}
+{\tt \#include $<$cfs.h$>$}
+
+Collaboration diagram for cfskey:\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+int {\bf cipher}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>u\_char {\bf primary} [128]\\
+\>\>u\_char {\bf secondary} [128]\\
+\>\} {\bf des}\\
+\>struct \{\\
+\>\>u\_char {\bf primary1} [128]\\
+\>\>u\_char {\bf primary2} [128]\\
+\>\>u\_char {\bf secondary1} [128]\\
+\>\>u\_char {\bf secondary2} [128]\\
+\>\} {\bf des3}\\
+\>struct \{\\
+\>\>u\_char {\bf primary1} [128]\\
+\>\>u\_char {\bf primary2} [128]\\
+\>\>u\_char {\bf primary3} [128]\\
+\>\>u\_char {\bf secondary1} [128]\\
+\>\>u\_char {\bf secondary2} [128]\\
+\>\>u\_char {\bf secondary3} [128]\\
+\>\} {\bf dest3}\\
+\>struct \{\\
+\>\>{\bf mcg\_key} {\bf primary}\\
+\>\>{\bf mcg\_key} {\bf secondary}\\
+\>\} {\bf mcg}\\
+\>struct \{\\
+\>\>{\bf BF\_KEY} {\bf primary}\\
+\>\>{\bf BF\_KEY} {\bf secondary}\\
+\>\} {\bf bf}\\
+\>struct \{\\
+\>\>{\bf safer\_key\_t} {\bf primary}\\
+\>\>{\bf safer\_key\_t} {\bf secondary}\\
+\>\} {\bf safer}\\
+\} {\bf var}\\
+
+\end{tabbing}\item 
+int {\bf smsize}
+\item 
+char $\ast$ {\bf primask}
+\item 
+char $\ast$ {\bf secmask}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{cfskey@{cfskey}!bf@{bf}}
+\index{bf@{bf}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::bf}}\label{structcfskey_o17}
+
+
+\index{cfskey@{cfskey}!cipher@{cipher}}
+\index{cipher@{cipher}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cfskey::cipher}}\label{structcfskey_o0}
+
+
+
+
+Definition at line 109 of file cfs.h.\index{cfskey@{cfskey}!des@{des}}
+\index{des@{des}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::des}}\label{structcfskey_o3}
+
+
+\index{cfskey@{cfskey}!des3@{des3}}
+\index{des3@{des3}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::des3}}\label{structcfskey_o8}
+
+
+\index{cfskey@{cfskey}!dest3@{dest3}}
+\index{dest3@{dest3}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::dest3}}\label{structcfskey_o11}
+
+
+\index{cfskey@{cfskey}!mcg@{mcg}}
+\index{mcg@{mcg}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::mcg}}\label{structcfskey_o14}
+
+
+\index{cfskey@{cfskey}!primary@{primary}}
+\index{primary@{primary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf safer\_\-key\_\-t} {\bf cfskey::primary}}\label{structcfskey_o18}
+
+
+
+
+Definition at line 138 of file cfs.h.\index{cfskey@{cfskey}!primary@{primary}}
+\index{primary@{primary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf BF\_\-KEY} {\bf cfskey::primary}}\label{structcfskey_o15}
+
+
+
+
+Definition at line 134 of file cfs.h.\index{cfskey@{cfskey}!primary@{primary}}
+\index{primary@{primary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf mcg\_\-key} {\bf cfskey::primary}}\label{structcfskey_o12}
+
+
+
+
+Definition at line 130 of file cfs.h.\index{cfskey@{cfskey}!primary@{primary}}
+\index{primary@{primary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::primary}[128]}\label{structcfskey_o1}
+
+
+
+
+Definition at line 112 of file cfs.h.\index{cfskey@{cfskey}!primary1@{primary1}}
+\index{primary1@{primary1}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::primary1}[128]}\label{structcfskey_o4}
+
+
+
+
+Definition at line 122 of file cfs.h.\index{cfskey@{cfskey}!primary2@{primary2}}
+\index{primary2@{primary2}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::primary2}[128]}\label{structcfskey_o5}
+
+
+
+
+Definition at line 123 of file cfs.h.\index{cfskey@{cfskey}!primary3@{primary3}}
+\index{primary3@{primary3}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::primary3}[128]}\label{structcfskey_o9}
+
+
+
+
+Definition at line 124 of file cfs.h.\index{cfskey@{cfskey}!primask@{primask}}
+\index{primask@{primask}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf cfskey::primask}}\label{structcfskey_o23}
+
+
+
+
+Definition at line 143 of file cfs.h.\index{cfskey@{cfskey}!safer@{safer}}
+\index{safer@{safer}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf cfskey::safer}}\label{structcfskey_o20}
+
+
+\index{cfskey@{cfskey}!secmask@{secmask}}
+\index{secmask@{secmask}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf cfskey::secmask}}\label{structcfskey_o24}
+
+
+
+
+Definition at line 144 of file cfs.h.\index{cfskey@{cfskey}!secondary@{secondary}}
+\index{secondary@{secondary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf safer\_\-key\_\-t} {\bf cfskey::secondary}}\label{structcfskey_o19}
+
+
+
+
+Definition at line 139 of file cfs.h.\index{cfskey@{cfskey}!secondary@{secondary}}
+\index{secondary@{secondary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf BF\_\-KEY} {\bf cfskey::secondary}}\label{structcfskey_o16}
+
+
+
+
+Definition at line 135 of file cfs.h.\index{cfskey@{cfskey}!secondary@{secondary}}
+\index{secondary@{secondary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf mcg\_\-key} {\bf cfskey::secondary}}\label{structcfskey_o13}
+
+
+
+
+Definition at line 131 of file cfs.h.\index{cfskey@{cfskey}!secondary@{secondary}}
+\index{secondary@{secondary}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::secondary}[128]}\label{structcfskey_o2}
+
+
+
+
+Definition at line 113 of file cfs.h.\index{cfskey@{cfskey}!secondary1@{secondary1}}
+\index{secondary1@{secondary1}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::secondary1}[128]}\label{structcfskey_o6}
+
+
+
+
+Definition at line 125 of file cfs.h.\index{cfskey@{cfskey}!secondary2@{secondary2}}
+\index{secondary2@{secondary2}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::secondary2}[128]}\label{structcfskey_o7}
+
+
+
+
+Definition at line 126 of file cfs.h.\index{cfskey@{cfskey}!secondary3@{secondary3}}
+\index{secondary3@{secondary3}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}u\_\-char {\bf cfskey::secondary3}[128]}\label{structcfskey_o10}
+
+
+
+
+Definition at line 127 of file cfs.h.\index{cfskey@{cfskey}!smsize@{smsize}}
+\index{smsize@{smsize}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cfskey::smsize}}\label{structcfskey_o22}
+
+
+
+
+Definition at line 142 of file cfs.h.\index{cfskey@{cfskey}!var@{var}}
+\index{var@{var}!cfskey@{cfskey}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf cfskey::var}}\label{structcfskey_o21}
+
+
+
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf cfs.h}\end{CompactItemize}

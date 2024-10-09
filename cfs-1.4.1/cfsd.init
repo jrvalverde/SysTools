@@ -1,0 +1,111 @@
+#!/bin/sh
+#
+# /usr/local/etc/init.d/skel
+#	Skeleton script to use as a base example for `init (1M)' scripts.
+#
+#	$Id: cfsd.init,v 1.1 1998/11/19 12:14:53 root Exp $
+#	$Log: cfsd.init,v $
+#	Revision 1.1  1998/11/19 12:14:53  root
+#	Initial revision
+#
+#	Revision 1.2  1998/11/02 14:24:23  root
+#	debugged and security enhancements [jr]
+#
+#	Revision 1.1  1998/11/02 13:13:10  root
+#	Initial revision
+#
+#	Revision 1.2  1997/11/07 16:26:05  root
+#	Added support for command startup flags [jr]
+#
+# Revision 1.1  1996/09/11  13:54:47  root
+# Initial revision
+#
+
+# For RedHat embellishments
+##. /etc/rc.d/init.d/functions
+# For debian based systems
+. /lib/lsb/init-functions
+alias daemon=nohup
+#
+#set -x
+#
+# The CFS system daemon, its NULL directory and the mount point.
+CFSD="/usr/local/sbin/cfsd"
+CFSDFLAGS=""
+CFS_NULLDIR=/null
+CFS_MOUNTPT=/crypt
+MOUNT=/bin/mount
+MOUNTOPT="-t nfs -o port=3049,intr,nfsvers=2,sync,rsize=2048,wsize=2048,udp"
+UMOUNT=/bin/umount
+CHOWN=/bin/chown
+CHMOD=/bin/chmod
+MKDIR=/bin/mkdir
+SLEEP=/bin/sleep
+LS=/bin/ls
+RM=/bin/rm
+RMDIR=/bin/rmdir
+#
+#	Next variables are used to stop the daemon (three methods are
+#	provided).
+#
+KILLBYNAM="killall"
+#
+#
+# Lines commented with ### are left for debugging
+#
+# Test if verbose mode is on (or off) and act accordingly
+#
+IS_ON=true
+if $IS_ON verbose; then
+	ECHO=echo
+else
+	# For a quiet startup and shutdown
+	ECHO=:
+fi
+#
+case "$1" in
+	'start')
+	if test -x $CFSD ; then
+		$ECHO -n "Starting CFS: "
+		if test ! -d $CFS_NULLDIR ; then
+			if !  $MKDIR $CFS_NULLDIR  ; then
+				$ECHO "Could not make CFS NULL dir"
+				exit 1
+			fi
+		
+		fi
+		$CHOWN root.sys $CFS_NULLDIR
+		$CHMOD 0 $CFS_NULLDIR
+		if test ! -d $CFS_MOUNTPT ; then
+			if ! $MKDIR $CFS_MOUNTPT ; then
+				$ECHO "Could not make CFS mount dir"
+				exit 1
+			fi
+		fi
+		$CHOWN root.sys $CFS_MOUNTPT
+		$CHMOD 755 $CFS_MOUNTPT
+#if REDHAT
+		daemon $CFSD $CFSDFLAGS
+##		$CFSD $CFSDFLAGS
+		$SLEEP 1
+		$MOUNT $MOUNTOPT localhost:$CFS_NULLDIR $CFS_MOUNTPT
+		$ECHO ""
+	else
+		$ECHO "CFS not found."
+	fi
+	;;
+
+	'stop')
+	if test -x $CFSD ; then
+		$ECHO -n "Stopping Cryptographic File System: "
+		# if a suitable `killall' -CAUTION!!!- is available use it
+		$UMOUNT $CFS_MOUNTPT
+		$KILLBYNAM `basename $CFSD`
+		$ECHO ""
+	fi
+	;;
+
+	*)
+	echo "usage: $0 {start|stop}"
+	;;
+esac

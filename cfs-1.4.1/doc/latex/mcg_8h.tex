@@ -1,0 +1,239 @@
+\section{mcg.h File Reference}
+\label{mcg_8h}\index{mcg.h@{mcg.h}}
+
+
+
+
+This graph shows which files directly or indirectly include this file:\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf mcg\_\-key}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf SIZE}\ (1$<$$<$16)
+\item 
+\#define {\bf LOOK00}\ 0x0036
+\item 
+\#define {\bf LOOK01}\ 0x06c0
+\item 
+\#define {\bf LOOK02}\ 0x6900
+\item 
+\#define {\bf OUT0}\ 0x000f
+\item 
+\#define {\bf LOOK10}\ 0x5048
+\item 
+\#define {\bf LOOK11}\ 0x2106
+\item 
+\#define {\bf LOOK12}\ 0x8411
+\item 
+\#define {\bf OUT1}\ 0x00f0
+\item 
+\#define {\bf LOOK20}\ 0x8601
+\item 
+\#define {\bf LOOK21}\ 0x4828
+\item 
+\#define {\bf LOOK22}\ 0x10c4
+\item 
+\#define {\bf OUT2}\ 0x3300
+\item 
+\#define {\bf LOOK30}\ 0x2980
+\item 
+\#define {\bf LOOK31}\ 0x9011
+\item 
+\#define {\bf LOOK32}\ 0x022a
+\item 
+\#define {\bf OUT3}\ 0xcc00
+\item 
+\#define {\bf ROUNDS}\ 32
+\item 
+\#define {\bf KSIZE}\ (ROUNDS$\ast$3)
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf mcg\_\-key} {\bf mcg\_\-key}
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+unsigned short {\bf stable} [SIZE]
+\item 
+unsigned short {\bf lookupmasks} [4][3]
+\item 
+unsigned short {\bf outputmasks} [4]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{mcg.h@{mcg.h}!KSIZE@{KSIZE}}
+\index{KSIZE@{KSIZE}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define KSIZE\ (ROUNDS$\ast$3)}\label{mcg_8h_a18}
+
+
+
+
+Definition at line 54 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK00@{LOOK00}}
+\index{LOOK00@{LOOK00}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK00\ 0x0036}\label{mcg_8h_a1}
+
+
+
+
+Definition at line 30 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK01@{LOOK01}}
+\index{LOOK01@{LOOK01}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK01\ 0x06c0}\label{mcg_8h_a2}
+
+
+
+
+Definition at line 31 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK02@{LOOK02}}
+\index{LOOK02@{LOOK02}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK02\ 0x6900}\label{mcg_8h_a3}
+
+
+
+
+Definition at line 32 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK10@{LOOK10}}
+\index{LOOK10@{LOOK10}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK10\ 0x5048}\label{mcg_8h_a5}
+
+
+
+
+Definition at line 36 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK11@{LOOK11}}
+\index{LOOK11@{LOOK11}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK11\ 0x2106}\label{mcg_8h_a6}
+
+
+
+
+Definition at line 37 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK12@{LOOK12}}
+\index{LOOK12@{LOOK12}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK12\ 0x8411}\label{mcg_8h_a7}
+
+
+
+
+Definition at line 38 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK20@{LOOK20}}
+\index{LOOK20@{LOOK20}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK20\ 0x8601}\label{mcg_8h_a9}
+
+
+
+
+Definition at line 42 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK21@{LOOK21}}
+\index{LOOK21@{LOOK21}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK21\ 0x4828}\label{mcg_8h_a10}
+
+
+
+
+Definition at line 43 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK22@{LOOK22}}
+\index{LOOK22@{LOOK22}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK22\ 0x10c4}\label{mcg_8h_a11}
+
+
+
+
+Definition at line 44 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK30@{LOOK30}}
+\index{LOOK30@{LOOK30}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK30\ 0x2980}\label{mcg_8h_a13}
+
+
+
+
+Definition at line 48 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK31@{LOOK31}}
+\index{LOOK31@{LOOK31}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK31\ 0x9011}\label{mcg_8h_a14}
+
+
+
+
+Definition at line 49 of file mcg.h.\index{mcg.h@{mcg.h}!LOOK32@{LOOK32}}
+\index{LOOK32@{LOOK32}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOK32\ 0x022a}\label{mcg_8h_a15}
+
+
+
+
+Definition at line 50 of file mcg.h.\index{mcg.h@{mcg.h}!OUT0@{OUT0}}
+\index{OUT0@{OUT0}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OUT0\ 0x000f}\label{mcg_8h_a4}
+
+
+
+
+Definition at line 33 of file mcg.h.\index{mcg.h@{mcg.h}!OUT1@{OUT1}}
+\index{OUT1@{OUT1}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OUT1\ 0x00f0}\label{mcg_8h_a8}
+
+
+
+
+Definition at line 39 of file mcg.h.\index{mcg.h@{mcg.h}!OUT2@{OUT2}}
+\index{OUT2@{OUT2}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OUT2\ 0x3300}\label{mcg_8h_a12}
+
+
+
+
+Definition at line 45 of file mcg.h.\index{mcg.h@{mcg.h}!OUT3@{OUT3}}
+\index{OUT3@{OUT3}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OUT3\ 0xcc00}\label{mcg_8h_a16}
+
+
+
+
+Definition at line 51 of file mcg.h.\index{mcg.h@{mcg.h}!ROUNDS@{ROUNDS}}
+\index{ROUNDS@{ROUNDS}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define ROUNDS\ 32}\label{mcg_8h_a17}
+
+
+
+
+Definition at line 53 of file mcg.h.\index{mcg.h@{mcg.h}!SIZE@{SIZE}}
+\index{SIZE@{SIZE}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SIZE\ (1$<$$<$16)}\label{mcg_8h_a0}
+
+
+
+
+Definition at line 20 of file mcg.h.
+
+Referenced by mcg\_\-init().
+
+\subsection{Typedef Documentation}
+\index{mcg.h@{mcg.h}!mcg_key@{mcg\_\-key}}
+\index{mcg_key@{mcg\_\-key}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mcg\_\-key}  {\bf mcg\_\-key}}\label{mcg_8h_a22}
+
+
+
+
+\subsection{Variable Documentation}
+\index{mcg.h@{mcg.h}!lookupmasks@{lookupmasks}}
+\index{lookupmasks@{lookupmasks}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf lookupmasks}[4][3]}\label{mcg_8h_a20}
+
+
+
+
+Definition at line 22 of file mcg.h.\index{mcg.h@{mcg.h}!outputmasks@{outputmasks}}
+\index{outputmasks@{outputmasks}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf outputmasks}[4]}\label{mcg_8h_a21}
+
+
+
+
+Definition at line 23 of file mcg.h.\index{mcg.h@{mcg.h}!stable@{stable}}
+\index{stable@{stable}!mcg.h@{mcg.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf stable}[SIZE]}\label{mcg_8h_a19}
+
+
+
+
+Definition at line 21 of file mcg.h.
+
+Referenced by mcg\_\-init().

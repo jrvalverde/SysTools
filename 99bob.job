@@ -1,0 +1,28 @@
+// JOB
+// FOR
+*one word integers
+*list all
+*iocs(1132 printer)
+**fortran program for '99 bottles of beer'
+C
+C THIS PROGRAM TEACHES THE COMPUTER TO SING THE '99 BOTTLES OF BEER' SONG
+C -----------------------------------------------------------------------
+C
+      do 10 j = 1, 99
+         i = 100 - j
+         write(3,5) i
+    5 format(I4, ' BOTTLES OF BEER ON THE WALL')
+         write(3,6) i
+    6 format(I4, ' BOTTLES OF BEER')
+         write(3,7) 
+    7 format(' TAKE ONE DOWN PASS IT AROUND', /)
+   10 continue
+      call exit
+      end
+// CPRNT
+// * about to XEX
+// CEND
+// xeq
+// CPRNT
+// * returned from program
+// CEND

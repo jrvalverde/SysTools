@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+#
+#THIS_SCRIPT=$\(/bin/readlink -nf "../get_exec.sh"\)
+
+SCRIPT_PATH=$(cd `dirname ${0}`; pwd)
+#echo $SCRIPT_PATH
+
+qemu-x86_64 -L $SCRIPT_PATH/lib $SCRIPT_PATH/triton.4.0.0.dyn.x $*

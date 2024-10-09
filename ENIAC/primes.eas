@@ -1,0 +1,44 @@
+#
+# The primes program
+#
+	.list	1
+;
+.	=	0
+C0:	.data	0		; constant zero
+C1:	.data	1		; constant 1
+C2:	.data	2		; constant 2
+;
+N:	.res	1		; location for N
+M:	.res	1		; location for M
+K:	.res	1		; location for K
+T:	.res	1		; location for T
+;
+ir	=	0x3ffffff	; input register
+or	=	0x3fffffe	; output register
+;
+.	=	0x100		; start code
+;
+	mov	N,ir		; N := IR
+	mov	M,C2		; M := 2
+LOOP:	cmp	M,N		; if (M > N)
+	jgt	STOP		; goto STOP
+;
+	mov	K,C2		; K := 2
+;
+TRY:	cmp	K,M		; if (K < M)
+	jlt	CHECK		; goto CHECK
+;
+	mov	or,M		; OR := M
+;
+CONT:	add	M,C1		; M := M + 1
+	jmp	LOOP		; goto LOOP
+;
+CHECK:	mov	T,M		; T := M
+	rem	T,K		; T := M % K
+	cmp	T,C0		; if (T == 0)
+	jeq	CONT		; goto CONT
+;
+	add	K,C1		; K := K+1
+	jmp	TRY		; goto TRY
+;
+STOP:	hlt	0

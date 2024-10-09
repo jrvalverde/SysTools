@@ -1,0 +1,10 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node10 [label="{cfskey\n|+ cipher\l+ primary\l+ secondary\l+ des\l+ primary1\l+ primary2\l+ secondary1\l+ secondary2\l+ des3\l+ primary3\l+ secondary3\l+ dest3\l+ primary\l+ secondary\l+ mcg\l+ primary\l+ secondary\l+ bf\l+ primary\l+ secondary\l+ safer\l+ var\l+ smsize\l+ primask\l+ secmask\l|}",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node11 -> Node10 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="secondary\nprimary",arrowtail="open",fontname="Helvetica"];
+  Node11 [label="{mcg_key\n|+ val\l|}",height=0.2,width=0.4,color="black",URL="$structmcg__key.html"];
+  Node12 -> Node10 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="secondary\nprimary",arrowtail="open",fontname="Helvetica"];
+  Node12 [label="{bf_key_st\n|+ P\l+ S\l|}",height=0.2,width=0.4,color="black",URL="$structbf__key__st.html"];
+}

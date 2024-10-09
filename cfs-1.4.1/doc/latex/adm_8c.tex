@@ -1,0 +1,73 @@
+\section{adm.c File Reference}
+\label{adm_8c}\index{adm.c@{adm.c}}
+
+
+\subsection{Detailed Description}
+support for client adm functions.
+
+Definition in file {\bf adm.c}.
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$rpc/rpc.h$>$}\par
+{\tt \#include \char`\"{}nfsproto.h\char`\"{}}\par
+{\tt \#include \char`\"{}admproto.h\char`\"{}}\par
+{\tt \#include \char`\"{}cfs.h\char`\"{}}\par
+
+
+Include dependency graph for adm.c:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf MAXADMERR}\ 7
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ {\bf admmsg} (e) int e
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+char $\ast$ {\bf admerrs} [$\,$]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{adm.c@{adm.c}!MAXADMERR@{MAXADMERR}}
+\index{MAXADMERR@{MAXADMERR}!adm.c@{adm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MAXADMERR\ 7}\label{adm_8c_a0}
+
+
+maximum index of adm errors 
+
+Definition at line 29 of file adm.c.
+
+\subsection{Function Documentation}
+\index{adm.c@{adm.c}!admmsg@{admmsg}}
+\index{admmsg@{admmsg}!adm.c@{adm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ admmsg (e)}\label{adm_8c_a2}
+
+
+return error text associated with error number 
+
+\subsection{Variable Documentation}
+\index{adm.c@{adm.c}!admerrs@{admerrs}}
+\index{admerrs@{admerrs}!adm.c@{adm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf admerrs}[$\,$]}\label{adm_8c_a1}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        "no error",                     
+        "permission denied",            
+        "too many attached directories",
+        "no such attached name",        
+        "name already attached",        
+        "no such encrypted directory",  
+        "incorrect passphrase",         
+        "badly formed name"             
+        }
+\end{verbatim}\normalsize 
+
+
+Definition at line 31 of file adm.c.

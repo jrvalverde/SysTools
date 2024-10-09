@@ -1,0 +1,146 @@
+\section{mcgsbox.c File Reference}
+\label{mcgsbox_8c}\index{mcgsbox.c@{mcgsbox.c}}
+
+
+{\tt \#include \char`\"{}mcg.h\char`\"{}}\par
+
+
+Include dependency graph for mcgsbox.c:\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf mcg\_\-init} ()
+\item 
+{\bf mcg\_\-keyset} ({\bf key}, {\bf ek}) unsigned char $\ast${\bf key}
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+unsigned short {\bf sboxes} [8][64]
+\item 
+unsigned short {\bf stable} [SIZE]
+\item 
+unsigned short {\bf lookupmasks} [4][3]
+\item 
+unsigned short {\bf outputmasks} [4]
+\item 
+{\bf mcg\_\-key} $\ast$ {\bf ek}
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{mcgsbox.c@{mcgsbox.c}!mcg_init@{mcg\_\-init}}
+\index{mcg_init@{mcg\_\-init}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}mcg\_\-init ()}\label{mcgsbox_8c_a5}
+
+
+
+
+Definition at line 152 of file mcgsbox.c.
+
+References k, sboxes, SIZE, and stable.
+
+
+
+\footnotesize\begin{verbatim}153 {
+154         unsigned int i,j,k;
+155         int b;
+156         /*
+157          * input permutation for the 8 s-boxes.
+158          * each row entry is a bit position from
+159          * one of the three right hand registers,
+160          * as follows:
+161          *   a,a,b,b,c,c
+162          */
+163         static int sbits[8][6] = {
+164                 {2,5,6,9,11,13},
+165                 {1,4,7,10,8,14},
+166                 {3,6,8,13,0,15},
+167                 {12,14,1,2,4,10},
+168                 {0,10,3,14,6,12},
+169                 {7,8,12,15,1,5},
+170                 {9,15,5,11,2,7},
+171                 {11,13,0,4,3,9}};
+172 
+173         /* fill the table */
+174         if ((stable[0]==0xc86e) && (stable[0xffff]==0xedaf))
+175                 return 0;
+176         for (i=0; i<SIZE; i++) {
+177                 stable[i]=0;
+178                 for (j=0; j<8; j++)
+179                         stable[i] |=
+180                                 sboxes[j][((i>>sbits[j][0])&1)
+181                                           |(((i>>sbits[j][1])&1)<<1)
+182                                           |(((i>>sbits[j][2])&1)<<2)
+183                                           |(((i>>sbits[j][3])&1)<<3)
+184                                           |(((i>>sbits[j][4])&1)<<4)
+185                                           |(((i>>sbits[j][5])&1)<<5)];
+186                 
+187         }
+188         return 1;
+189 }
+\end{verbatim}\normalsize 
+\index{mcgsbox.c@{mcgsbox.c}!mcg_keyset@{mcg\_\-keyset}}
+\index{mcg_keyset@{mcg\_\-keyset}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}mcg\_\-keyset ({\bf key}, {\bf ek})}\label{mcgsbox_8c_a6}
+
+
+
+
+\subsection{Variable Documentation}
+\index{mcgsbox.c@{mcgsbox.c}!ek@{ek}}
+\index{ek@{ek}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf mcg\_\-key}$\ast$ {\bf ek}}\label{mcgsbox_8c_a4}
+
+
+
+
+Definition at line 197 of file mcgsbox.c.\index{mcgsbox.c@{mcgsbox.c}!lookupmasks@{lookupmasks}}
+\index{lookupmasks@{lookupmasks}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf lookupmasks}[4][3]}\label{mcgsbox_8c_a2}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        
+        {0x0036, 0x06c0, 0x6900},       
+        {0x5048, 0x2106, 0x8411},       
+        {0x8601, 0x4828, 0x10c4},       
+        {0x2980, 0x9011, 0x022a}}
+\end{verbatim}\normalsize 
+
+
+Definition at line 127 of file mcgsbox.c.\index{mcgsbox.c@{mcgsbox.c}!outputmasks@{outputmasks}}
+\index{outputmasks@{outputmasks}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf outputmasks}[4]}\label{mcgsbox_8c_a3}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        0x000f,  
+        0x00f0,  
+        0x3300,  
+        0xcc00}
+\end{verbatim}\normalsize 
+
+
+Definition at line 140 of file mcgsbox.c.\index{mcgsbox.c@{mcgsbox.c}!sboxes@{sboxes}}
+\index{sboxes@{sboxes}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf sboxes}[8][64]}\label{mcgsbox_8c_a0}
+
+
+
+
+Definition at line 33 of file mcgsbox.c.
+
+Referenced by mcg\_\-init().\index{mcgsbox.c@{mcgsbox.c}!stable@{stable}}
+\index{stable@{stable}!mcgsbox.c@{mcgsbox.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf stable}[SIZE]}\label{mcgsbox_8c_a1}
+
+
+
+
+Definition at line 112 of file mcgsbox.c.
+
+Referenced by mcg\_\-init().

@@ -1,0 +1,11 @@
+#!/usr/local/bin/wish -f
+
+label .title -text "Please, enter your PGP passphrase"
+entry .in -textvariable key -font nil -background #ffffff \
+    -foreground #ffffff -highlightbackground #ffffff -highlightcolor #ffffff
+bind .in <Return> {
+    puts $key
+    exit
+}
+pack .title -side top
+pack .in -side bottom -fill x

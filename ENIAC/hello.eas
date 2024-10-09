@@ -1,0 +1,31 @@
+#
+#   99 bottles of beer
+#
+	.list	1
+;
+.	=	0
+;
+; HELLO WORLD starting at location 0
+msg:	.data	72, 69, 76, 76, 79, 32, 87, 79, 82, 76, 68, 10
+; constants to use
+C0:	.data	0
+C1:	.data	1
+C12:	.data	12	; length of "HELLO WORLD" string
+C99:	.data	99
+;
+; counters
+i:	.res	1		; space for I
+j:	.res	1		; space for J
+k:	.res	1		; space for K
+;
+ir	=	0x3ffffff       ; input register
+or      =       0x3fffffe       ; output register
+;
+.	=	0x100		; start code
+;
+	mov	i,C0		; i = 0
+DO:	mov	or,msg[i]	; do { output msg[i]
+	add	i,C1		; i += 1
+	cmp	i,C12		; } while (i < 12)
+	jlt	DO		; goto DO
+EXIT:	hlt	0		; done

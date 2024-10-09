@@ -1,0 +1,607 @@
+\section{esm.c File Reference}
+\label{esm_8c}\index{esm.c@{esm.c}}
+
+
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$termios.h$>$}\par
+{\tt \#include $<$sys/ioctl.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$sys/file.h$>$}\par
+{\tt \#include $<$sys/signal.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}global.h\char`\"{}}\par
+{\tt \#include \char`\"{}rsaref.h\char`\"{}}\par
+{\tt \#include \char`\"{}esm.h\char`\"{}}\par
+{\tt \#include $<$sys/wait.h$>$}\par
+
+
+Include dependency graph for esm.c:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf REMOTE}\ 0
+\item 
+\#define {\bf LOCAL}\ 1
+\item 
+\#define {\bf CALC}\ 2
+\item 
+\#define {\bf SL\_\-START}\ 0
+\item 
+\#define {\bf SL\_\-GOT1}\ 1
+\item 
+\#define {\bf SL\_\-GOT2}\ 2
+\item 
+\#define {\bf SL\_\-GOT3}\ 3
+\item 
+\#define {\bf SL\_\-GOT4}\ 4
+\item 
+\#define {\bf SL\_\-KEYING}\ 5
+\item 
+\#define {\bf SL\_\-CRYPT}\ 6
+\item 
+\#define {\bf bwrite}(fp, {\bf buf}, {\bf len})\ (fwrite({\bf buf},{\bf len},1,fp))
+\item 
+\#define {\bf TRANS}\ 0
+\item 
+\#define {\bf CMDWAIT}\ 1
+\item 
+\#define {\bf CIPHER}\ 2
+\item 
+\#define {\bf KEYWAIT}\ 3
+\item 
+\#define {\bf IV0}\ 0
+\item 
+\#define {\bf IV1}\ 1
+\item 
+\#define {\bf IV2}\ 2
+\item 
+\#define {\bf IV3}\ 3
+\item 
+\#define {\bf C0}\ 4
+\item 
+\#define {\bf C1}\ 5
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf main} (argc, {\bf argv}) int argc
+\item 
+{\bf doinput} ()
+\item 
+{\bf doslavein} (ibuf) unsigned char ibuf
+\item 
+{\bf startsession} ()
+\item 
+{\bf sltranspub} ({\bf len})
+\item 
+{\bf masterkeyin} ({\bf c}) char {\bf c}
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+char {\bf copyright1} [$\,$]
+\item 
+char {\bf copyright2} [$\,$]
+\item 
+char $\ast$ {\bf shell}
+\item 
+int {\bf master}
+\item 
+int {\bf slave}
+\item 
+int {\bf subchild}
+\item 
+int {\bf escape} = 036
+\item 
+int {\bf ciphstate} = 0
+\item 
+int {\bf ciphbyte} = 0
+\item 
+int {\bf keyed} = 0
+\item 
+termios {\bf tt}
+\item 
+winsize {\bf win}
+\item 
+int {\bf lb}
+\item 
+int {\bf l}
+\item 
+char {\bf line} [$\,$] = \char`\"{}/dev/pty\-XX\char`\"{}
+\item 
+int {\bf aflg}
+\item 
+int {\bf mode} = LOCAL
+\item 
+int {\bf paranoid} = 0
+\item 
+int {\bf sloutstate} = SL\_\-START
+\item 
+char $\ast$ {\bf cmd} = NULL
+\item 
+FILE $\ast$ {\bf fpmaster}
+\item 
+char $\ast$ {\bf argv} [$\,$]
+\item 
+int {\bf cstate} = IV0
+\item 
+int {\bf pubpos} = 0
+\item 
+unsigned char {\bf pubbyte} = 0
+\item 
+int {\bf pksize} = -1
+\item 
+unsigned int {\bf c}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{esm.c@{esm.c}!bwrite@{bwrite}}
+\index{bwrite@{bwrite}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define bwrite(fp, {\bf buf}, {\bf len})\ (fwrite({\bf buf},{\bf len},1,fp))}\label{esm_8c_a10}
+
+
+
+
+Definition at line 135 of file esm.c.
+
+Referenced by doinput(), sltranspub(), and startsession().\index{esm.c@{esm.c}!C0@{C0}}
+\index{C0@{C0}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C0\ 4}\label{esm_8c_a19}
+
+
+\index{esm.c@{esm.c}!C1@{C1}}
+\index{C1@{C1}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define C1\ 5}\label{esm_8c_a20}
+
+
+\index{esm.c@{esm.c}!CALC@{CALC}}
+\index{CALC@{CALC}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CALC\ 2}\label{esm_8c_a2}
+
+
+
+
+Definition at line 118 of file esm.c.\index{esm.c@{esm.c}!CIPHER@{CIPHER}}
+\index{CIPHER@{CIPHER}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CIPHER\ 2}\label{esm_8c_a13}
+
+
+\index{esm.c@{esm.c}!CMDWAIT@{CMDWAIT}}
+\index{CMDWAIT@{CMDWAIT}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CMDWAIT\ 1}\label{esm_8c_a12}
+
+
+\index{esm.c@{esm.c}!IV0@{IV0}}
+\index{IV0@{IV0}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IV0\ 0}\label{esm_8c_a15}
+
+
+\index{esm.c@{esm.c}!IV1@{IV1}}
+\index{IV1@{IV1}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IV1\ 1}\label{esm_8c_a16}
+
+
+\index{esm.c@{esm.c}!IV2@{IV2}}
+\index{IV2@{IV2}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IV2\ 2}\label{esm_8c_a17}
+
+
+\index{esm.c@{esm.c}!IV3@{IV3}}
+\index{IV3@{IV3}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define IV3\ 3}\label{esm_8c_a18}
+
+
+\index{esm.c@{esm.c}!KEYWAIT@{KEYWAIT}}
+\index{KEYWAIT@{KEYWAIT}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define KEYWAIT\ 3}\label{esm_8c_a14}
+
+
+\index{esm.c@{esm.c}!LOCAL@{LOCAL}}
+\index{LOCAL@{LOCAL}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOCAL\ 1}\label{esm_8c_a1}
+
+
+
+
+Definition at line 117 of file esm.c.
+
+Referenced by doinput().\index{esm.c@{esm.c}!REMOTE@{REMOTE}}
+\index{REMOTE@{REMOTE}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define REMOTE\ 0}\label{esm_8c_a0}
+
+
+
+
+Definition at line 116 of file esm.c.
+
+Referenced by doinput().\index{esm.c@{esm.c}!SL_CRYPT@{SL\_\-CRYPT}}
+\index{SL_CRYPT@{SL\_\-CRYPT}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-CRYPT\ 6}\label{esm_8c_a9}
+
+
+
+
+Definition at line 129 of file esm.c.\index{esm.c@{esm.c}!SL_GOT1@{SL\_\-GOT1}}
+\index{SL_GOT1@{SL\_\-GOT1}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-GOT1\ 1}\label{esm_8c_a4}
+
+
+
+
+Definition at line 124 of file esm.c.\index{esm.c@{esm.c}!SL_GOT2@{SL\_\-GOT2}}
+\index{SL_GOT2@{SL\_\-GOT2}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-GOT2\ 2}\label{esm_8c_a5}
+
+
+
+
+Definition at line 125 of file esm.c.\index{esm.c@{esm.c}!SL_GOT3@{SL\_\-GOT3}}
+\index{SL_GOT3@{SL\_\-GOT3}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-GOT3\ 3}\label{esm_8c_a6}
+
+
+
+
+Definition at line 126 of file esm.c.\index{esm.c@{esm.c}!SL_GOT4@{SL\_\-GOT4}}
+\index{SL_GOT4@{SL\_\-GOT4}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-GOT4\ 4}\label{esm_8c_a7}
+
+
+
+
+Definition at line 127 of file esm.c.\index{esm.c@{esm.c}!SL_KEYING@{SL\_\-KEYING}}
+\index{SL_KEYING@{SL\_\-KEYING}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-KEYING\ 5}\label{esm_8c_a8}
+
+
+
+
+Definition at line 128 of file esm.c.\index{esm.c@{esm.c}!SL_START@{SL\_\-START}}
+\index{SL_START@{SL\_\-START}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SL\_\-START\ 0}\label{esm_8c_a3}
+
+
+
+
+Definition at line 123 of file esm.c.\index{esm.c@{esm.c}!TRANS@{TRANS}}
+\index{TRANS@{TRANS}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TRANS\ 0}\label{esm_8c_a11}
+
+
+
+
+\subsection{Function Documentation}
+\index{esm.c@{esm.c}!doinput@{doinput}}
+\index{doinput@{doinput}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}doinput ()}\label{esm_8c_a49}
+
+
+
+
+Definition at line 244 of file esm.c.
+
+References bwrite, doslavein(), fpmaster, LOCAL, mode, and REMOTE.
+
+
+
+\footnotesize\begin{verbatim}245 {
+246         int cc;
+247         int i;
+248         static unsigned char ibuf[512];
+249         
+250         if ((cc = read(0, ibuf, 512)) > 0) {
+251                 switch (mode) {
+252                     case REMOTE:
+253                         for (i=0; i<cc; i++)
+254                                 domasterin(ibuf[i]);
+255                         break;
+256                     case LOCAL:
+257                         for (i=0; i<cc; i++)
+258                                 doslavein(ibuf[i]);
+259                         break;
+260                     default:
+261                         for (i=0; i<cc; i++)
+262                                 bwrite(fpmaster,&ibuf[i],1);
+263                         break;
+264                 }
+265                 fflush(fpmaster);
+266                 fflush(stdout);
+267         } else
+268                 done();
+269 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:\index{esm.c@{esm.c}!doslavein@{doslavein}}
+\index{doslavein@{doslavein}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}doslavein (ibuf)}\label{esm_8c_a50}
+
+
+
+
+Referenced by doinput().\index{esm.c@{esm.c}!main@{main}}
+\index{main@{main}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}main (argc, {\bf argv})}\label{esm_8c_a48}
+
+
+\index{esm.c@{esm.c}!masterkeyin@{masterkeyin}}
+\index{masterkeyin@{masterkeyin}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}masterkeyin ({\bf c})}\label{esm_8c_a53}
+
+
+\index{esm.c@{esm.c}!sltranspub@{sltranspub}}
+\index{sltranspub@{sltranspub}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}sltranspub ({\bf len})}\label{esm_8c_a52}
+
+
+
+
+Definition at line 440 of file esm.c.
+
+References bwrite, fpmaster, len, and ourpub.
+
+
+
+\footnotesize\begin{verbatim}441 {
+442         static unsigned char colon=':';
+443         int i;
+444         
+445         for (i=0; i<len; i++)
+446                 sendhex(fpmaster,ourpub[i]);
+447         bwrite(fpmaster,&colon,1);
+448 }
+\end{verbatim}\normalsize 
+\index{esm.c@{esm.c}!startsession@{startsession}}
+\index{startsession@{startsession}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}startsession ()}\label{esm_8c_a51}
+
+
+
+
+Definition at line 416 of file esm.c.
+
+References buf, bwrite, createdh(), dhparams, LONG, ourpub, pklen, pksize, pubbyte, and pubpos.
+
+
+
+\footnotesize\begin{verbatim}417 {
+418         static unsigned char buf[5] = {0177, '~', 0177, '~', 'L'};
+419         static unsigned char colon=':';
+420         int i;
+421 
+422         pklen=dhparams[LONG].primeLen;
+423         printf("Starting remote side of %d bit key exchange.\r\n",pklen*8);
+424         printf("  (type any character to abort)");
+425         fflush(stdout);
+426         bwrite(stdout,buf,5);
+427         if (createdh(LONG) < 0)
+428                 return -1;
+429         for (i=0; i<pklen; i++)
+430                 sendhex(stdout,ourpub[i]);
+431         bwrite(stdout,&colon,1);
+432         pksize=LONG;
+433         pubstat=0;
+434         pubpos=0;
+435         pubbyte=0;
+436         state=KEYWAIT;
+437         return 0;
+438 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:
+
+\subsection{Variable Documentation}
+\index{esm.c@{esm.c}!aflg@{aflg}}
+\index{aflg@{aflg}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf aflg}}\label{esm_8c_a36}
+
+
+
+
+Definition at line 114 of file esm.c.\index{esm.c@{esm.c}!argv@{argv}}
+\index{argv@{argv}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf argv}[$\,$]}\label{esm_8c_a42}
+
+
+
+
+Definition at line 139 of file esm.c.\index{esm.c@{esm.c}!c@{c}}
+\index{c@{c}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf c}}\label{esm_8c_a47}
+
+
+
+
+Definition at line 999 of file esm.c.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), and Safer\_\-Encrypt\_\-Block().\index{esm.c@{esm.c}!ciphbyte@{ciphbyte}}
+\index{ciphbyte@{ciphbyte}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf ciphbyte} = 0}\label{esm_8c_a29}
+
+
+
+
+Definition at line 101 of file esm.c.\index{esm.c@{esm.c}!ciphstate@{ciphstate}}
+\index{ciphstate@{ciphstate}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf ciphstate} = 0}\label{esm_8c_a28}
+
+
+
+
+Definition at line 100 of file esm.c.\index{esm.c@{esm.c}!cmd@{cmd}}
+\index{cmd@{cmd}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf cmd} = NULL}\label{esm_8c_a40}
+
+
+
+
+Definition at line 131 of file esm.c.\index{esm.c@{esm.c}!copyright1@{copyright1}}
+\index{copyright1@{copyright1}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char {\bf copyright1}[$\,$]}\label{esm_8c_a21}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim}
+"@(#) Copyright (c) 1980 Regents of the University of California.\n\
+ All rights reserved.\n"
+\end{verbatim}\normalsize 
+
+
+Definition at line 65 of file esm.c.\index{esm.c@{esm.c}!copyright2@{copyright2}}
+\index{copyright2@{copyright2}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char {\bf copyright2}[$\,$]}\label{esm_8c_a22}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim}
+"@(#) Copyright (c) 1995 AT&T\nAll rights reserved.\n"
+\end{verbatim}\normalsize 
+
+
+Definition at line 68 of file esm.c.\index{esm.c@{esm.c}!cstate@{cstate}}
+\index{cstate@{cstate}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf cstate} = IV0}\label{esm_8c_a43}
+
+
+
+
+Definition at line 242 of file esm.c.\index{esm.c@{esm.c}!escape@{escape}}
+\index{escape@{escape}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf escape} = 036}\label{esm_8c_a27}
+
+
+
+
+Definition at line 99 of file esm.c.\index{esm.c@{esm.c}!fpmaster@{fpmaster}}
+\index{fpmaster@{fpmaster}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}FILE$\ast$ {\bf fpmaster}}\label{esm_8c_a41}
+
+
+
+
+Definition at line 133 of file esm.c.
+
+Referenced by doinput(), and sltranspub().\index{esm.c@{esm.c}!keyed@{keyed}}
+\index{keyed@{keyed}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf keyed} = 0}\label{esm_8c_a30}
+
+
+
+
+Definition at line 103 of file esm.c.\index{esm.c@{esm.c}!l@{l}}
+\index{l@{l}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf l}}\label{esm_8c_a34}
+
+
+
+
+Definition at line 108 of file esm.c.\index{esm.c@{esm.c}!lb@{lb}}
+\index{lb@{lb}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf lb}}\label{esm_8c_a33}
+
+
+
+
+Definition at line 107 of file esm.c.\index{esm.c@{esm.c}!line@{line}}
+\index{line@{line}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char {\bf line}[$\,$] = \char`\"{}/dev/pty\-XX\char`\"{}}\label{esm_8c_a35}
+
+
+
+
+Definition at line 112 of file esm.c.\index{esm.c@{esm.c}!master@{master}}
+\index{master@{master}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf master}}\label{esm_8c_a24}
+
+
+
+
+Definition at line 95 of file esm.c.\index{esm.c@{esm.c}!mode@{mode}}
+\index{mode@{mode}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf mode} = LOCAL}\label{esm_8c_a37}
+
+
+
+
+Definition at line 120 of file esm.c.\index{esm.c@{esm.c}!paranoid@{paranoid}}
+\index{paranoid@{paranoid}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf paranoid} = 0}\label{esm_8c_a38}
+
+
+
+
+Definition at line 121 of file esm.c.\index{esm.c@{esm.c}!pksize@{pksize}}
+\index{pksize@{pksize}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf pksize} = -1}\label{esm_8c_a46}
+
+
+
+
+Definition at line 414 of file esm.c.
+
+Referenced by startsession().\index{esm.c@{esm.c}!pubbyte@{pubbyte}}
+\index{pubbyte@{pubbyte}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf pubbyte} = 0}\label{esm_8c_a45}
+
+
+
+
+Definition at line 413 of file esm.c.
+
+Referenced by startsession().\index{esm.c@{esm.c}!pubpos@{pubpos}}
+\index{pubpos@{pubpos}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf pubpos} = 0}\label{esm_8c_a44}
+
+
+
+
+Definition at line 412 of file esm.c.
+
+Referenced by startsession().\index{esm.c@{esm.c}!shell@{shell}}
+\index{shell@{shell}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf shell}}\label{esm_8c_a23}
+
+
+
+
+Definition at line 94 of file esm.c.\index{esm.c@{esm.c}!slave@{slave}}
+\index{slave@{slave}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf slave}}\label{esm_8c_a25}
+
+
+
+
+Definition at line 96 of file esm.c.\index{esm.c@{esm.c}!sloutstate@{sloutstate}}
+\index{sloutstate@{sloutstate}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf sloutstate} = SL\_\-START}\label{esm_8c_a39}
+
+
+
+
+Definition at line 130 of file esm.c.\index{esm.c@{esm.c}!subchild@{subchild}}
+\index{subchild@{subchild}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf subchild}}\label{esm_8c_a26}
+
+
+
+
+Definition at line 97 of file esm.c.\index{esm.c@{esm.c}!tt@{tt}}
+\index{tt@{tt}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct termios {\bf tt}}\label{esm_8c_a31}
+
+
+
+
+Definition at line 105 of file esm.c.\index{esm.c@{esm.c}!win@{win}}
+\index{win@{win}!esm.c@{esm.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct winsize {\bf win}}\label{esm_8c_a32}
+
+
+
+
+Definition at line 106 of file esm.c.

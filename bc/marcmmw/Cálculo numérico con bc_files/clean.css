@@ -1,0 +1,322 @@
+/* Clean CSS file for articles */
+
+body {
+  margin:0px 0px 0px 0px;
+  background-color: white;
+  font-size: large;
+  font-family: garamond, helvetica;
+}
+
+#page {
+  text-align: justify;
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:2cm;
+}
+
+a:link {
+  text-decoration:none;
+  color: rgb(80,60,110);
+}
+
+a:visited {
+  text-decoration:none;
+  color: rgb(80,60,110);
+}
+
+a:active {
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration:none;
+  background: #eeeeee;
+}
+
+a img {
+  border: none;
+}
+
+img.border {
+  border: 1px solid #777777;
+}
+
+h1 {
+  margin-top: .6cm;
+  text-align: center;
+  font-family: "Times New Roman", times, Georgia;
+}
+
+h2 {
+  text-align: justify;
+  font-family: "Times New Roman",  times, Georgia;
+}
+
+h2.author {
+  text-align: center;
+}
+
+h3 {
+  text-align: justify;
+  font-family: "Times New Roman", times, Georgia;
+}
+
+h3.abstract {
+  margin-top: 0.8cm;
+  text-align: center;
+}
+
+h3.contents {
+  text-align: center;
+}
+
+h4 {
+  text-align: justify;
+  font-family: "Times New Roman", times, Georgia;
+}
+
+h3.date {
+  text-align: center;
+}
+
+p {
+  margin-left: 0cm;
+  margin-right: 0cm;
+  text-align: justify;
+  text-indent: 0.4cm;
+}
+
+p.abstract {
+  font-size: 85%;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p.first {
+  text-indent: 0px;
+}
+
+p.continue {
+  text-indent: 0px;
+}
+
+blockquote {
+  font-size: 90%;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+
+p.quote {
+  font-size: 90%;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  text-indent: 0px;
+}
+
+p.verse {
+  margin-left:auto;
+  margin-right:auto;
+  font-size: 90%;
+  width: 50%;
+  text-indent: 0px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+ul.items {
+  list-style: disc;
+  padding-left: 0px;
+}
+
+pre {
+  padding: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(200,200,200);
+  font-family: "courier new", "courier", "lucida console";
+  clear: both;
+}
+
+pre.terminal {
+  background-color: black;
+  color: rgb(210,210,210);
+  font-weight: bold;
+}
+
+#border {
+  border-width: 4px;
+  border-style: double;
+  border-color: rgb(115,100,19);
+}
+
+p.formula {
+  text-indent: 0px;
+  font-size: 120%;
+  text-align: center;
+  font-family: 'Palatino Linotype', 'times new roman', 'times';
+  font-style: italic;
+}
+
+em.formula {
+  font-family: 'Palatino Linotype', 'times new roman', 'times';
+  font-style: italic;
+  font-size: 120%;
+}
+
+em.large {
+  font-size: 140%;
+}
+
+em.small {
+  font-size: 75%;
+}
+
+em.num {
+  text-align: right;
+  font-size: 100%;
+  font-style: normal;
+  float: right;
+}
+
+em.paren {
+  font-style: normal;
+}
+
+em.normal {
+  font-style: normal;
+}
+
+sup.num {
+  font-style: normal;
+}
+
+sub.num {
+  font-style: normal;
+}
+
+div.contents {
+  width:50%;
+  font-size: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(200,200,200);
+}
+
+div.floatleft {
+  text-align: center;
+  margin: 0.3cm 0.3cm 0.3cm 0cm;
+  border: none;
+  float: left;
+}
+
+div.floatright {
+  text-align: center;
+  margin: 0.3cm 0cm 0.2cm 0.3cm;
+  border: none;
+  float: right;
+}
+
+div.floatcentre {
+  border-style: none;
+  text-align: center;
+}
+
+p.caption {
+  font-size: 75%;
+  text-align: justify;
+  text-indent: 0cm;
+}
+
+p.centrecaption {
+  width: 85%;
+  font-size: 75%;
+  text-align: justify;
+  margin-right: auto;
+  margin-left: auto;
+  text-indent: 0cm;
+}
+
+table {
+  caption-side: bottom;
+  border-collapse: collapse;
+}
+
+th {
+  font-family: times new roman, times, verdana;
+  border-top: 1px solid #666666;
+  border-left: 1px solid #666666;
+  border-right: 1px solid #666666;
+  border-bottom: 2px solid #666666;
+  padding: 0.1cm;
+}
+
+td {
+  border-top: 1px solid #666666;
+  border-bottom: 1px solid #666666;
+  border-left: 1px solid #666666;
+  border-right: 1px solid #666666;
+  padding: 0.1cm;
+}
+
+caption {
+  font-size: 85%;
+  text-align: justify;
+}
+
+sup {
+  font-size: 70%;
+}
+
+sub {
+  font-size: 70%;
+}
+
+table.formula {
+  frame: void;
+  text-indent: 0px;   
+  font-size: 120%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: 'Palatino Linotype', 'times new roman', 'times';
+  font-style: italic;
+}
+
+tr td.formula {
+  border: 0px;
+  text-align: center;
+}
+
+span.overl {
+  text-decoration: overline;
+}
+
+p.endnotes {
+  font-size: 85%;
+  text-indent: 0cm;
+}
+
+p.references {
+  text-indent: 0cm;
+}
+
+em.name {
+  font-style: normal;
+  font-variant: small-caps;
+}
+
+em.title {
+  font-style: italic;
+}

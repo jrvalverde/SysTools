@@ -1,0 +1,12 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node321 [label="shs.c",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node322 -> Node321 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node322 [label="sys/types.h",height=0.2,width=0.4,color="grey75"];
+  Node323 -> Node321 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node323 [label="stdio.h",height=0.2,width=0.4,color="grey75"];
+  Node324 -> Node321 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="Helvetica"];
+  Node324 [label="shs.h",height=0.2,width=0.4,color="black",URL="$shs_8h.html"];
+}

@@ -1,0 +1,71 @@
+\section{truerand.c File Reference}
+\label{truerand_8c}\index{truerand.c@{truerand.c}}
+
+
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$setjmp.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$math.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+
+
+Include dependency graph for truerand.c:\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+unsigned long {\bf raw\_\-truerand} ()
+\item 
+int {\bf raw\_\-n\_\-truerand} ({\bf n}) int {\bf n}
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{truerand.c@{truerand.c}!raw_n_truerand@{raw\_\-n\_\-truerand}}
+\index{raw_n_truerand@{raw\_\-n\_\-truerand}!truerand.c@{truerand.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int raw\_\-n\_\-truerand ({\bf n})}\label{truerand_8c_a8}
+
+
+\index{truerand.c@{truerand.c}!raw_truerand@{raw\_\-truerand}}
+\index{raw_truerand@{raw\_\-truerand}!truerand.c@{truerand.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned long raw\_\-truerand ()}\label{truerand_8c_a7}
+
+
+
+
+Definition at line 135 of file truerand.c.
+
+References buf, and qshs().
+
+
+
+\footnotesize\begin{verbatim}136 {
+137         void (*oldalrm)();
+138         struct itimerval it;
+139         unsigned long counts[12];
+140         unsigned char *qshs();
+141         unsigned char *r;
+142         unsigned long buf;
+143         int i;
+144 
+145         getitimer(ITIMER_REAL, &it);
+146         oldalrm = signal(SIGALRM, SIG_IGN);
+147         for (i=0; i<12; i++) {
+148                 counts[i]=0;
+149                 while ((counts[i] += roulette()) < 512)
+150                         ;
+151         }
+152         signal(SIGALRM, oldalrm);
+153         setitimer(ITIMER_REAL, &it, NULL);
+154 
+155         r = qshs(counts,sizeof(counts));
+156         buf = *((unsigned long *) r);
+157 
+158         return buf;
+159 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:

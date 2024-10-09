@@ -1,0 +1,13 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+  node [fontname="Helvetica",fontsize=10,shape=record];
+  Node14 [label="{fdcache\n|+ file\l+ fd\l+ mode\l+ next\l+ prev\l|}",height=0.2,width=0.4,color="white", fillcolor="black", style="filled" fontcolor="white"];
+  Node15 -> Node14 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="file",arrowtail="open"];
+  Node15 [label="{cfs_fileid\n|+ fileid\l+ key\l+ vect\l+ vectname\l+ name\l+ fd\l+ parent\l+ next\l+ ins\l|}",height=0.2,width=0.4,color="black",URL="$structcfs__fileid.html"];
+  Node14 -> Node15 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="fd",arrowtail="open"];
+  Node16 -> Node15 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="ins",arrowtail="open"];
+  Node16 [label="{instance\n|+ file\l+ path\l+ name\l+ key\l+ check\l+ uid\l+ id\l+ highsec\l+ anon\l+ timeout\l+ idle\l+ access\l+ dead\l|}",height=0.2,width=0.4,color="red",URL="$structinstance.html"];
+  Node15 -> Node16 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="file",arrowtail="open"];
+  Node15 -> Node15 [dir=back,color="darkorchid3",fontsize=10,style="dashed",label="next",arrowtail="open"];
+}

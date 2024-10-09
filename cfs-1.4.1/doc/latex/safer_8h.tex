@@ -1,0 +1,277 @@
+\section{safer.h File Reference}
+\label{safer_8h}\index{safer.h@{safer.h}}
+
+
+
+
+This graph shows which files directly or indirectly include this file:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf SAFER\_\-K64\_\-DEFAULT\_\-NOF\_\-ROUNDS}\ 6
+\item 
+\#define {\bf SAFER\_\-K128\_\-DEFAULT\_\-NOF\_\-ROUNDS}\ 10
+\item 
+\#define {\bf SAFER\_\-SK64\_\-DEFAULT\_\-NOF\_\-ROUNDS}\ 8
+\item 
+\#define {\bf SAFER\_\-SK128\_\-DEFAULT\_\-NOF\_\-ROUNDS}\ 10
+\item 
+\#define {\bf SAFER\_\-MAX\_\-NOF\_\-ROUNDS}\ 13
+\item 
+\#define {\bf SAFER\_\-BLOCK\_\-LEN}\ 8
+\item 
+\#define {\bf SAFER\_\-KEY\_\-LEN}\ (1 + SAFER\_\-BLOCK\_\-LEN $\ast$ (1 + 2 $\ast$ SAFER\_\-MAX\_\-NOF\_\-ROUNDS))
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef unsigned char {\bf safer\_\-block\_\-t} [SAFER\_\-BLOCK\_\-LEN]
+\item 
+typedef unsigned char {\bf safer\_\-key\_\-t} [SAFER\_\-KEY\_\-LEN]
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf Safer\_\-Init\_\-Module} (void)
+\item 
+void {\bf Safer\_\-Expand\_\-Userkey} ({\bf safer\_\-block\_\-t} userkey\_\-1, {\bf safer\_\-block\_\-t} userkey\_\-2, unsigned int nof\_\-rounds, int strengthened, {\bf safer\_\-key\_\-t} {\bf key})
+\item 
+void {\bf Safer\_\-Encrypt\_\-Block} ({\bf safer\_\-block\_\-t} block\_\-in, {\bf safer\_\-key\_\-t} {\bf key}, {\bf safer\_\-block\_\-t} block\_\-out)
+\item 
+void {\bf Safer\_\-Decrypt\_\-Block} ({\bf safer\_\-block\_\-t} block\_\-in, {\bf safer\_\-key\_\-t} {\bf key}, {\bf safer\_\-block\_\-t} block\_\-out)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{safer.h@{safer.h}!SAFER_BLOCK_LEN@{SAFER\_\-BLOCK\_\-LEN}}
+\index{SAFER_BLOCK_LEN@{SAFER\_\-BLOCK\_\-LEN}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-BLOCK\_\-LEN\ 8}\label{safer_8h_a5}
+
+
+
+
+Definition at line 32 of file safer.h.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), and Safer\_\-Expand\_\-Userkey().\index{safer.h@{safer.h}!SAFER_K128_DEFAULT_NOF_ROUNDS@{SAFER\_\-K128\_\-DEFAULT\_\-NOF\_\-ROUNDS}}
+\index{SAFER_K128_DEFAULT_NOF_ROUNDS@{SAFER\_\-K128\_\-DEFAULT\_\-NOF\_\-ROUNDS}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-K128\_\-DEFAULT\_\-NOF\_\-ROUNDS\ 10}\label{safer_8h_a1}
+
+
+
+
+Definition at line 28 of file safer.h.\index{safer.h@{safer.h}!SAFER_K64_DEFAULT_NOF_ROUNDS@{SAFER\_\-K64\_\-DEFAULT\_\-NOF\_\-ROUNDS}}
+\index{SAFER_K64_DEFAULT_NOF_ROUNDS@{SAFER\_\-K64\_\-DEFAULT\_\-NOF\_\-ROUNDS}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-K64\_\-DEFAULT\_\-NOF\_\-ROUNDS\ 6}\label{safer_8h_a0}
+
+
+
+
+Definition at line 27 of file safer.h.\index{safer.h@{safer.h}!SAFER_KEY_LEN@{SAFER\_\-KEY\_\-LEN}}
+\index{SAFER_KEY_LEN@{SAFER\_\-KEY\_\-LEN}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-KEY\_\-LEN\ (1 + SAFER\_\-BLOCK\_\-LEN $\ast$ (1 + 2 $\ast$ SAFER\_\-MAX\_\-NOF\_\-ROUNDS))}\label{safer_8h_a6}
+
+
+
+
+Definition at line 33 of file safer.h.\index{safer.h@{safer.h}!SAFER_MAX_NOF_ROUNDS@{SAFER\_\-MAX\_\-NOF\_\-ROUNDS}}
+\index{SAFER_MAX_NOF_ROUNDS@{SAFER\_\-MAX\_\-NOF\_\-ROUNDS}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-MAX\_\-NOF\_\-ROUNDS\ 13}\label{safer_8h_a4}
+
+
+
+
+Definition at line 31 of file safer.h.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), Safer\_\-Encrypt\_\-Block(), and Safer\_\-Expand\_\-Userkey().\index{safer.h@{safer.h}!SAFER_SK128_DEFAULT_NOF_ROUNDS@{SAFER\_\-SK128\_\-DEFAULT\_\-NOF\_\-ROUNDS}}
+\index{SAFER_SK128_DEFAULT_NOF_ROUNDS@{SAFER\_\-SK128\_\-DEFAULT\_\-NOF\_\-ROUNDS}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-SK128\_\-DEFAULT\_\-NOF\_\-ROUNDS\ 10}\label{safer_8h_a3}
+
+
+
+
+Definition at line 30 of file safer.h.\index{safer.h@{safer.h}!SAFER_SK64_DEFAULT_NOF_ROUNDS@{SAFER\_\-SK64\_\-DEFAULT\_\-NOF\_\-ROUNDS}}
+\index{SAFER_SK64_DEFAULT_NOF_ROUNDS@{SAFER\_\-SK64\_\-DEFAULT\_\-NOF\_\-ROUNDS}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SAFER\_\-SK64\_\-DEFAULT\_\-NOF\_\-ROUNDS\ 8}\label{safer_8h_a2}
+
+
+
+
+Definition at line 29 of file safer.h.
+
+\subsection{Typedef Documentation}
+\index{safer.h@{safer.h}!safer_block_t@{safer\_\-block\_\-t}}
+\index{safer_block_t@{safer\_\-block\_\-t}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char {\bf safer\_\-block\_\-t}[SAFER\_\-BLOCK\_\-LEN]}\label{safer_8h_a7}
+
+
+
+
+Definition at line 40 of file safer.h.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), Safer\_\-Encrypt\_\-Block(), and Safer\_\-Expand\_\-Userkey().\index{safer.h@{safer.h}!safer_key_t@{safer\_\-key\_\-t}}
+\index{safer_key_t@{safer\_\-key\_\-t}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char {\bf safer\_\-key\_\-t}[SAFER\_\-KEY\_\-LEN]}\label{safer_8h_a8}
+
+
+
+
+Definition at line 41 of file safer.h.
+
+Referenced by Safer\_\-Decrypt\_\-Block(), Safer\_\-Encrypt\_\-Block(), and Safer\_\-Expand\_\-Userkey().
+
+\subsection{Function Documentation}
+\index{safer.h@{safer.h}!Safer_Decrypt_Block@{Safer\_\-Decrypt\_\-Block}}
+\index{Safer_Decrypt_Block@{Safer\_\-Decrypt\_\-Block}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Safer\_\-Decrypt\_\-Block ({\bf safer\_\-block\_\-t} {\em block\_\-in}, {\bf safer\_\-key\_\-t} {\em key}, {\bf safer\_\-block\_\-t} {\em block\_\-out})}\label{safer_8h_a12}
+
+
+
+
+Definition at line 158 of file safer.c.
+
+References a, c, d, EXP, h, IPHT, key, LOG, SAFER\_\-BLOCK\_\-LEN, safer\_\-block\_\-t, safer\_\-key\_\-t, SAFER\_\-MAX\_\-NOF\_\-ROUNDS, and t.
+
+
+
+\footnotesize\begin{verbatim}167 {   unsigned char a, b, c, d, e, f, g, h, t;
+168     unsigned int round;
+169 
+170     a = block_in[0]; b = block_in[1]; c = block_in[2]; d = block_in[3];
+171     e = block_in[4]; f = block_in[5]; g = block_in[6]; h = block_in[7];
+172     if (SAFER_MAX_NOF_ROUNDS < (round = *key)) round = SAFER_MAX_NOF_ROUNDS;
+173     key += SAFER_BLOCK_LEN * (1 + 2 * round);
+174     h ^= *key; g -= *--key; f -= *--key; e ^= *--key;
+175     d ^= *--key; c -= *--key; b -= *--key; a ^= *--key;
+176     while (round--)
+177     {
+178         t = e; e = b; b = c; c = t; t = f; f = d; d = g; g = t;
+179         IPHT(a, e); IPHT(b, f); IPHT(c, g); IPHT(d, h);
+180         IPHT(a, c); IPHT(e, g); IPHT(b, d); IPHT(f, h);
+181         IPHT(a, b); IPHT(c, d); IPHT(e, f); IPHT(g, h);
+182         h -= *--key; g ^= *--key; f ^= *--key; e -= *--key;
+183         d -= *--key; c ^= *--key; b ^= *--key; a -= *--key;
+184         h = LOG(h) ^ *--key; g = EXP(g) - *--key;
+185         f = EXP(f) - *--key; e = LOG(e) ^ *--key;
+186         d = LOG(d) ^ *--key; c = EXP(c) - *--key;
+187         b = EXP(b) - *--key; a = LOG(a) ^ *--key;
+188     }
+189     block_out[0] = a & 0xFF; block_out[1] = b & 0xFF;
+190     block_out[2] = c & 0xFF; block_out[3] = d & 0xFF;
+191     block_out[4] = e & 0xFF; block_out[5] = f & 0xFF;
+192     block_out[6] = g & 0xFF; block_out[7] = h & 0xFF;
+193 } /* Safer_Decrypt_Block */
+\end{verbatim}\normalsize 
+\index{safer.h@{safer.h}!Safer_Encrypt_Block@{Safer\_\-Encrypt\_\-Block}}
+\index{Safer_Encrypt_Block@{Safer\_\-Encrypt\_\-Block}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Safer\_\-Encrypt\_\-Block ({\bf safer\_\-block\_\-t} {\em block\_\-in}, {\bf safer\_\-key\_\-t} {\em key}, {\bf safer\_\-block\_\-t} {\em block\_\-out})}\label{safer_8h_a11}
+
+
+
+
+Definition at line 120 of file safer.c.
+
+References a, c, d, EXP, h, key, LOG, PHT, safer\_\-block\_\-t, safer\_\-key\_\-t, SAFER\_\-MAX\_\-NOF\_\-ROUNDS, and t.
+
+
+
+\footnotesize\begin{verbatim}129 {   unsigned char a, b, c, d, e, f, g, h, t;
+130     unsigned int round;
+131 
+132     a = block_in[0]; b = block_in[1]; c = block_in[2]; d = block_in[3];
+133     e = block_in[4]; f = block_in[5]; g = block_in[6]; h = block_in[7];
+134     if (SAFER_MAX_NOF_ROUNDS < (round = *key)) round = SAFER_MAX_NOF_ROUNDS;
+135     while(round--)
+136     {
+137         a ^= *++key; b += *++key; c += *++key; d ^= *++key;
+138         e ^= *++key; f += *++key; g += *++key; h ^= *++key;
+139         a = EXP(a) + *++key; b = LOG(b) ^ *++key;
+140         c = LOG(c) ^ *++key; d = EXP(d) + *++key;
+141         e = EXP(e) + *++key; f = LOG(f) ^ *++key;
+142         g = LOG(g) ^ *++key; h = EXP(h) + *++key;
+143         PHT(a, b); PHT(c, d); PHT(e, f); PHT(g, h);
+144         PHT(a, c); PHT(e, g); PHT(b, d); PHT(f, h);
+145         PHT(a, e); PHT(b, f); PHT(c, g); PHT(d, h);
+146         t = b; b = e; e = c; c = t; t = d; d = f; f = g; g = t;
+147     }
+148     a ^= *++key; b += *++key; c += *++key; d ^= *++key;
+149     e ^= *++key; f += *++key; g += *++key; h ^= *++key;
+150     block_out[0] = a & 0xFF; block_out[1] = b & 0xFF;
+151     block_out[2] = c & 0xFF; block_out[3] = d & 0xFF;
+152     block_out[4] = e & 0xFF; block_out[5] = f & 0xFF;
+153     block_out[6] = g & 0xFF; block_out[7] = h & 0xFF;
+154 } /* Safer_Encrypt_Block */
+\end{verbatim}\normalsize 
+\index{safer.h@{safer.h}!Safer_Expand_Userkey@{Safer\_\-Expand\_\-Userkey}}
+\index{Safer_Expand_Userkey@{Safer\_\-Expand\_\-Userkey}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Safer\_\-Expand\_\-Userkey ({\bf safer\_\-block\_\-t} {\em userkey\_\-1}, {\bf safer\_\-block\_\-t} {\em userkey\_\-2}, unsigned int {\em nof\_\-rounds}, int {\em strengthened}, {\bf safer\_\-key\_\-t} {\em key})}\label{safer_8h_a10}
+
+
+
+
+Definition at line 66 of file safer.c.
+
+References key, ROL, SAFER\_\-BLOCK\_\-LEN, safer\_\-block\_\-t, safer\_\-key\_\-t, and SAFER\_\-MAX\_\-NOF\_\-ROUNDS.
+
+
+
+\footnotesize\begin{verbatim}80 {   unsigned int i, j;
+81     unsigned char ka[SAFER_BLOCK_LEN + 1];
+82     unsigned char kb[SAFER_BLOCK_LEN + 1];
+83 
+84     if (SAFER_MAX_NOF_ROUNDS < nof_rounds)
+85         nof_rounds = SAFER_MAX_NOF_ROUNDS;
+86     *key++ = (unsigned char)nof_rounds;
+87     ka[SAFER_BLOCK_LEN] = 0;
+88     kb[SAFER_BLOCK_LEN] = 0;
+89     for (j = 0; j < SAFER_BLOCK_LEN; j++)
+90     {
+91         ka[SAFER_BLOCK_LEN] ^= ka[j] = ROL(userkey_1[j], 5);
+92         kb[SAFER_BLOCK_LEN] ^= kb[j] = *key++ = userkey_2[j];
+93     }
+94     for (i = 1; i <= nof_rounds; i++)
+95     {
+96         for (j = 0; j < SAFER_BLOCK_LEN + 1; j++)
+97         {
+98             ka[j] = ROL(ka[j], 6);
+99             kb[j] = ROL(kb[j], 6);
+100         }
+101         for (j = 0; j < SAFER_BLOCK_LEN; j++)
+102             if (strengthened)
+103                 *key++ = (ka[(j + 2 * i - 1) % (SAFER_BLOCK_LEN + 1)]
+104                                 + exp_tab[exp_tab[18 * i + j + 1]]) & 0xFF;
+105             else
+106                 *key++ = (ka[j] + exp_tab[exp_tab[18 * i + j + 1]]) & 0xFF;
+107         for (j = 0; j < SAFER_BLOCK_LEN; j++)
+108             if (strengthened)
+109                 *key++ = (kb[(j + 2 * i) % (SAFER_BLOCK_LEN + 1)]
+110                                 + exp_tab[exp_tab[18 * i + j + 10]]) & 0xFF;
+111             else
+112                 *key++ = (kb[j] + exp_tab[exp_tab[18 * i + j + 10]]) & 0xFF;
+113     }
+114     for (j = 0; j < SAFER_BLOCK_LEN + 1; j++)
+115         ka[j] = kb[j] = 0;
+116 } /* Safer_Expand_Userkey */
+\end{verbatim}\normalsize 
+\index{safer.h@{safer.h}!Safer_Init_Module@{Safer\_\-Init\_\-Module}}
+\index{Safer_Init_Module@{Safer\_\-Init\_\-Module}!safer.h@{safer.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Safer\_\-Init\_\-Module (void)}\label{safer_8h_a9}
+
+
+
+
+Definition at line 48 of file safer.c.
+
+References TAB\_\-LEN.
+
+
+
+\footnotesize\begin{verbatim}53 {   unsigned int i, exp;
+54 
+55     exp = 1;
+56     for (i = 0; i < TAB_LEN; i++)
+57     {
+58         exp_tab[i] = (unsigned char)(exp & 0xFF);
+59         log_tab[exp_tab[i]] = (unsigned char)i;
+60         exp = exp * 45 % 257;
+61     }
+62 } /* Safer_Init_Module */
+\end{verbatim}\normalsize 

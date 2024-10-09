@@ -1,0 +1,133 @@
+#
+# use BC_ENV_ARGS to include this file before any other work is done.
+#
+# predefined
+#
+#s (x)
+#    The sine of x, x is in radians. 
+#c (x)
+#    The cosine of x, x is in radians. 
+#a (x)
+#    The arctangent of x, arctangent returns radians. 
+#l (x)
+#    The natural logarithm of x. 
+#e (x)
+#    The exponential function of raising e to the value x. 
+#j (n,x)
+#    The bessel function of integer order n of x. 
+#
+
+pi=4*a(1)
+
+# antilogarithm
+define al(x) {
+    return e((x)*l(2.7182818284590))
+}
+
+
+# logarithm base 10
+define log(x) {
+    return l(x) / l(10);
+}
+
+#recursive factorial
+define fact_rec (n) { 
+  if (n < 0) {
+    print "oops";
+    halt;
+  }
+  if (n < 2) return 1;
+  return n*fact_rec(n-1);
+}
+
+# iterative factorial
+define fact_it (n) {
+  if (n < 0) {
+    print "oops";
+    halt;
+  }
+  res = 1;
+  for (; n > 1; n--) {
+    res *= n;
+  }
+  return res;
+}
+
+# posix-compliant factorial
+define f(n) {
+  auto s, m
+  if (n <= 0) {
+    "Invalid input: "
+    n
+    return(-1)
+  }
+  s = scale
+  scale = 0
+  m = n / 1
+  scale = s
+  if (n != m) {
+    "Invalid input: "
+    n
+    return(-1)
+  }
+  if (n < 2) return(1)
+  return(n * f(n - 1))
+}
+
+define f_nochecked(n) {
+  if (n < 2) return(1)
+  return(n * f(n - 1))
+}
+
+# power with non-integer exponents (posix)
+/* A function to return the integer part of x */
+ define i(x) {
+    auto s
+    s = scale
+    scale = 0
+    x /= 1   /* round x down */
+    scale = s
+    return (x)
+ }
+
+/* Use the fact that x^y == e^(y*log(x)) */
+ define p(x,y) {
+    if (y == i(y)) {
+       return (x ^ y)
+    }
+    return ( e( y * l(x) ) )
+ }
+ 
+#power
+ # A function to return the integer part of a number
+ define int(number) {
+    auto oldscale
+    oldscale = scale
+    scale = 0
+    number /= 1 /* round number down */
+    scale = oldscale
+    return number
+ }
+ 
+ # Use the fact that number^exponent == e^(exponent*log(number))
+ define power(number,exponent) {
+    if (exponent == int(exponent)) {
+       return number ^ int(exponent)
+    } else {
+       return e( exponent * l(number) )
+    }
+ }
+
+
+# tangent
+define t(x) {
+    return s(x) / c(x)
+}
+
+
+arcsin(x) = arctan(x / sqrt(1 - x^2))
+arccos(x) = arctan(sqrt(1 - x^2 )/ x)
+arccot(x) = pi/2 - arctan(x)
+arcsec(x) = arctan(sqrt(x^2 - 1))
+arccsc(x) = arctan(1/sqrt(x^2 - 1))
+floating_x^y = e(l(x)*y)

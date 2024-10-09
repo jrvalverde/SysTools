@@ -1,0 +1,13 @@
+lib/stripslash.o: lib/stripslash.c lib/config.h lib/dirname.h \
+ /usr/lib/gcc/i686-linux-gnu/4.4.5/include/stdbool.h \
+ /usr/lib/gcc/i686-linux-gnu/4.4.5/include/stddef.h lib/dosname.h
+
+lib/config.h:
+
+lib/dirname.h:
+
+/usr/lib/gcc/i686-linux-gnu/4.4.5/include/stdbool.h:
+
+/usr/lib/gcc/i686-linux-gnu/4.4.5/include/stddef.h:
+
+lib/dosname.h:

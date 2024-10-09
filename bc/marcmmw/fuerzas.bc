@@ -1,0 +1,143 @@
+/***************************************************
+ *                   fuerzas.bc                    *
+ ***************************************************
+
+ Autor: Marc Meléndez Schofield
+
+ Dinámica de una partícula en un campo de fuerzas.
+
+ Se resuelven numéricamente las ecuaciones del movi-
+ miento para una partícula de masa m sometida a una
+ fuerza que depende, en general, de la posición y la
+ velocidad de la partícula.
+
+ Si se guardan los resultados en un archivo, se pue-
+ den representar en gnuplot con los comandos:
+
+ gnuplot> splot "fuerzas.dat" u 2:3:4
+ (para la trayectoria)
+
+ gnuplot> plot "fuerzas.dat" u 1:2
+ (para una gráfica de x frente a t)
+
+ gnuplot> plot "fuerzas.dat" u 1:4
+ (para una gráfica de z frente a t)
+
+ Se permite la reproducción y modificación total o
+ parcial. */
+
+/**** Parámetros de la simulación *****/
+
+/* Aceleración de la gravedad */
+g = -9.8; /* m/s^2 */
+
+/* Masa */
+m = 1; /* kg */
+
+/* Carga */
+q = 1; /* C */
+
+/* Posición inicial r = (rx, ry, rz) */
+r[1] = 0; /* m */
+r[2] = 0; /* m */
+r[3] = 0; /* m */
+
+/* Velocidad inicial v = (vx, vy, vz) */
+v[1] = 2; /* m/s */
+v[2] = 2; /* m/s */
+v[3] = 10; /* m/s */
+
+/* Paso temporal, instante inicial e instante
+   final */
+dt = 0.05; /* s */
+t0 = 0; /* s */
+tf = 2; /* s */
+
+/****  Cálculo de la trayectoria ****/
+
+/* Rutina para calcular las aceleraciones
+   a partir de las posiciones y velocidades,
+   según la segunda ley de Newton,
+
+      a = F/m.                            */
+
+/* Ecuación del movimiento (tiro parabólico) */
+
+define aceleraciones(r[], v[], *a[], masa, carga) {
+  a[1] = 0;  a[2] = 0; a[3] = g;
+
+  return 0;
+}
+
+/* Resolución numérica de las ecuaciones del
+   movimiento */
+
+define integra_ec(r[], v[], masa, carga) {
+
+  print "# t \t r[1] \t r[2] \t r[3] #\n";
+  print "#---\t------\t------\t------#\n";
+
+  a[1] = 0; a[2] = 0; a[3] = 0;
+
+  for(t = t0; t <= tf; t += dt)
+  {
+    . = aceleraciones(r[], v[], a[], m, q);
+    v[1] += a[1]*dt;  v[2] += a[2]*dt;  v[3] += a[3]*dt;
+    r[1] += v[1]*dt;  r[2] += v[2]*dt;  r[3] += v[3]*dt;
+
+    print t, "\t", r[1], "\t", r[2], "\t", r[3], "\n";
+  }
+
+  return 0;
+}
+
+/**** Oscilador amortiguado ****/
+
+/* Para simular el oscilador amortiguado, elimina los
+   signos de comentario en las instrucciones que hay
+   a continuación. */
+
+/* Ecuación para la aceleración */
+/*
+define aceleraciones(r[], v[], *a[], masa, carga) {
+  a[1] = -(k/m)*r[1] -(c/m)*v[1];
+  a[2] = 0;
+  a[3] = 0;
+
+  return 0;
+}
+*/
+
+/* Posición inicial r = (rx, ry, rz) */
+/*
+r[1] = 1;
+r[2] = 0;
+r[3] = 0;
+*/
+
+/* Velocidad inicial v = (vx, vy, vz) */
+/*
+v[1] = 0;
+v[2] = 0;
+v[3] = 0;
+*/
+
+/* Paso temporal, instante inicial e instante
+   final */
+/*
+dt = 0.1;
+t0 = 0;
+tf = 10;
+*/
+
+/* Constantes k y c */
+/*
+k = 1;
+c = .5;
+*/
+
+/**** Ejecutar la rutina de integración ****/
+
+. = integra_ec(r[], v[], m, q);
+
+quit;

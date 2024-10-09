@@ -1,0 +1,130 @@
+\section{cfs\_\-bf.h File Reference}
+\label{cfs__bf_8h}\index{cfs_bf.h@{cfs\_\-bf.h}}
+
+
+
+
+This graph shows which files directly or indirectly include this file:\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf bf\_\-key\_\-st}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf BF\_\-ENCRYPT}\ 1
+\item 
+\#define {\bf BF\_\-DECRYPT}\ 0
+\item 
+\#define {\bf BF\_\-LONG}\ unsigned long
+\item 
+\#define {\bf BF\_\-ROUNDS}\ 16
+\item 
+\#define {\bf BF\_\-BLOCK}\ 8
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf bf\_\-key\_\-st} {\bf BF\_\-KEY}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf BF\_\-set\_\-key} ({\bf BF\_\-KEY} $\ast${\bf key}, int {\bf len}, unsigned char $\ast${\bf data})
+\item 
+void {\bf BF\_\-ecb\_\-encrypt} (unsigned char $\ast$in, unsigned char $\ast$out, {\bf BF\_\-KEY} $\ast${\bf key}, int enc)
+\item 
+void {\bf BF\_\-encrypt} (BF\_\-LONG $\ast${\bf data}, {\bf BF\_\-KEY} $\ast${\bf key}, int enc)
+\item 
+void {\bf BF\_\-cbc\_\-encrypt} (unsigned char $\ast$in, unsigned char $\ast$out, long length, {\bf BF\_\-KEY} $\ast${\bf ks}, unsigned char $\ast$iv, int enc)
+\item 
+void {\bf BF\_\-cfb64\_\-encrypt} (unsigned char $\ast$in, unsigned char $\ast$out, long length, {\bf BF\_\-KEY} $\ast$schedule, unsigned char $\ast$ivec, int $\ast$num, int enc)
+\item 
+void {\bf BF\_\-ofb64\_\-encrypt} (unsigned char $\ast$in, unsigned char $\ast$out, long length, {\bf BF\_\-KEY} $\ast$schedule, unsigned char $\ast$ivec, int $\ast$num)
+\item 
+char $\ast$ {\bf BF\_\-options} (void)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_BLOCK@{BF\_\-BLOCK}}
+\index{BF_BLOCK@{BF\_\-BLOCK}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-BLOCK\ 8}\label{cfs__bf_8h_a4}
+
+
+
+
+Definition at line 76 of file cfs\_\-bf.h.\index{cfs_bf.h@{cfs\_\-bf.h}!BF_DECRYPT@{BF\_\-DECRYPT}}
+\index{BF_DECRYPT@{BF\_\-DECRYPT}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-DECRYPT\ 0}\label{cfs__bf_8h_a1}
+
+
+
+
+Definition at line 67 of file cfs\_\-bf.h.\index{cfs_bf.h@{cfs\_\-bf.h}!BF_ENCRYPT@{BF\_\-ENCRYPT}}
+\index{BF_ENCRYPT@{BF\_\-ENCRYPT}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-ENCRYPT\ 1}\label{cfs__bf_8h_a0}
+
+
+
+
+Definition at line 66 of file cfs\_\-bf.h.\index{cfs_bf.h@{cfs\_\-bf.h}!BF_LONG@{BF\_\-LONG}}
+\index{BF_LONG@{BF\_\-LONG}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-LONG\ unsigned long}\label{cfs__bf_8h_a2}
+
+
+
+
+Definition at line 73 of file cfs\_\-bf.h.\index{cfs_bf.h@{cfs\_\-bf.h}!BF_ROUNDS@{BF\_\-ROUNDS}}
+\index{BF_ROUNDS@{BF\_\-ROUNDS}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BF\_\-ROUNDS\ 16}\label{cfs__bf_8h_a3}
+
+
+
+
+Definition at line 75 of file cfs\_\-bf.h.
+
+\subsection{Typedef Documentation}
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_KEY@{BF\_\-KEY}}
+\index{BF_KEY@{BF\_\-KEY}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf bf\_\-key\_\-st}  {\bf BF\_\-KEY}}\label{cfs__bf_8h_a5}
+
+
+
+
+\subsection{Function Documentation}
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_cbc_encrypt@{BF\_\-cbc\_\-encrypt}}
+\index{BF_cbc_encrypt@{BF\_\-cbc\_\-encrypt}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-cbc\_\-encrypt (unsigned char $\ast$ {\em in}, unsigned char $\ast$ {\em out}, long {\em length}, {\bf BF\_\-KEY} $\ast$ {\em ks}, unsigned char $\ast$ {\em iv}, int {\em enc})}\label{cfs__bf_8h_a9}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_cfb64_encrypt@{BF\_\-cfb64\_\-encrypt}}
+\index{BF_cfb64_encrypt@{BF\_\-cfb64\_\-encrypt}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-cfb64\_\-encrypt (unsigned char $\ast$ {\em in}, unsigned char $\ast$ {\em out}, long {\em length}, {\bf BF\_\-KEY} $\ast$ {\em schedule}, unsigned char $\ast$ {\em ivec}, int $\ast$ {\em num}, int {\em enc})}\label{cfs__bf_8h_a10}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_ecb_encrypt@{BF\_\-ecb\_\-encrypt}}
+\index{BF_ecb_encrypt@{BF\_\-ecb\_\-encrypt}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-ecb\_\-encrypt (unsigned char $\ast$ {\em in}, unsigned char $\ast$ {\em out}, {\bf BF\_\-KEY} $\ast$ {\em key}, int {\em enc})}\label{cfs__bf_8h_a7}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_encrypt@{BF\_\-encrypt}}
+\index{BF_encrypt@{BF\_\-encrypt}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-encrypt (BF\_\-LONG $\ast$ {\em data}, {\bf BF\_\-KEY} $\ast$ {\em key}, int {\em enc})}\label{cfs__bf_8h_a8}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_ofb64_encrypt@{BF\_\-ofb64\_\-encrypt}}
+\index{BF_ofb64_encrypt@{BF\_\-ofb64\_\-encrypt}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-ofb64\_\-encrypt (unsigned char $\ast$ {\em in}, unsigned char $\ast$ {\em out}, long {\em length}, {\bf BF\_\-KEY} $\ast$ {\em schedule}, unsigned char $\ast$ {\em ivec}, int $\ast$ {\em num})}\label{cfs__bf_8h_a11}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_options@{BF\_\-options}}
+\index{BF_options@{BF\_\-options}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ BF\_\-options (void)}\label{cfs__bf_8h_a12}
+
+
+\index{cfs_bf.h@{cfs\_\-bf.h}!BF_set_key@{BF\_\-set\_\-key}}
+\index{BF_set_key@{BF\_\-set\_\-key}!cfs_bf.h@{cfs\_\-bf.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void BF\_\-set\_\-key ({\bf BF\_\-KEY} $\ast$ {\em key}, int {\em len}, unsigned char $\ast$ {\em data})}\label{cfs__bf_8h_a6}
+
+

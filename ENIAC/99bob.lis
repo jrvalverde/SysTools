@@ -1,0 +1,238 @@
+0000000       --------  #
+0000000       --------  #   99 bottles of beer
+0000000       --------  #
+0000000       --------  #   	CODED IN ASSEMBLER FOR THE ENIAC
+0000000       --------  #
+0000000       --------  #   The ENIAC was the first electrical computer. It was built in 1943 
+0000000       --------  #   to substitute the Bush Differential Analyzer, a mechanical computer 
+0000000       --------  #   invented in 1925.
+0000000       --------  #
+0000000       --------  #   The ENIAC was programmed by wiring cable connections and setting 
+0000000       --------  #   three thousand switches on the function tables. 
+0000000       --------  #
+0000000       --------  #   To run this code you need access to an ENIAC emulator and assembler.
+0000000       --------  #
+0000000       --------  #   The only one I have found on the Net is a copy used on a course in
+0000000       --------  #   the University of Alberta. According to the site, the original and
+0000000       --------  #   its documentation were lost after the hurricane Katrina hit the US
+0000000       --------  #   coast on 2005.
+0000000       --------  #
+0000000       --------  #   The emulator, an assembler and binary-to-ascii converters, come as
+0000000       --------  #   a single package. The only docs available are from the course
+0000000       --------  #   assignment: 
+0000000       --------  #
+0000000       --------  #   http://www.ee.ualberta.ca/~cwc/courses/CMPUT379/Assignment%2001.html
+0000000       --------  #
+0000000       --------  #   Should you want to run this on an actual ENIAC, you need to convert
+0000000       --------  #   it to binary (using the assembler in the package) and use the binary
+0000000       --------  #   to direct your cable plugging :-).
+0000000       --------  #
+0000000       --------  #   (C) Jose R. Valverde, 19-oct-2005
+0000000       --------  #   	EMBnet/CNB
+0000000       --------  #   	jrvalverde AT acm DOT org
+0000000       --------  #
+0000000       --------  ;
+0000000       00000000  .	=	0
+0000000       --------  ;
+0000000       --------  ; STATIC STRINGS
+0000000       --------  ;   NOTE: they are WRONG! characters are coded using 32 bits each!
+0000000       --------  ;   Should be packed to have four chars in each 32bit address. This
+0000000       --------  ;   however complicates the logic quite a bit. BTW, I have used ASCII
+0000000       --------  ;   which didn't exist at the time!
+0000000       --------  ;
+0000000       --------  ; %d bottles of bear on the wall,
+0000000       00000020  v1:	.data	32, 98, 111, 116, 116, 108, 101, 115, 32, 111, 102, 32, 98, 101,
+              00000062
+              0000006F
+              00000074
+              00000074
+              0000006C
+              00000065
+              00000073
+              00000020
+              0000006F
+              00000066
+              00000020
+              00000062
+              00000065
+000000E       00000065      	.data	101, 114, 32, 111, 110, 32, 116, 104, 101, 32, 119, 97, 108, 
+              00000072
+              00000020
+              0000006F
+              0000006E
+              00000020
+              00000074
+              00000068
+              00000065
+              00000020
+              00000077
+              00000061
+              0000006C
+000001B       0000006C  	.data	108, 44, 10
+              0000002C
+              0000000A
+000001E       --------  ;
+000001E       --------  ; %d bottles of beer!
+000001E       00000020  v2: 	.data	32, 98, 111, 116, 116, 108, 101, 115, 32, 111, 102, 32, 98, 101,
+              00000062
+              0000006F
+              00000074
+              00000074
+              0000006C
+              00000065
+              00000073
+              00000020
+              0000006F
+              00000066
+              00000020
+              00000062
+              00000065
+000002C       00000065      	.data	101, 114, 33, 10
+              00000072
+              00000021
+              0000000A
+0000030       --------  ;
+0000030       --------  ; Take one down, pass it around.
+0000030       00000054  v3: 	.data	84, 97, 107, 101, 32, 111, 110, 101, 32, 100, 111, 119, 110,
+              00000061
+              0000006B
+              00000065
+              00000020
+              0000006F
+              0000006E
+              00000065
+              00000020
+              00000064
+              0000006F
+              00000077
+              0000006E
+000003D       0000002C      	.data	44, 32, 112, 97, 115, 115, 32, 105, 116, 32, 97, 114, 111, 117,
+              00000020
+              00000070
+              00000061
+              00000073
+              00000073
+              00000020
+              00000069
+              00000074
+              00000020
+              00000061
+              00000072
+              0000006F
+              00000075
+000004B       0000006E  	.data	110, 100, 46, 10
+              00000064
+              0000002E
+              0000000A
+000004F       --------  ;
+000004F       --------  ;   lookup table for numbers
+000004F       --------  ;   '0', '1', '2', ... , '9'
+000004F       00000030  digit:	.data	48, 49, 50, 51, 52, 53, 54, 55, 56, 57
+              00000031
+              00000032
+              00000033
+              00000034
+              00000035
+              00000036
+              00000037
+              00000038
+              00000039
+0000059       --------  ;
+0000059       --------  ; NUMERIC CONSTANTS
+0000059       00000000  C0:	.data	0
+000005A       00000001  C1:	.data	1
+000005B       0000000A  C10:	.data	10
+000005C       00000063  C99:	.data	99
+000005D       0000001E  V1L:	.data	30	; length of first verse
+000005E       00000012  V2L:	.data	18  	; length of second verse
+000005F       0000001F  V3L:	.data	31  	; length of third verse
+0000060       --------  ;
+0000060       --------  ; VARIABLES
+0000060       --------  ; counters
+0000060       00000001  i:	.res	1		; space for I
+0000061       00000001  j:	.res	1		; space for J
+0000062       00000001  k:  	.res	1   	    	; space for K
+0000063       --------  ; AUXILIARY REGISTERS
+0000063       00000001  rmd:	.res	1   	    	; remainder
+0000064       00000001  dcn:	.res	1   	    	; decenes
+0000065       --------  ;
+0000065       03FFFFFF  ir	=	0x3ffffff       ; input register
+0000065       03FFFFFE  or      =       0x3fffffe       ; output register
+0000065       --------  ;
+0000065       00000100  .	=	0x100		; start code
+0000100       --------  ;
+0000100       --------  ; loop from 99 down to 1
+0000100   01 0 0000061      	mov 	j,C99	    	; j = 99
+          00 0 000005C
+0000102       --------  DO: 	    	    	    	; do {
+0000102       --------  ;
+0000102       --------  ;   convert j to text and output it
+0000102   01 0 0000064      	mov 	dcn,j	    	;   dcn = j
+          00 0 0000061
+0000104   05 0 0000064  	div 	dcn,C10     	;   dcn /= 10
+          00 0 000005B
+0000106   01 0 0000063  	mov 	rmd,j	    	;   rmd = j
+          00 0 0000061
+0000108   06 0 0000063  	rem 	rmd,C10     	;   rmd %= 10
+          00 0 000005B
+000010A   01 0 3FFFFFE  	mov 	or,digit[dcn]	;   output digit[dcn]
+          00 1 000004F
+              00000064
+000010D   01 0 3FFFFFE  	mov 	or,digit[rmd]	;   output digit[rmd]
+          00 1 000004F
+              00000063
+0000110       --------  ;
+0000110       --------  ; output first verse
+0000110   01 0 0000060  	mov	i,C0		;   i = 0
+          00 0 0000059
+0000112       --------  DO1:	    	    	    	;   do {
+0000112   01 0 3FFFFFE      	mov	or,v1[i]	;   	output v1[i]
+          00 1 0000000
+              00000060
+0000115   02 0 0000060  	add	i,C1		;   	i += 1
+          00 0 000005A
+0000117   07 0 0000060  	cmp	i,V1L		;   } while (i < V1L)
+          00 0 000005D
+0000119   08 0 0000112  	jlt	DO1		;   goto DO
+000011A       --------  ;
+000011A       --------  ; repeat number
+000011A   01 0 3FFFFFE  	mov 	or,digit[dcn]	;   output digit[dcn]
+          00 1 000004F
+              00000064
+000011D   01 0 3FFFFFE  	mov 	or,digit[rmd]	;   output digit[rmd]
+          00 1 000004F
+              00000063
+0000120       --------  ;
+0000120       --------  ; output second verse
+0000120   01 0 0000060  	mov	i,C0		;   i = 0
+          00 0 0000059
+0000122       --------  DO2:	    	    	    	;   do {
+0000122   01 0 3FFFFFE  	mov	or,v2[i]	;   	output v2[i]
+          00 1 000001E
+              00000060
+0000125   02 0 0000060  	add	i,C1		;   	i += 1
+          00 0 000005A
+0000127   07 0 0000060  	cmp	i,V2L		;   } while (i < V2L)
+          00 0 000005E
+0000129   08 0 0000122  	jlt	DO2		;   goto DO
+000012A       --------  ;
+000012A       --------  ; output third verse
+000012A   01 0 0000060  	mov	i,C0		;   i = 0
+          00 0 0000059
+000012C       --------  DO3:	    	    	    	;   do {
+000012C   01 0 3FFFFFE  	mov	or,v3[i]	;   	output v3[i]
+          00 1 0000030
+              00000060
+000012F   02 0 0000060  	add	i,C1		;   	i += 1
+          00 0 000005A
+0000131   07 0 0000060  	cmp	i,V3L		;   } while (i < V3L)
+          00 0 000005F
+0000133   08 0 000012C  	jlt	DO3		;   goto DO
+0000134       --------  ;
+0000134   03 0 0000061      	sub 	j,C1	    	;   j -= 1
+          00 0 000005A
+0000136   07 0 0000061  	cmp 	j,C0	    	; } while (j > 0)
+          00 0 0000059
+0000138   0A 0 0000102  	jgt 	DO  	    	; goto DO
+0000139       --------  ;
+0000139   0C 0 0000000  EXIT:	hlt	0		; done

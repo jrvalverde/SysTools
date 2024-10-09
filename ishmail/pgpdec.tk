@@ -1,0 +1,30 @@
+#!/usr/local/bin/wish -f
+
+label .title -text "Please, enter your PGP passphrase"
+entry .in -textvariable key -font nil -background #ffffff \
+    -foreground #ffffff -highlightbackground #ffffff -highlightcolor #ffffff
+bind .in <Return> {
+    destroy .title
+    destroy .in
+    scrollbar .sv -relief flat -command ".output yview"
+    scrollbar .sh -relief flat -command ".output xview" -orient horizontal
+    text .output -wrap none -relief raised -bd 2 -setgrid true \
+    	-yscrollcommand ".sv set" -xscrollcommand ".sh set"
+    button .quit -text "Quit" -command exit
+    pack .quit -side top
+    pack .sv -side right -fill y
+    pack .sh -side bottom -fill x
+    pack .output -side left -fill both
+    
+    #exec pgp +batchmode -m $argv -z $key >@stdout
+    catch { exec pgp +batchmode -m $argv -z $key } msg
+    .output insert insert $msg \n
+    
+    # NOTE: this might be a multipart MIME message with attachments.
+    # It would be useful to allow saving of the decrypted contents as a
+    # file.
+}
+pack .title -side top
+pack .in -side bottom
+wm title . "PGP decrypt"
+wm maxsize . 800 600

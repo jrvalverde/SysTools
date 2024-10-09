@@ -1,0 +1,522 @@
+\section{esm\_\-cipher.c File Reference}
+\label{esm__cipher_8c}\index{esm_cipher.c@{esm\_\-cipher.c}}
+
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include \char`\"{}global.h\char`\"{}}\par
+{\tt \#include \char`\"{}rsaref.h\char`\"{}}\par
+{\tt \#include \char`\"{}esm.h\char`\"{}}\par
+
+
+Include dependency graph for esm\_\-cipher.c:\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf BLANKLINE}\ 0
+\item 
+\#define {\bf TERM}\ 1
+\item 
+\#define {\bf NONE}\ 2
+\item 
+\#define {\bf SHORTKEY}\ 3
+\item 
+\#define {\bf MEDKEY}\ 4
+\item 
+\#define {\bf LONGKEY}\ 5
+\item 
+\#define {\bf HEX}\ 6
+\item 
+\#define {\bf FILENAME}\ 7
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf cipherinit} ({\bf master}) int {\bf master}
+\item 
+void {\bf procbit} ()
+\item 
+{\bf randinit} ()
+\item 
+int {\bf rnd8} ()
+\item 
+{\bf oldrandinit} ()
+\item 
+{\bf getpubkey} ()
+\item 
+{\bf createdh} (param) int param
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+unsigned char {\bf check} [8]
+\item 
+unsigned char {\bf skey1} [8]
+\item 
+unsigned char {\bf skey2} [8]
+\item 
+unsigned char {\bf skey3} [8]
+\item 
+unsigned char {\bf mkey1} [8]
+\item 
+unsigned char {\bf mkey2} [8]
+\item 
+unsigned char {\bf mkey3} [8]
+\item 
+unsigned char {\bf ivin} [8]
+\item 
+unsigned char {\bf ivout} [8]
+\item 
+R\_\-RANDOM\_\-STRUCT {\bf rs}
+\item 
+R\_\-DH\_\-PARAMS {\bf dhparams} [3]
+\item 
+unsigned char {\bf otherpub} [MAXPUBKEY+2]
+\item 
+unsigned char {\bf ourpub} [MAXPUBKEY+2]
+\item 
+unsigned char {\bf ourpriv} [MAXPUBKEY]
+\item 
+int {\bf ourprivlen}
+\item 
+int {\bf pklen}
+\item 
+{\bf keystr} {\bf inks}
+\item 
+{\bf keystr} {\bf outks}
+\item 
+int {\bf secs}
+\item 
+unsigned int {\bf bits}
+\item 
+int {\bf verbose} = 1
+\item 
+int {\bf size} [3]
+\item 
+int {\bf keysize} = 0
+\item 
+int {\bf master}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{esm_cipher.c@{esm\_\-cipher.c}!BLANKLINE@{BLANKLINE}}
+\index{BLANKLINE@{BLANKLINE}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BLANKLINE\ 0}\label{esm__cipher_8c_a0}
+
+
+
+
+Definition at line 246 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!FILENAME@{FILENAME}}
+\index{FILENAME@{FILENAME}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define FILENAME\ 7}\label{esm__cipher_8c_a7}
+
+
+
+
+Definition at line 253 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!HEX@{HEX}}
+\index{HEX@{HEX}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define HEX\ 6}\label{esm__cipher_8c_a6}
+
+
+
+
+Definition at line 252 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!LONGKEY@{LONGKEY}}
+\index{LONGKEY@{LONGKEY}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LONGKEY\ 5}\label{esm__cipher_8c_a5}
+
+
+
+
+Definition at line 251 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!MEDKEY@{MEDKEY}}
+\index{MEDKEY@{MEDKEY}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MEDKEY\ 4}\label{esm__cipher_8c_a4}
+
+
+
+
+Definition at line 250 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!NONE@{NONE}}
+\index{NONE@{NONE}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define NONE\ 2}\label{esm__cipher_8c_a2}
+
+
+
+
+Definition at line 248 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!SHORTKEY@{SHORTKEY}}
+\index{SHORTKEY@{SHORTKEY}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SHORTKEY\ 3}\label{esm__cipher_8c_a3}
+
+
+
+
+Definition at line 249 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!TERM@{TERM}}
+\index{TERM@{TERM}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TERM\ 1}\label{esm__cipher_8c_a1}
+
+
+
+
+Definition at line 247 of file esm\_\-cipher.c.
+
+\subsection{Function Documentation}
+\index{esm_cipher.c@{esm\_\-cipher.c}!cipherinit@{cipherinit}}
+\index{cipherinit@{cipherinit}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}cipherinit ({\bf master})}\label{esm__cipher_8c_a32}
+
+
+\index{esm_cipher.c@{esm\_\-cipher.c}!createdh@{createdh}}
+\index{createdh@{createdh}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}createdh (param)}\label{esm__cipher_8c_a38}
+
+
+
+
+Referenced by startsession().\index{esm_cipher.c@{esm\_\-cipher.c}!getpubkey@{getpubkey}}
+\index{getpubkey@{getpubkey}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}getpubkey ()}\label{esm__cipher_8c_a37}
+
+
+
+
+Definition at line 259 of file esm\_\-cipher.c.
+
+
+
+\footnotesize\begin{verbatim}260 {
+261         fprintf(stderr,"Calculator not implemented, sorry\n");
+262         return;
+263 }
+\end{verbatim}\normalsize 
+\index{esm_cipher.c@{esm\_\-cipher.c}!oldrandinit@{oldrandinit}}
+\index{oldrandinit@{oldrandinit}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}oldrandinit ()}\label{esm__cipher_8c_a36}
+
+
+
+
+Definition at line 210 of file esm\_\-cipher.c.
+
+References n, rnd8(), rs, and verbose.
+
+
+
+\footnotesize\begin{verbatim}211 {
+212         unsigned int n;
+213         unsigned char b[18];
+214         struct timeval tv;
+215         
+216         R_RandomInit(&rs);
+217         R_GetRandomBytesNeeded(&n,&rs); /* but we ignore */
+218         /* RSAREF wants 256 bytes, which is an awful lot at 4bps.  we
+219            really only need enough to do justice to the entropy of
+220            the block cipher (3des), so we just generate 18. */
+221            
+222         if (verbose)
+223                 fprintf(stderr,"Randomizing (takes about 45 secs)...");
+224         fflush(stderr);
+225         for (n=0; n<18; n++) {
+226                 b[n]=rnd8();
+227                 if (verbose && (n%4==3)) {
+228                         fprintf(stderr,".");
+229                         fflush(stderr);
+230                 }
+231         }
+232         while (R_GetRandomBytesNeeded(&n,&rs), (n>0)) {
+233                 R_RandomUpdate(&rs,b,18);
+234                 if (verbose)
+235                         fprintf(stderr,".");
+236         }
+237         /* Just for good measure, we throw in a couple other things */
+238         n=getpid();
+239         R_RandomUpdate(&rs,(unsigned char*)&n,sizeof(n));
+240         gettimeofday(&tv,NULL);
+241         R_RandomUpdate(&rs,(unsigned char*)&tv,sizeof(tv));
+242         if (verbose)
+243                 fprintf(stderr,"done\n");
+244 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:\index{esm_cipher.c@{esm\_\-cipher.c}!procbit@{procbit}}
+\index{procbit@{procbit}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void procbit ()}\label{esm__cipher_8c_a33}
+
+
+
+
+Definition at line 133 of file esm\_\-cipher.c.
+
+References bits, procbit(), and secs.
+
+Referenced by procbit(), and rnd8().
+
+
+
+\footnotesize\begin{verbatim}134 {
+135         secs--;
+136         bits |= ((count ^ (count>>4)) & 0xf)<<(secs*4);
+137         if (secs) {
+138                 alarm(1);
+139                 signal(SIGALRM,procbit);
+140                 getuid();       /* do a syscall to slow things a bit */
+141         }
+142 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:\index{esm_cipher.c@{esm\_\-cipher.c}!randinit@{randinit}}
+\index{randinit@{randinit}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}randinit ()}\label{esm__cipher_8c_a34}
+
+
+
+
+Definition at line 155 of file esm\_\-cipher.c.
+
+References n, rs, and verbose.
+
+Referenced by main().
+
+
+
+\footnotesize\begin{verbatim}156 {
+157         unsigned int n;
+158         int i;
+159         struct timeval tv;
+160         unsigned long truerand();
+161         unsigned char b[20];
+162         
+163         R_RandomInit(&rs);
+164         if (verbose) {
+165                 fprintf(stderr,"randomizing...");
+166                 fflush(stderr);
+167         }
+168         /* we just grab 160 truerand bits and keep feeding them
+169            over and over to R_RandomUpdate until it's happy */
+170         for (i=0; i<20; i++) {
+171                 b[i]=randbyte();
+172                 fprintf(stderr,".");
+173         }
+174         while (R_GetRandomBytesNeeded(&n,&rs), (n>0)) {
+175                 R_RandomUpdate(&rs,b,sizeof(b));
+176         }
+177         if (verbose) {
+178                 fprintf(stderr,"done\n");
+179                 fflush(stderr);
+180         }
+181 }
+\end{verbatim}\normalsize 
+\index{esm_cipher.c@{esm\_\-cipher.c}!rnd8@{rnd8}}
+\index{rnd8@{rnd8}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int rnd8 ()}\label{esm__cipher_8c_a35}
+
+
+
+
+Definition at line 191 of file esm\_\-cipher.c.
+
+References bits, procbit(), and secs.
+
+Referenced by oldrandinit().
+
+
+
+\footnotesize\begin{verbatim}192 {
+193         secs=2;
+194         bits=0;
+195         signal(SIGALRM,procbit);
+196         alarm(1);
+197         getpid();
+198         while (secs)
+199                 count++;
+200         return bits;
+201         
+202 }
+\end{verbatim}\normalsize 
+
+
+Here is the call graph for this function:
+
+\subsection{Variable Documentation}
+\index{esm_cipher.c@{esm\_\-cipher.c}!bits@{bits}}
+\index{bits@{bits}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf bits}}\label{esm__cipher_8c_a27}
+
+
+
+
+Definition at line 132 of file esm\_\-cipher.c.
+
+Referenced by procbit(), and rnd8().\index{esm_cipher.c@{esm\_\-cipher.c}!check@{check}}
+\index{check@{check}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf check}[8]}\label{esm__cipher_8c_a8}
+
+
+
+
+Definition at line 30 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!dhparams@{dhparams}}
+\index{dhparams@{dhparams}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}R\_\-DH\_\-PARAMS {\bf dhparams}[3]}\label{esm__cipher_8c_a18}
+
+
+
+
+Definition at line 43 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!inks@{inks}}
+\index{inks@{inks}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf keystr} {\bf inks}}\label{esm__cipher_8c_a24}
+
+
+
+
+Definition at line 51 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!ivin@{ivin}}
+\index{ivin@{ivin}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ivin}[8]}\label{esm__cipher_8c_a15}
+
+
+
+
+Definition at line 38 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!ivout@{ivout}}
+\index{ivout@{ivout}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ivout}[8]}\label{esm__cipher_8c_a16}
+
+
+
+
+Definition at line 39 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!keysize@{keysize}}
+\index{keysize@{keysize}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf keysize} = 0}\label{esm__cipher_8c_a30}
+
+
+
+
+Definition at line 257 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!master@{master}}
+\index{master@{master}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf master}}\label{esm__cipher_8c_a31}
+
+
+
+
+Definition at line 282 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!mkey1@{mkey1}}
+\index{mkey1@{mkey1}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf mkey1}[8]}\label{esm__cipher_8c_a12}
+
+
+
+
+Definition at line 35 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!mkey2@{mkey2}}
+\index{mkey2@{mkey2}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf mkey2}[8]}\label{esm__cipher_8c_a13}
+
+
+
+
+Definition at line 36 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!mkey3@{mkey3}}
+\index{mkey3@{mkey3}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf mkey3}[8]}\label{esm__cipher_8c_a14}
+
+
+
+
+Definition at line 37 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!otherpub@{otherpub}}
+\index{otherpub@{otherpub}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf otherpub}[MAXPUBKEY+2]}\label{esm__cipher_8c_a19}
+
+
+
+
+Definition at line 45 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!ourpriv@{ourpriv}}
+\index{ourpriv@{ourpriv}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ourpriv}[MAXPUBKEY]}\label{esm__cipher_8c_a21}
+
+
+
+
+Definition at line 47 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!ourprivlen@{ourprivlen}}
+\index{ourprivlen@{ourprivlen}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf ourprivlen}}\label{esm__cipher_8c_a22}
+
+
+
+
+Definition at line 48 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!ourpub@{ourpub}}
+\index{ourpub@{ourpub}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ourpub}[MAXPUBKEY+2]}\label{esm__cipher_8c_a20}
+
+
+
+
+Definition at line 46 of file esm\_\-cipher.c.
+
+Referenced by sltranspub(), and startsession().\index{esm_cipher.c@{esm\_\-cipher.c}!outks@{outks}}
+\index{outks@{outks}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf keystr} {\bf outks}}\label{esm__cipher_8c_a25}
+
+
+
+
+Definition at line 51 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!pklen@{pklen}}
+\index{pklen@{pklen}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf pklen}}\label{esm__cipher_8c_a23}
+
+
+
+
+Definition at line 49 of file esm\_\-cipher.c.
+
+Referenced by startsession().\index{esm_cipher.c@{esm\_\-cipher.c}!rs@{rs}}
+\index{rs@{rs}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}R\_\-RANDOM\_\-STRUCT {\bf rs}}\label{esm__cipher_8c_a17}
+
+
+
+
+Definition at line 41 of file esm\_\-cipher.c.
+
+Referenced by main(), oldrandinit(), and randinit().\index{esm_cipher.c@{esm\_\-cipher.c}!secs@{secs}}
+\index{secs@{secs}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf secs}}\label{esm__cipher_8c_a26}
+
+
+
+
+Definition at line 131 of file esm\_\-cipher.c.
+
+Referenced by procbit(), and rnd8().\index{esm_cipher.c@{esm\_\-cipher.c}!size@{size}}
+\index{size@{size}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf size}[3]}\label{esm__cipher_8c_a29}
+
+
+
+
+Definition at line 255 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!skey1@{skey1}}
+\index{skey1@{skey1}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf skey1}[8]}\label{esm__cipher_8c_a9}
+
+
+
+
+Definition at line 32 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!skey2@{skey2}}
+\index{skey2@{skey2}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf skey2}[8]}\label{esm__cipher_8c_a10}
+
+
+
+
+Definition at line 33 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!skey3@{skey3}}
+\index{skey3@{skey3}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf skey3}[8]}\label{esm__cipher_8c_a11}
+
+
+
+
+Definition at line 34 of file esm\_\-cipher.c.\index{esm_cipher.c@{esm\_\-cipher.c}!verbose@{verbose}}
+\index{verbose@{verbose}!esm_cipher.c@{esm\_\-cipher.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int {\bf verbose} = 1}\label{esm__cipher_8c_a28}
+
+
+
+
+Definition at line 144 of file esm\_\-cipher.c.
+
+Referenced by oldrandinit(), and randinit().
